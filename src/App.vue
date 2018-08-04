@@ -7,7 +7,7 @@
         <input class="input" v-model="name">
         <button class="button is-warning" @click="test" >Add to firebase</button>
         <ul class="list">
-          <li v-for="(item, index) in tests" :key="item.index">{{item.test}}</li>
+          <li v-for="(item) in tests" :key="item.index">{{item.test}}</li>
         </ul>
       </div>
     </section>
