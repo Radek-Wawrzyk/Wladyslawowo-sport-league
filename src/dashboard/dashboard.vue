@@ -2,6 +2,9 @@
   <div id="dashboard">
     <Navigation></Navigation>
     <Menu></Menu>
+    <main class="panel" :class="{'is-active': menu}">
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
@@ -15,12 +18,17 @@ export default {
   components: {
     Navigation,
     Menu
+  },
+  computed: {
+    menu() {
+      return this.$store.getters.menu;
+    }
   }
 }
 
 </script>
 
-<style lang="scss" />
+<style lang="scss" src="./Dashboard.scss"/>
 
 
 

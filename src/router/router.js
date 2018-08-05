@@ -10,9 +10,15 @@ export default new Router({
   },
   routes: [
     {
-      path: "/panel/home",
+      path: "/panel/",
       name: "Home",
-      component: () => import("@/dashboard/dashboard.vue")
+      component: () => import("@/dashboard/dashboard.vue"),
+      children: [
+        {
+          path: "users",
+          component: () => import("@/dashboard/Users/Users.vue")
+        }
+      ]
     }
   ]
 })

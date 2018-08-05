@@ -1,0 +1,31 @@
+.panel {
+  position: fixed;
+  left: 95px;
+  top: 60px;
+  width: calc(100% - 95px);
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  background: #f5f6fa;
+  padding: 50px;
+  transition: left 0.25s;
+  &.is-active {
+    left: 95px;
+    width: calc(100% - 95px);
+  }
+}
+
+//Media
+
+@media screen and (max-width: 1200px) {
+  .panel {
+    padding: 25px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .panel {
+    padding: 25px;
+    left: 0;
+    width: 100%;
+  }
+}

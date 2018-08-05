@@ -1,10 +1,16 @@
+@import "@/styles/colors.scss";
+
 .navigation {
+  position: fixed;
+  left: 0;
+  top: 0;
   display: flex;
   justify-content: space-between;
   height: 60px;
   width: 100%;
   padding: 0 20px;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid $borderColor;
+  z-index: 10;
   &-left, &-right {
     height: 100%;
     display: flex;
@@ -16,7 +22,7 @@
 .navigation-panel {
   position: relative;
   height: 100%;
-  border-left: 1px solid rgba(0,0,0,0.1);
+  border-left: 1px solid $borderColor;
 }
 .navigation-panel-btn {
   height: 100%;
@@ -30,9 +36,6 @@
   outline: none;
   cursor: pointer;
   transition: background 0.25s;
-  &:hover, &:focus {
-    background: #f1f1f1;
-  }
   img {
     height: auto;
     width: 30px;
@@ -63,6 +66,7 @@
   top: 100%;
   width: 100%;
   box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.10);
+  background: white;
   &::before {
     content: "";
     position: absolute;
@@ -70,7 +74,7 @@
     left: 0;
     width: 100%;
     height: 2px;
-    background: #d11b17;
+    background: $brandColor;
   }
   &-content {
     padding: 15px 20px;
@@ -81,7 +85,7 @@
 
 .navigation-logo {
   height: 100%;
-  border-right: 1px solid rgba(0,0,0,0.1);
+  border-right: 1px solid $borderColor;
   padding: 0 15px 0 0;
   img {
     width: auto;
@@ -92,14 +96,13 @@
 //Navigation search bar
 
 .navigation-search {
-  
   input {
     height: 100%;
     border-radius: 0;
     border: none;
-    border-right: 1px solid rgba(0,0,0,0.1);
+    border-right: 1px solid $borderColor;
     &:focus, &:hover {
-      background: #f1f1f1;
+      background: #ffffff;
       box-shadow: none;
     }
   }
@@ -118,8 +121,8 @@
 
 .navbar-burger {
   height: 100%;
-  border-right: 1px solid rgba(0,0,0,0.1);
-  color: #d11b17;
+  border-right: 1px solid $borderColor;
+  color: $brandColor;
   display: none;
 }
 

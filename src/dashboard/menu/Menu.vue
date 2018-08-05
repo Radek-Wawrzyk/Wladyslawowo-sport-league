@@ -25,7 +25,7 @@
         </router-link>
       </li>
       <li class="menu-list-item">
-        <router-link to="/panel/users" aria-label="Homepage">
+        <router-link to="/panel/users" aria-label="Users">
           <svg enable-background="new 0 0 350 350" version="1.1" viewBox="0 0 350 350" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
             <path d="m175 171.17c38.914 0 70.463-38.318 70.463-85.586 0-47.269-10.358-85.587-70.463-85.587s-70.465 38.318-70.465 85.587c0 47.268 31.549 85.586 70.465 85.586z"/>
             <path d="m41.909 301.85c-0.012-2.882-0.024-0.812 0 0z"/>
