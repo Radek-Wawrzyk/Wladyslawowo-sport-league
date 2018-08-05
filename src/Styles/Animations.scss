@@ -1,0 +1,20 @@
+.fade {
+  &-enter-active, &-leave-active {
+    transition: opacity 0.4s;
+  }
+  &-enter {
+    opacity: 0;
+  }
+  &-leave-to {
+    display: none;
+  }
+}
+
+.fade-normal {
+  &-enter-active, &-leave-active {
+    transition: opacity 0.25s;
+  }
+  &-enter, &-leave-to {
+    opacity: 0;
+  }
+}

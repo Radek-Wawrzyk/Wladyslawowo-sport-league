@@ -16,4 +16,8 @@ export default {
 
 </script>
 
+<<<<<<< HEAD
 <style lang="scss" src="./Styles/bulma.sass"/>
+=======
+<style lang="scss" src="./Styles/Main.scss"/>
+>>>>>>> dd7aff432d5848a2129ff9b83cd4bf60169a9607

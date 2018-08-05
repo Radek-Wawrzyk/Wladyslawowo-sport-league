@@ -1,0 +1,46 @@
+@import "@/styles/colors.scss";
+
+.menu {
+  position: fixed;
+  left: 0;
+  top: 60px;
+  width: 95px;
+  height: calc(100vh - 60px);
+  border-right: 1px solid $borderColor;
+  transition: transform 0.25s;
+  z-index: 10;
+  &.is-active {
+    transform: translate3d(0,0,0);
+  }
+}
+.menu-list {
+  padding: 50px 0;
+  &-item {
+    position: relative;
+    a {
+      padding: 20px;
+      transition: background 0.25s;
+      width: calc(100% + 2px);
+      &.router-link-exact-active {
+        border-right: 2px solid $brandColor;
+        background: whitesmoke;
+        svg {
+          fill: #d11b17;
+        }
+      }
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+}
+
+//Media
+
+@media screen and (max-width: 768px) {
+  .menu {
+    transform: translate3d(-100px,0,0);
+  }
+
+}
