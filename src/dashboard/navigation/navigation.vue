@@ -42,6 +42,6 @@ export default {
 
 </script>
 
-<style lang="scss" src="./navigation.scss" scoped />
+<style lang="scss" src="./Navigation.scss" scoped />
 
 

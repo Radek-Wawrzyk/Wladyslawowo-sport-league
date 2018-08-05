@@ -12,7 +12,7 @@ export default new Router({
     {
       path: "/panel/home",
       name: "Home",
-      component: () => import("@/dashboard/dashboard.vue")
+      component: () => import("@/Dashboard/Dashboard.vue")
     }
   ]
 })

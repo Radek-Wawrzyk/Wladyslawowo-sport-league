@@ -6,7 +6,7 @@
 
 <script>
 
-import Navigation from "./navigation/navigation.vue"
+import Navigation from "./Navigation/Navigation.vue"
 
 export default {
   name: "home",
