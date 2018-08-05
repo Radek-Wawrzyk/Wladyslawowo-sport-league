@@ -7,7 +7,7 @@
             <ul class="navigation-links">
                 <li class="navigation-link"><router-link to="/">Główna</router-link></li>
                 <li class="navigation-link"><router-link to="/contestants">Zawodnicy</router-link></li>
-                <li class="navigation-link"><router-link to="/districts">Osiedla</router-link></li>
+                <li class="navigation-link"><router-link to="/settlements">Osiedla</router-link></li>
                 <li class="navigation-link"><router-link to="/events">Imprezy</router-link></li>
                 <li class="navigation-link"><router-link to="/help">Pomoc</router-link></li>
                 <li class="navigation-link"><router-link to="/contact">Kontakt</router-link></li>
