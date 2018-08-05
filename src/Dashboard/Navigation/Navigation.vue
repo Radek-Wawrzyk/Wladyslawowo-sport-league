@@ -7,8 +7,8 @@
         <span aria-hidden="true"></span>
       </a>
       <figure class="navigation-logo">
-        <router-link to="/panel/home" aria-label="Open panel homepage">
-          <img src="@/assets/logo.jpg" alt="Liga sportowa gminy Władysławowo"/>
+        <router-link to="/panel/" aria-label="Open panel homepage">
+          <img src="@/Assets/logo.jpg" alt="Liga sportowa gminy Władysławowo"/>
         </router-link>
       </figure>
       <div class="navigation-search control has-icons-right">
@@ -69,6 +69,6 @@ export default {
 
 </script>
 
-<style lang="scss" src="./navigation.scss" scoped />
+<style lang="scss" src="./Navigation.scss" scoped />
 
 

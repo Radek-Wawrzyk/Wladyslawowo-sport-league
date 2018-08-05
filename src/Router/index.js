@@ -12,23 +12,23 @@ export default new Router({
     {
       path: "/panel/",
       name: "Home",
-      component: () => import("@/dashboard/dashboard.vue"),
+      component: () => import("@/Dashboard/Dashboard.vue"),
       children: [
         {
           path: "",
-          component: () => import("@/dashboard/Home/Home.vue")
+          component: () => import("@/Dashboard/Home/Home.vue")
         },
         {
           path: "users",
-          component: () => import("@/dashboard/Users/Users.vue")
+          component: () => import("@/Dashboard/Users/Users.vue")
         },
         {
           path: "events",
-          component: () => import("@/dashboard/Events/Events.vue")
+          component: () => import("@/Dashboard/Events/Events.vue")
         },
         {
           path: "settlements",
-          component: () => import("@/dashboard/Settlements/Settlements.vue")
+          component: () => import("@/Dashboard/Settlements/Settlements.vue")
         }
       ]
     }
