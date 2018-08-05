@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
-import "./Firebase"
+// TODO Configure Firebase
+//import "./Firebase"
 import VueFire from "vuefire"
 import Router from "./Router/index";
 import Store from "./Store/index";
 
-Vue.use(VueFire);
+// TODO Configure Firebase
+//Vue.use(VueFire);
 
 Vue.config.productionTip = false
 
