@@ -2,7 +2,7 @@
     <nav class="navigation-bar">
         <div class="navigation-actions">
             <figure class="navigation-logo">
-                <img class="navigation-logo" src="@/assets/logo.jpg" alt="Liga sportowa gminy Władysławowo"/>
+                <img class="navigation-logo" src="@/Assets/logo.jpg" alt="Liga sportowa gminy Władysławowo"/>
             </figure>
             <ul class="navigation-links">
                 <li class="navigation-link"><router-link to="/">Główna</router-link></li>
