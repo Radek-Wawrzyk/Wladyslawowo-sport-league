@@ -6,11 +6,9 @@ jobs:
  include:
   - stage: test
     script:
-     - npm install
      - npm test
   - stage: upload
     script:
-     - npm install
      - npm run build
      - node deploy.js
     if: type = push AND branch = master
