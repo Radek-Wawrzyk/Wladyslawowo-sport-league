@@ -1,7 +1,7 @@
 <template>
   <nav class="navigation">
     <section class="navigation-left">
-      <a role="button" @click="toggleMenu" class="navbar-burger" :class="{'is-active': menu}" aria-label="Menu" :aria-expanded="menu ? 'true' : ''">
+      <a role="button" @click="toggleMenu" class="navbar-burger" :class="{'is-active': menu}" aria-control="menu" aria-label="Menu" :aria-expanded="menu ? 'true' : ''">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -49,7 +49,6 @@ export default {
   data() {
     return {
       dropDown: false,
-      menu: false,
       searchValue: ""
     }
   },
@@ -58,10 +57,14 @@ export default {
       this.dropDown =! this.dropDown;
     },
     toggleMenu: function() {
-      this.menu =! this.menu
+      this.$store.dispatch("toggleMenu");
+    }
+  },
+  computed: {
+    menu() {
+      return this.$store.getters.menu;
     }
   }
-
 }
 
 </script>
