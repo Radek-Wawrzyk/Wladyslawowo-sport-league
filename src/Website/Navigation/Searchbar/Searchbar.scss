@@ -1,0 +1,19 @@
+.searchbar-text
+{
+  width: 140px;
+  display: inline-block;
+}
+
+.searchbar-button
+{
+  display: inline-block;
+
+  background: none;
+  border: none;
+  outline: none;
+  >svg
+  {
+    width:15px;
+    height: 15px;
+  }
+}
