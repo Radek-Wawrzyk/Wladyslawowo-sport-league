@@ -15,8 +15,20 @@ export default new Router({
       component: () => import("@/dashboard/dashboard.vue"),
       children: [
         {
+          path: "",
+          component: () => import("@/dashboard/Home/Home.vue")
+        },
+        {
           path: "users",
           component: () => import("@/dashboard/Users/Users.vue")
+        },
+        {
+          path: "events",
+          component: () => import("@/dashboard/Events/Events.vue")
+        },
+        {
+          path: "settlements",
+          component: () => import("@/dashboard/Settlements/Settlements.vue")
         }
       ]
     }
