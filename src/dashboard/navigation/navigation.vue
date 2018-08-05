@@ -8,7 +8,7 @@
       </a>
       <figure class="navigation-logo">
         <router-link to="/panel/" aria-label="Open panel homepage">
-          <img src="@/Assets/logo.jpg" alt="Liga sportowa gminy Władysławowo"/>
+          <img src="@/assets/logo.jpg" alt="Liga sportowa gminy Władysławowo"/>
         </router-link>
       </figure>
       <div class="navigation-search control has-icons-right">
