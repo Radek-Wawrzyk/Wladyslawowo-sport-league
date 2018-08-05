@@ -1,7 +1,14 @@
 language: node_js
 node_js:
  - 8
-after_success:
- - npm install
- - npm run build
- - node deploy.js
+
+jobs:
+ include:
+  - stage: test
+    script:
+     - npm test
+  - stage: upload
+    script:
+     - npm run build
+     - node deploy.js
+    if: type = push AND branch = master
