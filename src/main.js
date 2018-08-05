@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import "./Firebase"
 import VueFire from "vuefire"
-import Router from "./Router/router";
+import Router from "./Router/index";
 import Store from "./Store/index";
 
 Vue.use(VueFire);
