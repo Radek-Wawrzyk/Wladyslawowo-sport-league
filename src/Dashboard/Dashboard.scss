@@ -8,6 +8,7 @@
   background: #f5f6fa;
   padding: 50px;
   transition: left 0.25s;
+  z-index: 50;
   &.is-active {
     left: 95px;
     width: calc(100% - 95px);

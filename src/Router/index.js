@@ -19,8 +19,15 @@ export default new Router({
           component: () => import("@/Dashboard/Home/Home.vue")
         },
         {
-          path: "users",
-          component: () => import("@/Dashboard/Users/Users.vue")
+          path: "players",
+          component: () => import("@/Dashboard/Players/Players.vue"),
+          children: [
+            {
+              path: "add-player",
+              name: "AddPlayer",
+              component: () => import("@/Dashboard/Players/Add player/AddPlayer.vue")
+            }
+          ]
         },
         {
           path: "events",
