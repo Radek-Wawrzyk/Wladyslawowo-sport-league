@@ -12,4 +12,4 @@ export default {
 
 </script>
 
-<style lang="scss" src="./Styles/Bulma/Bulma.sass"/>
+<style lang="scss" src="./Styles/Main.scss"/>

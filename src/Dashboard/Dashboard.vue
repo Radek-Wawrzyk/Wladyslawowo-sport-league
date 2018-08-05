@@ -3,7 +3,9 @@
     <Navigation></Navigation>
     <Menu></Menu>
     <main class="panel" :class="{'is-active': menu}">
-      <router-view></router-view>
+      <transition name="fade">
+        <router-view></router-view>
+      </transition>
     </main>
   </div>
 </template>
