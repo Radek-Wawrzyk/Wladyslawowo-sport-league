@@ -1,5 +1,5 @@
 <template>
-    <div>Events</div>
+    <main>Events</main>
 </template>
 <style lang="scss" scoped>
 
