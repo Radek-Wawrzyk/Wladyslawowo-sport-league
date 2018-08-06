@@ -9,63 +9,56 @@
 					<div class="baner-content">
 							<h4>Piraci Władysławowo znów na prowadzeniu!</h4>
 							<p>Piraci Władysławowo wyprzedzili dotychczasowych 
-									mistrzów aż o 20 punktów w klasyfikacji generalnej</p>
+									mistrzów aż o 20 punktów w klasyfikacji generalnej
+							</p>
 					</div>
 				</div>
 			</div>
 		</header>
-		<div class="columns">
-			<div class="column is-one-fifth"></div>
-			<div class="column is-three-fifths">
-				<div class="home-main">
-					<div class="home-events">
-						<img src="http://placehold.it/950x550"/>
-						<div class="events">
-							<div class="columns">
-								<div class="column is-three-quarters bars">
-									<div class="event-topbar">
-										Sprawdź nadchodzące wydarzenia!
-									</div>
-									<div class="event-botbar">
-										Najbliższy mecz ligowy baseball już pod koniec lipca
-									</div>
-								</div>
-								<div class="column is-one-quarter events-other">
-									<div class="event-item">
-										<img src="http://placehold.it/150x100"/>
-										<div class="item-bar">
-											Piłka nożna mężczyzn
-										</div>
-									</div>
-									<div class="event-item">
-										<img src="http://placehold.it/150x100"/>		
-										<div class="item-bar">
-											Siatkówka plażowa
-										</div>								
-									</div>
-									<div class="event-item">
-										<img src="http://placehold.it/150x100"/>	
-										<div class="item-bar">
-											Kolarstwo
-										</div>									
-									</div>
-									<div class="event-item">
-										<img src="http://placehold.it/150x100"/>			
-										<div class="item-bar">
-											Znajdź więcej wydarzeń
-										</div>							
-									</div>
-								</div>
+		<div class="home-main">
+			<div class="events-info">
+				<div class="info-frame">
+					<div class="info-main">
+						<div class="info-top">
+							Sprawdź nadchodzące wydarzenia!
+						</div>
+						<img class="info-img" src="http://placehold.it/520x400"/>
+						<div class="info-bot">
+							Najbliższy mecz ligowy baseball już pod koniec lipca
+						</div>
+					</div>
+					<div class="info-other">
+						<div class="info-item">
+							<img src="http://placehold.it/220x120"/>
+							<div class="info-text">
+								Piłka nożna mężczyzn
+							</div>
+						</div>
+						<div class="info-item">
+							<img src="http://placehold.it/220x120"/>
+							<div class="info-text">
+								Piłka siatkowa
+							</div>
+						</div>
+						<div class="info-item">
+							<img src="http://placehold.it/220x120"/>
+							<div class="info-text">
+								Kolarstwo
+							</div>
+						</div>
+						<div class="info-item">
+							<img src="http://placehold.it/220x120"/>
+							<div class="info-text">
+								Znajdź więcej wydarzeń
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="column is-two-fifths">
-				<aside class="event-sidebar">
-				</aside>
-			</div>
+			<aside class="home-players">
+			</aside>
 		</div>
+
 	</main>
 </template>
 <style lang="scss" src="./Home.scss" scoped></style>
