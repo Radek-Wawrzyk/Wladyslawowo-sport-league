@@ -27,6 +27,12 @@
   right: 10px;
 }
 
+.home-main
+{
+  display: flex;
+  justify-content: space-around;
+}
+
 .info-frame
 {
   display: flex;
@@ -82,4 +88,11 @@
   bottom: 10px;
   left: 0;
   right: 0;
+}
+
+.table-row,.player-profile
+{
+  display: flex;
+  align-items: center;
+  justify-content: space-between
 }
