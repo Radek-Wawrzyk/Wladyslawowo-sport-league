@@ -20,41 +20,49 @@
 				<div class="home-main">
 					<div class="home-events">
 						<img src="http://placehold.it/950x550"/>
-						<div class="events-contents">
-							<div class="columns contents-columns">
-								<div class="column">
-									<div class="events-topbar">
+						<div class="events">
+							<div class="columns">
+								<div class="column is-three-quarters bars">
+									<div class="event-topbar">
 										Sprawdź nadchodzące wydarzenia!
 									</div>
-									<div class="events-bottombar">
-										Najbliższy mecz ligowy już pod koniec lipca!
+									<div class="event-botbar">
+										Najbliższy mecz ligowy baseball już pod koniec lipca
 									</div>
 								</div>
-								<div class="column">
-								<aside class="events-sidebar">
-									<div class="sidebar-item">
-											
+								<div class="column is-one-quarter events-other">
+									<div class="event-item">
+										<img src="http://placehold.it/150x100"/>
+										<div class="item-bar">
+											Piłka nożna mężczyzn
+										</div>
 									</div>
-									<div class="sidebar-item">
-
+									<div class="event-item">
+										<img src="http://placehold.it/150x100"/>		
+										<div class="item-bar">
+											Siatkówka plażowa
+										</div>								
 									</div>
-									<div class="sidebar-item">
-
+									<div class="event-item">
+										<img src="http://placehold.it/150x100"/>	
+										<div class="item-bar">
+											Kolarstwo
+										</div>									
 									</div>
-									<div class="sidebar-item">
-
+									<div class="event-item">
+										<img src="http://placehold.it/150x100"/>			
+										<div class="item-bar">
+											Znajdź więcej wydarzeń
+										</div>							
 									</div>
-								</aside>
-							</div>
-
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="column is-two-fifths">
-				<aside class="home-top">
-
+				<aside class="event-sidebar">
 				</aside>
 			</div>
 		</div>
