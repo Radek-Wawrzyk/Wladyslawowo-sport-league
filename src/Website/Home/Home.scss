@@ -10,7 +10,7 @@
   text-align: center;
 }
 
-// BANER
+// Baner
 .home-baner
 {
   position: relative;
@@ -57,7 +57,6 @@
 {
   display: flex;
   justify-content: center;
-  //flex-wrap: wrap;
 }
 
 
@@ -65,7 +64,6 @@
 {
   display: flex;
   justify-content: center;
- // flex-wrap: wrap;
 }
 
 .info-main
@@ -80,7 +78,6 @@
   right: 0;
   height: 40px;
 
-  //height: 30px;
   color: white;
   background: rgba(gray,0.5);
   text-transform: uppercase;
@@ -147,7 +144,6 @@
 
 .other-img
 {
-  //width: 100%;
   max-height: 150px;
   height: 100%;
   width: 200px;
@@ -274,38 +270,7 @@ table
 
 @media screen and(max-width: 768px)
 {
-  .home-players
-  {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .info-other
-  {
-    flex-direction: row;
-    padding: 10px;
-  }
-
-  .info-text
-  {
-    font-size: 50%;
-  }
-
-  .info-frame,.home-main
-  {
-    flex-wrap: wrap;
-  }
-  .players-frame
-  {
-    width: 80%;
-  }
-  .settlement-label
-  {
-    font-size: 12px
-  }
-
+  // Baner
   .baner-content
   {
     padding: 0 5px 0 5px;
@@ -321,5 +286,42 @@ table
   .content-text
   {
     font-size: 12px;
+  }
+
+  //Top Players
+  .players-frame
+  {
+    width: 80%;
+  }
+
+  .home-players
+  {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  //Info box
+  .info-other
+  {
+    flex-direction: row;
+    padding: 10px;
+  }
+
+  .info-text
+  {
+    font-size: 50%;
+  }
+
+  .info-frame,.home-main
+  {
+    flex-wrap: wrap;
+  }
+
+  //Settlement Table
+  .settlement-label
+  {
+    font-size: 12px
   }
 }
