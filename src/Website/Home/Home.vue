@@ -1,17 +1,15 @@
 <template>
 	<main class="home-container">
 		<header class="home-baner">
-			<div class="columns">
-				<div class="column">
-					<div class="baner-frame">
-						<img class="baner-image" src="@/Assets/Home/baner.jpg"/>
-					</div>
-					<div class="baner-content">
-						<h1>Piraci Władysławowo znów na prowadzeniu!</h1>
-						<p>Piraci Władysławowo wyprzedzili dotychczasowych 
-								mistrzów aż o 20 punktów w klasyfikacji generalnej
-						</p>
-					</div>
+			<div class="baner-frame">
+				<img class="baner-image" src="@/Assets/Home/baner.jpg"/>
+			</div>
+			<div class="baner-content">
+				<div class="content-frame">
+					<h1 class="content-header">Piraci Władysławowo znów na prowadzeniu!</h1>
+					<p class="content-text">Piraci Władysławowo wyprzedzili dotychczasowych 
+							mistrzów aż o 20 punktów w klasyfikacji generalnej
+					</p>
 				</div>
 			</div>
 		</header>
