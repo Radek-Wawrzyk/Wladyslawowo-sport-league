@@ -30,13 +30,15 @@
 .home-main
 {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .info-frame
 {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .info-main
@@ -50,7 +52,7 @@
   left: 0;
   right: 0;
 
-  height: 30px;
+  //height: 30px;
   background: gray;
 }
 
@@ -74,25 +76,45 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: gray;
+  background: transparent;
 }
 
 .info-item
 {
   position: relative;
+  height: 100%;
 }
 
 .info-text
 {
   position: absolute;
-  bottom: 10px;
+  background: gray;
+  bottom: 0;
   left: 0;
   right: 0;
+  height: 24px;
 }
 
-.table-row,.player-profile
+.other-img
+{
+  width: 100%;
+}
+
+.player-profile
 {
   display: flex;
   align-items: center;
-  justify-content: space-between
+}
+
+.table-settlements
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.settlement-item
+{
+  display: flex;
+  align-items: center;
 }

@@ -29,25 +29,25 @@
 					</div>
 					<div class="info-other">
 						<div class="info-item">
-							<img src="http://placehold.it/220x120"/>
+							<img class="other-img" src="http://placehold.it/220x120"/>
 							<div class="info-text">
 								Piłka nożna mężczyzn
 							</div>
 						</div>
 						<div class="info-item">
-							<img src="http://placehold.it/220x120"/>
+							<img class="other-img" src="http://placehold.it/220x120"/>
 							<div class="info-text">
 								Piłka siatkowa
 							</div>
 						</div>
 						<div class="info-item">
-							<img src="http://placehold.it/220x120"/>
+							<img class="other-img" src="http://placehold.it/220x120"/>
 							<div class="info-text">
 								Kolarstwo
 							</div>
 						</div>
 						<div class="info-item">
-							<img src="http://placehold.it/220x120"/>
+							<img class="other-img" src="http://placehold.it/220x120"/>
 							<div class="info-text">
 								Znajdź więcej wydarzeń
 							</div>
@@ -200,10 +200,102 @@
 					</tr>
 				</tbody>
 				</table>
-
 			</aside>
 		</div>
-
+		<div class="table-settlements">
+			<h5>Tabela punktacji Gmin</h5>
+			<table class="table">
+				<thead>
+					<tr>
+						<th><abbr>Gmina</abbr></th>
+						<th><abbr>Ilość punktów</abbr></th>
+						<th><abbr>Poz</abbr></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>
+							<div class="settlement-item">
+								<img src="http://placehold.it/40x40"/>
+								<label>Kosakowo</label>
+							</div>
+						</th>
+						<th>140</th>
+						<th>1</th>
+					</tr>
+					<tr>
+						<th>
+							<div class="settlement-item">
+								<img src="http://placehold.it/40x40"/>
+								<label>Kosakowo</label>
+							</div>
+						</th>
+						<th>140</th>
+						<th>1</th>
+					</tr>
+					<tr>
+						<th>
+							<div class="settlement-item">
+								<img src="http://placehold.it/40x40"/>
+								<label>Kosakowo</label>
+							</div>
+						</th>
+						<th>140</th>
+						<th>1</th>
+					</tr>
+					<tr>
+						<th>
+							<div class="settlement-item">
+								<img src="http://placehold.it/40x40"/>
+								<label>Kosakowo</label>
+							</div>
+						</th>
+						<th>140</th>
+						<th>1</th>
+					</tr>
+					<tr>
+						<th>
+							<div class="settlement-item">
+								<img src="http://placehold.it/40x40"/>
+								<label>Kosakowo</label>
+							</div>
+						</th>
+						<th>140</th>
+						<th>1</th>
+					</tr>
+					<tr>
+						<th>
+							<div class="settlement-item">
+								<img src="http://placehold.it/40x40"/>
+								<label>Kosakowo</label>
+							</div>
+						</th>
+						<th>140</th>
+						<th>1</th>
+					</tr>
+					<tr>
+						<th>
+							<div class="settlement-item">
+								<img src="http://placehold.it/40x40"/>
+								<label>Kosakowo</label>
+							</div>
+						</th>
+						<th>140</th>
+						<th>1</th>
+					</tr>
+					<tr>
+						<th>
+							<div class="settlement-item">
+								<img src="http://placehold.it/40x40"/>
+								<label>Kosakowo</label>
+							</div>
+						</th>
+						<th>140</th>
+						<th>1</th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</main>
 </template>
 <style lang="scss" src="./Home.scss" scoped></style>
