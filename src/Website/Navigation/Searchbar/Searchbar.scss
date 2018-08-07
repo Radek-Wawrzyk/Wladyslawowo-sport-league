@@ -2,6 +2,20 @@
 {
   width: 140px;
   display: inline-block;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid black;
+  &:active, &:focus
+  {
+    border: none;
+    border-bottom: 1px solid black;
+  }
+  
+}
+
+::placeholder
+{
+  color: darkgray;
 }
 
 .searchbar-button
@@ -15,5 +29,13 @@
   {
     width:15px;
     height: 15px;
+  }
+  &:hover
+  {
+    cursor: pointer;
+    path
+    {
+        fill: gray;
+    }
   }
 }
