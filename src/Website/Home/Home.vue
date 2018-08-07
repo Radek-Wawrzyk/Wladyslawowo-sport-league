@@ -7,10 +7,10 @@
 						<img class="baner-image" src="@/Assets/Home/baner.jpg"/>
 					</div>
 					<div class="baner-content">
-							<h4>Piraci Władysławowo znów na prowadzeniu!</h4>
-							<p>Piraci Władysławowo wyprzedzili dotychczasowych 
-									mistrzów aż o 20 punktów w klasyfikacji generalnej
-							</p>
+						<h1>Piraci Władysławowo znów na prowadzeniu!</h1>
+						<p>Piraci Władysławowo wyprzedzili dotychczasowych 
+								mistrzów aż o 20 punktów w klasyfikacji generalnej
+						</p>
 					</div>
 				</div>
 			</div>
@@ -20,11 +20,11 @@
 				<div class="info-frame">
 					<div class="info-main">
 						<div class="info-top">
-							Sprawdź nadchodzące wydarzenia!
+							<label>Sprawdź nadchodzące wydarzenia!</label>
 						</div>
 						<img class="info-img" src="@/Assets/Home/info.jpg"/>
 						<div class="info-bot">
-							Najbliższy mecz ligowy baseball już pod koniec lipca
+							<label>	Najbliższy mecz ligowy baseball już pod koniec lipca</label>
 						</div>
 					</div>
 					<div class="info-other">
@@ -220,7 +220,7 @@
 							<th>
 								<div class="settlement-item">
 									<img class="settlement-img" src="@/Assets/Home/settlement.jpg"/>
-									<label>Kosakowo</label>
+									<label class="settlement-label">Kosakowo</label>
 								</div>
 							</th>
 							<th>140</th>
@@ -230,7 +230,7 @@
 							<th>
 								<div class="settlement-item">
 									<img class="settlement-img" src="@/Assets/Home/settlement.jpg"/>
-									<label>Kosakowo</label>
+									<label class="settlement-label">Kosakowo</label>
 								</div>
 							</th>
 							<th>140</th>
@@ -240,7 +240,7 @@
 							<th>
 								<div class="settlement-item">
 									<img class="settlement-img" src="@/Assets/Home/settlement.jpg"/>
-									<label>Kosakowo</label>
+									<label class="settlement-label">Kosakowo</label>
 								</div>
 							</th>
 							<th>140</th>
@@ -250,7 +250,7 @@
 							<th>
 								<div class="settlement-item">
 									<img class="settlement-img" src="@/Assets/Home/settlement.jpg"/>
-									<label>Kosakowo</label>
+									<label class="settlement-label">Kosakowo</label>
 								</div>
 							</th>
 							<th>140</th>
@@ -260,7 +260,7 @@
 							<th>
 								<div class="settlement-item">
 									<img class="settlement-img" src="@/Assets/Home/settlement.jpg"/>
-									<label>Kosakowo</label>
+									<label class="settlement-label">Kosakowo</label>
 								</div>
 							</th>
 							<th>140</th>
@@ -270,7 +270,7 @@
 							<th>
 								<div class="settlement-item">
 									<img class="settlement-img" src="@/Assets/Home/settlement.jpg"/>
-									<label>Kosakowo</label>
+									<label class="settlement-label">Kosakowo</label>
 								</div>
 							</th>
 							<th>140</th>
@@ -280,7 +280,7 @@
 							<th>
 								<div class="settlement-item">
 									<img class="settlement-img" src="@/Assets/Home/settlement.jpg"/>
-									<label>Kosakowo</label>
+									<label class="settlement-label">Kosakowo</label>
 								</div>
 							</th>
 							<th>140</th>
@@ -290,7 +290,7 @@
 							<th>
 								<div class="settlement-item">
 									<img class="settlement-img" src="@/Assets/Home/settlement.jpg"/>
-									<label>Kosakowo</label>
+									<label class="settlement-label">Kosakowo</label>
 								</div>
 							</th>
 							<th>140</th>

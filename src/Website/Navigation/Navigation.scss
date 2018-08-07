@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:600');
+
 $navigationHeight: 60px;
 
 .navigation-logo
@@ -26,6 +28,8 @@ $navigationHeight: 60px;
     display: flex;
     background: white;
     z-index: 10;
+
+    font-family: 'Open Sans', sans-serif;
 }
 
 .navigation-link
