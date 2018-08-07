@@ -4,7 +4,7 @@
 			<div class="columns">
 				<div class="column">
 					<div class="baner-frame">
-						<img class="baner-image" src="http://placehold.it/1380x540"/>
+						<img class="baner-image" src="@/Assets/Home/baner.jpg"/>
 					</div>
 					<div class="baner-content">
 							<h4>Piraci Władysławowo znów na prowadzeniu!</h4>
@@ -22,32 +22,32 @@
 						<div class="info-top">
 							Sprawdź nadchodzące wydarzenia!
 						</div>
-						<img class="info-img" src="http://placehold.it/520x400"/>
+						<img class="info-img" src="@/Assets/Home/info.jpg"/>
 						<div class="info-bot">
 							Najbliższy mecz ligowy baseball już pod koniec lipca
 						</div>
 					</div>
 					<div class="info-other">
 						<div class="info-item">
-							<img class="other-img" src="http://placehold.it/220x120"/>
+							<img class="other-img" src="@/Assets/Home/info-1.jpg"/>
 							<div class="info-text">
 								Piłka nożna mężczyzn
 							</div>
 						</div>
 						<div class="info-item">
-							<img class="other-img" src="http://placehold.it/220x120"/>
+							<img class="other-img" src="@/Assets/Home/info-2.jpg"/>
 							<div class="info-text">
 								Piłka siatkowa
 							</div>
 						</div>
 						<div class="info-item">
-							<img class="other-img" src="http://placehold.it/220x120"/>
+							<img class="other-img" src="@/Assets/Home/info-3.jpg"/>
 							<div class="info-text">
 								Kolarstwo
 							</div>
 						</div>
 						<div class="info-item">
-							<img class="other-img" src="http://placehold.it/220x120"/>
+							<img class="other-img" src="@/Assets/Home/info-4.jpg"/>
 							<div class="info-text">
 								Znajdź więcej wydarzeń
 							</div>
@@ -71,7 +71,7 @@
 					<tr>
 						<th>
 							<div class="player-profile">
-								<img class="player-photo" src="http://placehold.it/60x60"/>
+								<img class="player-photo" src="@/Assets/Home/player.jpg"/>
 								<div class="player-name">
 									Mark
 									<p>Zuckerberg</p>
@@ -84,7 +84,7 @@
 						<tr>
 						<th>
 							<div class="player-profile">
-								<img class="player-photo" src="http://placehold.it/60x60"/>
+								<img class="player-photo" src="@/Assets/Home/player.jpg"/>
 								<div class="player-name">
 									Mark
 									<p>Zuckerberg</p>
@@ -97,7 +97,7 @@
 						<tr>
 						<th>
 							<div class="player-profile">
-								<img class="player-photo" src="http://placehold.it/60x60"/>
+								<img class="player-photo" src="@/Assets/Home/player.jpg"/>
 								<div class="player-name">
 									Mark
 									<p>Zuckerberg</p>
@@ -110,7 +110,7 @@
 						<tr>
 						<th>
 							<div class="player-profile">
-								<img class="player-photo" src="http://placehold.it/60x60"/>
+								<img class="player-photo" src="@/Assets/Home/player.jpg"/>
 								<div class="player-name">
 									Mark
 									<p>Zuckerberg</p>
@@ -123,7 +123,7 @@
 						<tr>
 						<th>
 							<div class="player-profile">
-								<img class="player-photo" src="http://placehold.it/60x60"/>
+								<img class="player-photo" src="@/Assets/Home/player.jpg"/>
 								<div class="player-name">
 									Mark
 									<p>Zuckerberg</p>
@@ -136,7 +136,7 @@
 						<tr>
 						<th>
 							<div class="player-profile">
-								<img class="player-photo" src="http://placehold.it/60x60"/>
+								<img class="player-photo" src="@/Assets/Home/player.jpg"/>
 								<div class="player-name">
 									Mark
 									<p>Zuckerberg</p>
@@ -149,7 +149,7 @@
 						<tr>
 						<th>
 							<div class="player-profile">
-								<img class="player-photo" src="http://placehold.it/60x60"/>
+								<img class="player-photo" src="@/Assets/Home/player.jpg"/>
 								<div class="player-name">
 									Mark
 									<p>Zuckerberg</p>
@@ -162,7 +162,7 @@
 						<tr>
 						<th>
 							<div class="player-profile">
-								<img class="player-photo" src="http://placehold.it/60x60"/>
+								<img class="player-photo" src="@/Assets/Home/player.jpg"/>
 								<div class="player-name">
 									Mark
 									<p>Zuckerberg</p>
@@ -175,7 +175,7 @@
 						<tr>
 						<th>
 							<div class="player-profile">
-								<img class="player-photo" src="http://placehold.it/60x60"/>
+								<img class="player-photo" src="@/Assets/Home/player.jpg"/>
 								<div class="player-name">
 									Mark
 									<p>Zuckerberg</p>
@@ -188,7 +188,7 @@
 						<tr>
 						<th>
 							<div class="player-profile">
-								<img class="player-photo" src="http://placehold.it/60x60"/>
+								<img class="player-photo" src="@/Assets/Home/player.jpg"/>
 								<div class="player-name">
 									Mark
 									<p>Zuckerberg</p>
@@ -204,7 +204,7 @@
 		</div>
 		<div class="table-settlements">
 			<h5>Tabela punktacji Gmin</h5>
-			<table class="table">
+			<table class="table settlements-table">
 				<thead>
 					<tr>
 						<th><abbr>Gmina</abbr></th>
@@ -216,7 +216,7 @@
 					<tr>
 						<th>
 							<div class="settlement-item">
-								<img src="http://placehold.it/40x40"/>
+								<img class="settlement-img" src="@/Assets/Home/settlement.jpg"/>
 								<label>Kosakowo</label>
 							</div>
 						</th>
@@ -226,7 +226,7 @@
 					<tr>
 						<th>
 							<div class="settlement-item">
-								<img src="http://placehold.it/40x40"/>
+								<img class="settlement-img" src="@/Assets/Home/settlement.jpg"/>
 								<label>Kosakowo</label>
 							</div>
 						</th>
@@ -236,7 +236,7 @@
 					<tr>
 						<th>
 							<div class="settlement-item">
-								<img src="http://placehold.it/40x40"/>
+								<img class="settlement-img" src="@/Assets/Home/settlement.jpg"/>
 								<label>Kosakowo</label>
 							</div>
 						</th>
@@ -246,7 +246,7 @@
 					<tr>
 						<th>
 							<div class="settlement-item">
-								<img src="http://placehold.it/40x40"/>
+								<img class="settlement-img" src="@/Assets/Home/settlement.jpg"/>
 								<label>Kosakowo</label>
 							</div>
 						</th>
@@ -256,7 +256,7 @@
 					<tr>
 						<th>
 							<div class="settlement-item">
-								<img src="http://placehold.it/40x40"/>
+								<img class="settlement-img" src="@/Assets/Home/settlement.jpg"/>
 								<label>Kosakowo</label>
 							</div>
 						</th>
@@ -266,7 +266,7 @@
 					<tr>
 						<th>
 							<div class="settlement-item">
-								<img src="http://placehold.it/40x40"/>
+								<img class="settlement-img" src="@/Assets/Home/settlement.jpg"/>
 								<label>Kosakowo</label>
 							</div>
 						</th>
@@ -276,7 +276,7 @@
 					<tr>
 						<th>
 							<div class="settlement-item">
-								<img src="http://placehold.it/40x40"/>
+								<img class="settlement-img" src="@/Assets/Home/settlement.jpg"/>
 								<label>Kosakowo</label>
 							</div>
 						</th>
@@ -286,7 +286,7 @@
 					<tr>
 						<th>
 							<div class="settlement-item">
-								<img src="http://placehold.it/40x40"/>
+								<img class="settlement-img" src="@/Assets/Home/settlement.jpg"/>
 								<label>Kosakowo</label>
 							</div>
 						</th>
