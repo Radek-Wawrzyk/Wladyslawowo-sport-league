@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:600');
+
+.help-container
+{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  padding: 10px;
+
+}
+
+.help-regulations
+{
+  width: 50%;
+  margin-right: 10px;
+}
+
+.regulations-title
+{
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.regulations-content
+{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 15px;
+}
+
+.help-download
+{
+  max-height: 192px;
+}
+
+.download-title
+{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.help-download, .help-regulations
+{
+  border: 1px solid black;
+}
+
+.download-title, .regulations-title
+{
+  position: relative;
+  &::after
+  {
+    display: block;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 7px;
+    background: red;
+    bottom: 0;
+    left: 0;
+  }
+
+  >h4
+  {
+    padding: 15px;
+  }
+}
+
+.download-buttons
+{
+  padding-top: 15px;
+}
+
+button, button:hover, button:active, button:focus
+{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  &:hover
+  {
+    background: lightgray;
+    cursor: pointer;
+  }
+
+  width: 100%;
+  height: 60px;
+  
+  background: none;
+  outline: none;
+  border: none;
+}
+
+@media screen and(max-width: 768px)
+{
+  .help-container
+  {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .help-regulations,.help-download
+  {
+    width: 90%;
+  }
+
+  .help-regulations
+  {
+    margin: 0;
+  }
+
+  .help-download
+  {
+    margin-top: 10px;
+  }
+}
