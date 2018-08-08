@@ -9,8 +9,8 @@
 				<li :class="{ active : activeElement == 1 }" class="navigation-link"><router-link @click.native="toggleActiveElement(1)" to="/contestants">Zawodnicy</router-link></li>
 				<li :class="{ active : activeElement == 2 }" class="navigation-link"><router-link @click.native="toggleActiveElement(2)" to="/settlements">Osiedla</router-link></li>
 				<li :class="{ active : activeElement == 3 }" class="navigation-link"><router-link @click.native="toggleActiveElement(3)" to="/events">Imprezy</router-link></li>
-				<li :class="{ active : activeElement == 4 }" class="navigation-link"><router-link @click.native="toggleActiveElement(4)" to="/help">Pomoc</router-link></li>
-				<li :class="{ active : activeElement == 5 }" class="navigation-link"><router-link @click.native="toggleActiveElement(5)" to="/contact">Kontakt</router-link></li>
+				<li :class="{ active : activeElement == 4 }" class="navigation-link"><router-link @click.native="toggleActiveElement(4)" to="/contact">Kontakt</router-link></li>
+				<li :class="{ active : activeElement == 5 }" class="navigation-link"><router-link @click.native="toggleActiveElement(5)" to="/help">Pomoc</router-link></li>
 			</ul>
 			<div class="navigation-searchbar">
 				<Searchbar/>
