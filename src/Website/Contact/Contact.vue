@@ -7,7 +7,7 @@
 				<div class="contact-data">
 					<img class="contact-img" src="@/Assets/logo.jpg"/>
 					<table class="contact-text">
-						<tr>Dane Kontaktowe:</tr>
+						<tr><span>D</span>ane <span>K</span>ontaktowe:</tr>
 						<tr>Imię i Nazwisko: Marcin X</tr>
 						<tr>Telefon: 666 666 666</tr>
 						<tr>E-mail: xd@gmail.com</tr>

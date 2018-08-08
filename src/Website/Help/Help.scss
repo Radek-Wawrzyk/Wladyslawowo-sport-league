@@ -10,38 +10,7 @@
 
 }
 
-.help-regulations
-{
-  width: 50%;
-  margin-right: 10px;
-}
-
-.regulations-title
-{
-  font-family: 'Open Sans', sans-serif;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-.regulations-content
-{
-  font-family: 'Open Sans', sans-serif;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 15px;
-}
-
-.help-download
-{
-  max-height: 192px;
-}
-
-.download-title
-{
-  font-family: 'Open Sans', sans-serif;
-  font-weight: bold;
-  text-transform: uppercase;
-}
+//Commons for Regulations & Downloads
 
 .help-download, .help-regulations
 {
@@ -68,6 +37,44 @@
     padding: 15px;
   }
 }
+
+// Regulations
+.help-regulations
+{
+  width: 50%;
+  margin-right: 10px;
+}
+
+.regulations-title
+{
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.regulations-content
+{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 15px;
+}
+
+//Downloads
+
+.help-download
+{
+  max-height: 192px;
+}
+
+.download-title
+{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+
 
 .download-buttons
 {

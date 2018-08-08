@@ -12,6 +12,11 @@
   padding-right: 5px;
 }
 
+span
+{
+  color: red;
+}
+
 .contact-box
 {
   width: 50%;
@@ -46,6 +51,7 @@
 {
   display: flex;
   align-items: flex-start;
+  flex-wrap: wrap;
   justify-content: space-around;
   text-align: left;
 }
@@ -61,7 +67,10 @@
   align-self: center;
   font-family: 'Open Sans', sans-serif;
   font-weight: bold;
+  font-size: 25px;
 }
+
+//Form
 
 .form-header
 {
