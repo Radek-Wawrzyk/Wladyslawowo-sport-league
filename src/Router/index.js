@@ -18,8 +18,8 @@ export default new Router({
         component: () => import("@/Website/Home/Home.vue")
       },
       {
-        path: "/contestants",
-        component: () => import("@/Website/Contestants/Contestants.vue")
+        path: "/players",
+        component: () => import("@/Website/Players/Players.vue")
       },
       {
         path: "/settlements",

@@ -1,5 +1,5 @@
 <template>
-    <main class="contact-container">
+    <main class="website-container contact-container">
       <div class="contact-box">
 				<div class="contact-header">
 					<h4 class="header-text">Zadzwoń do nas bądź skorzystaj z naszego formularza!</h4>

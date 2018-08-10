@@ -1,5 +1,5 @@
 <template>
-    <main>Settlements</main>
+    <main class="website-container">Settlements</main>
 </template>
 <style lang="scss" scoped>
 

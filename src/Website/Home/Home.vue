@@ -1,5 +1,5 @@
 <template>
-	<main class="home-container">
+	<main class="website-container home-container">
 		<header class="home-baner">
 			<div class="baner-frame">
 				<img class="baner-image" src="@/Assets/Home/baner.jpg"/>

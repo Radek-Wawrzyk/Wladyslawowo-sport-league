@@ -1,5 +1,5 @@
 <template>
-    <main class="help-container">
+    <main class="website-container help-container">
       <div class="help-regulations">
         <div class="regulations-title">
           <h4>Regulamin</h4>

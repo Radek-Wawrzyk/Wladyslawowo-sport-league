@@ -1,5 +1,5 @@
 <template>
-    <main>Events</main>
+    <main class="website-container">Events</main>
 </template>
 <style lang="scss" scoped>
 
