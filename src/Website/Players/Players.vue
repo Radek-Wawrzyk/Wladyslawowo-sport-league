@@ -1,6 +1,6 @@
 <template>
-	<main class="contestants-container">
-		<div class="contestants-list">
+	<main class="website-container players-container">
+		<div class="players-list">
 			<div class="list-header">
 				<h4 class="header-text">Lista Zawodników</h4>
 				<div class="list-buttons">
@@ -79,8 +79,8 @@
 				</table>
 			</div>
 		</div>
-		<div class="contestant-details">
-			<div class="contestant">
+		<div class="player-details">
+			<div class="player">
 				<div class="details-profile">
 					<img class="player-img" src="@/Assets/Home/player.jpg"/>
 					<div class="player-info">
@@ -118,7 +118,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="contestant-seasons">
+		<div class="player-seasons">
 			<div class="left-panel">
 				<div class="panel-header">
 					<h4>Aktualny sezon</h4>
@@ -130,7 +130,7 @@
 							<th>Zawody</th>
 							<th>Liga</th>
 							<th>Pkt</th>
-							<th>Pozycja</th>
+							<th>Poz</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -175,7 +175,7 @@
 							<th>Zawody</th>
 							<th>Liga</th>
 							<th>Pkt</th>
-							<th>Pozycja</th>
+							<th>Poz</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -203,12 +203,12 @@
 		</div>
 	</main>
 </template>
-<style lang="scss" src="./Contestants.scss" scoped>
+<style lang="scss" src="./Players.scss" scoped>
 
 </style>
 <script>
 export default {
-    name: "Contestants"
+    name: "Players"
 }
 </script>
 

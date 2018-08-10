@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:600');
 
-.contestants-container
+.players-container
 {
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@
   padding-top: 15px;
 }
 
-.contestants-list
+.players-list
 {
   width: 60%;
   border: 1px solid black;
@@ -85,7 +85,7 @@
   display: inline-block;
 }
 
-.contestant-details
+.player-details
 {
   margin-top: 15px;
   width: 100%;
@@ -94,7 +94,7 @@
   justify-content: flex-end;
 }
 
-.contestant
+.player
 {
   width: 60%;
   padding: 15px;
@@ -212,7 +212,7 @@
   }
 }
 
-.contestant-seasons
+.player-seasons
 {
   width: 60%;
   margin-top: 10px;
@@ -271,12 +271,12 @@
 
 @media screen and(max-width: 1215px)
 {
-  .contestant, .contestants-list, .contestant-seasons
+  .player, .players-list, .player-seasons
   {
     width: 100%;
   }
 
-  .contestant-seasons
+  .player-seasons
   {
     flex-wrap: wrap-reverse;
   }
@@ -291,7 +291,15 @@
     margin-top: 10px;
   }
 
-  .contestant
+  .panel-table
+  {
+    th
+    {
+      font-size: 10px;
+    }
+  }
+
+  .player
   {
     flex-direction: column;
   }
@@ -315,5 +323,10 @@
   .table-cell
   {
     flex-direction: column;
+  }
+
+  .players-table
+  {
+    font-size: 10px;
   }
 }
