@@ -6,7 +6,7 @@
 			</figure>
 			<ul :class="{ active : burgerToggled}" class="navigation-links">
 				<li :class="{ active : activeElement == 0 }" class="navigation-link"><router-link @click.native="toggleActiveElement(0)" to="/">Główna</router-link></li>
-				<li :class="{ active : activeElement == 1 }" class="navigation-link"><router-link @click.native="toggleActiveElement(1)" to="/contestants">Zawodnicy</router-link></li>
+				<li :class="{ active : activeElement == 1 }" class="navigation-link"><router-link @click.native="toggleActiveElement(1)" to="/players">Zawodnicy</router-link></li>
 				<li :class="{ active : activeElement == 2 }" class="navigation-link"><router-link @click.native="toggleActiveElement(2)" to="/settlements">Osiedla</router-link></li>
 				<li :class="{ active : activeElement == 3 }" class="navigation-link"><router-link @click.native="toggleActiveElement(3)" to="/events">Imprezy</router-link></li>
 				<li :class="{ active : activeElement == 4 }" class="navigation-link"><router-link @click.native="toggleActiveElement(4)" to="/contact">Kontakt</router-link></li>
