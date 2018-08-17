@@ -296,4 +296,15 @@
   {
     flex-direction: column;
   }
+
+  .rank-table, .score-table
+  {
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .table-cell
+  {
+    flex-direction: column;
+  }
 }

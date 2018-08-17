@@ -30,7 +30,7 @@ export default new Router({
         component: () => import("@/Website/Events/Events.vue")
       },
       {
-        path: "/event/:id"  ,
+        path: "/events/:id"  ,
         component: () => import("@/Website/Events/EventDetails.vue")
       },
       {
