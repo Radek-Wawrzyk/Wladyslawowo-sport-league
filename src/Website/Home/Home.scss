@@ -10,6 +10,15 @@
   text-align: center;
 }
 
+//Common
+table
+{
+  text-transform: uppercase;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  width: 100%;
+}
+
 // Baner
 .home-baner
 {
@@ -36,7 +45,7 @@
   justify-content: center;
 
   color: white;
-  background: rgba(gray,0.5);
+  background: rgba(black,0.5);
 
   font-family: 'Open Sans', sans-serif;
 }
@@ -59,7 +68,6 @@
   justify-content: center;
 }
 
-
 .info-frame
 {
   display: flex;
@@ -71,7 +79,7 @@
   position: relative;
 }
 
-.info-top,.info-bot
+.info-top,.info-bottom
 {
   position: absolute;
   left: 0;
@@ -79,7 +87,7 @@
   height: 40px;
 
   color: white;
-  background: rgba(gray,0.5);
+  background: rgba(black,0.5);
   text-transform: uppercase;
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
@@ -99,7 +107,7 @@
   top: 0;
 }
 
-.info-bot
+.info-bottom
 {
   bottom:0;
 }
@@ -130,7 +138,7 @@
   position: absolute;
   color: white;
   white-space: nowrap;
-  background: rgba(gray,0.5);
+  background: rgba(black,0.5);
   bottom: 0;
   left: 0;
   right: 0;
@@ -160,7 +168,7 @@
   border: 1px solid gray;
 }
 
-.players-top
+.players-heading
 {
   text-transform: uppercase;
   position: relative;
@@ -194,14 +202,6 @@
   text-transform: uppercase;
 }
 
-//All tables
-table
-{
-  text-transform: uppercase;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 600;
-}
-
 // Settlements Table Rank
 .table-settlements
 {
@@ -218,24 +218,23 @@ table
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%;
+  width: 90%;
 
   border: 1px solid gray;
 }
 
-.table-title
+.table-heading
 {
   font-weight: bold;
   text-transform: uppercase;
   text-align: left;
   width: 100%;
-  >label
-  {
-    display: block;
-    margin-top: 10px;
-    margin-left: 10px;
-  }
   position: relative;
+
+  >h4
+  {
+    padding: 10px;
+  }
 
   &::after
   {
@@ -288,19 +287,6 @@ table
     font-size: 12px;
   }
 
-  //Top Players
-  .players-frame
-  {
-    width: 80%;
-  }
-
-  .home-players
-  {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
 
   //Info box
   .info-other
@@ -312,6 +298,7 @@ table
   .info-text
   {
     font-size: 50%;
+    white-space: initial;
   }
 
   .info-frame,.home-main
@@ -319,9 +306,36 @@ table
     flex-wrap: wrap;
   }
 
+  //Top Players
+  .home-players
+  {
+    margin-left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .players-frame
+  {
+    width: 90%;
+  }
+
+  .player-profile
+  {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   //Settlement Table
   .settlement-label
   {
     font-size: 12px
+  }
+
+  .settlement-item
+  {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

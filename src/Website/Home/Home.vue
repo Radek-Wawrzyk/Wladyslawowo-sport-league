@@ -21,7 +21,7 @@
 							<label>Sprawdź nadchodzące wydarzenia!</label>
 						</div>
 						<img class="info-img" src="@/Assets/Home/info.jpg"/>
-						<div class="info-bot">
+						<div class="info-bottom">
 							<label>	Najbliższy mecz ligowy baseball już pod koniec lipca</label>
 						</div>
 					</div>
@@ -34,28 +34,22 @@
 						</div>
 						<div class="info-item">
 							<img class="other-img" src="@/Assets/Home/info-2.jpg"/>
-							<div class="info-text">
-								Piłka siatkowa
-							</div>
+							<div class="info-text">Piłka siatkowa</div>
 						</div>
 						<div class="info-item">
 							<img class="other-img" src="@/Assets/Home/info-3.jpg"/>
-							<div class="info-text">
-								Kolarstwo
-							</div>
+							<div class="info-text">Kolarstwo</div>
 						</div>
 						<div class="info-item">
 							<img class="other-img" src="@/Assets/Home/info-4.jpg"/>
-							<div class="info-text">
-								Znajdź więcej wydarzeń
-							</div>
+							<div class="info-text">Znajdź więcej wydarzeń</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<aside class="home-players">
 				<div class="players-frame">
-					<div class="players-top">
+					<div class="players-heading">
 						<h5>Top 10 zawodników</h5>
 					</div>
 					<table class="table">
@@ -204,7 +198,9 @@
 		</div>
 		<div class="table-settlements">
 			<div class="table-frame">
-				<div class="table-title"><label>Tabela punktacji Gmin</label></div>
+				<div class="table-heading">
+					<h4>Tabela punktacji Gmin</h4>
+				</div>
 				<table class="table settlements-table">
 					<thead>
 						<tr>
