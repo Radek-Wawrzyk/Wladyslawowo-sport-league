@@ -10,7 +10,20 @@
     </header>
     
     <section class="section">
-      Lista zawodników
+      <table class="table is-bordered is-fullwidth">
+        <thead class="panel-head">
+          <tr>
+            <th>Imię i nazwisko</th>
+            <th>Osiedle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="player in players" :key="player.name">
+            <th>{{player.name}}</th>
+            <th>{{player.settlement}}</th>
+          </tr>
+        </tbody>
+      </table>
     </section>
     <router-view></router-view>
   </div>
@@ -19,8 +32,13 @@
 
 <script>
 
+import { players } from "@/Firebase/index.js"
+
 export default {
-  name: "Players"
+  name: "Players",
+  firebase: {
+    players: players
+  }
 }
 
 </script>

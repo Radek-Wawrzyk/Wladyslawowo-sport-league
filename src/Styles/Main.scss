@@ -10,6 +10,15 @@ html {
 .form {
   width: 100%;
 }
+.table {
+  .panel-head {
+    background: #ff3860;
+    & th {
+      color: white;
+    }
+  }
+}
+
 
 .website-container
 {

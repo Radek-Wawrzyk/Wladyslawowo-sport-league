@@ -70,7 +70,8 @@
 
 <script>
 
-import { settlements, players } from "@/Firebase/index.js"
+import { settlements, players, playerAvatar } from "@/Firebase/index.js"
+import axios from "axios"
 
 export default {
   name: "AddPlayer",
