@@ -10,7 +10,7 @@
     </header>
     
     <section class="section">
-      <table class="table is-bordered is-fullwidth">
+      <table class="table is-bordered is-fullwidth"> <!--
         <thead class="panel-head">
           <tr>
             <th>Imię i nazwisko</th>
@@ -22,7 +22,7 @@
             <th>{{player.name}}</th>
             <th>{{player.settlement}}</th>
           </tr>
-        </tbody>
+        </tbody>-->
       </table>
     </section>
     <router-view></router-view>
@@ -32,13 +32,8 @@
 
 <script>
 
-import { players } from "@/Firebase/index.js"
-
 export default {
-  name: "Players",
-  firebase: {
-    players: players
-  }
+  name: "Players"
 }
 
 </script>
