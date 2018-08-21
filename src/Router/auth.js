@@ -1,7 +1,7 @@
 import store from '@/Store/index.js'
 
 export default  (to, from, next) => {
-  if (store.getters.user) {
+  if (store.state.user) {
     next();
   } else {
     next('/sing-in');

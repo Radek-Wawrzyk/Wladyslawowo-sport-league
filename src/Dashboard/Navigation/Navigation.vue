@@ -33,7 +33,7 @@
           <div class="navigation-dropdown" :class="{'is-active': dropDown}" v-if="dropDown">
             <ul class="navigation-dropdown-content">
               <li>Profil użytkownika</li>
-              <li>Wyloguj</li>
+              <li @click="logout">Wyloguj</li>
             </ul>
           </div>
         </transition>
@@ -59,6 +59,9 @@ export default {
     },
     toggleMenu: function() {
       this.$store.dispatch("toggleMenu");
+    },
+    logout: function() {
+      this.$store.dispatch("logout");
     }
   },
   computed: {

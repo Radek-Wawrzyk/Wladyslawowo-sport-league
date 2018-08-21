@@ -31,6 +31,9 @@ export default new Vuex.Store({
       state.user = user;
       router.push("/panel");
     },
+    logout: state => {
+      state.user = null;
+    },
     toggleMenu: state => {
       state.menuStatus =! state.menuStatus;
     }
@@ -50,9 +53,7 @@ export default new Vuex.Store({
               logo: object[key].logo
             })
           }
-
           commit('settlements', settlements);
-          console.log(settlements);
         })
         .catch(error => {
           console.log(error);
@@ -70,6 +71,18 @@ export default new Vuex.Store({
         .catch(error => {
           console.log(error)
         })
+    },
+    autoSignIn: ({commit}, user) => {
+      const newUser = {
+        id: user.uid,
+        email: user.email
+      };
+      commit('singIn', newUser);
+    },
+    logout: ({commit}) => {
+      firebase.auth().signOut();
+      commit('logout');
+      router.push("sing-in");
     },
     toggleMenu: event => {
       event.commit("toggleMenu");

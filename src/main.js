@@ -1,12 +1,11 @@
 import Vue from 'vue'
 import App from './App.vue'
-import "./Firebase"
-import VueFire from "vuefire"
-import Router from "./Router/index";
-import Store from "./Store/index";
+import * as firebase from 'firebase'
+import './Firebase'
+import Router from './Router/index'
+import Store from './Store/index'
 import Vuelidate from 'vuelidate'
 
-Vue.use(VueFire);
 Vue.use(Vuelidate)
 
 Vue.config.productionTip = false
@@ -16,6 +15,11 @@ new Vue({
   store: Store,
   render: h => h(App),
   created () {
-    this.$store.dispatch('settlements')
+    this.$store.dispatch('settlements');
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch("autoSignIn", user);
+      }
+    })
   }
 }).$mount('#app')
