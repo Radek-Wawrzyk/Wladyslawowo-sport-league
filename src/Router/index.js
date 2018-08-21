@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Auth from './auth.js'
 
 Vue.use(Router)
 
@@ -47,6 +48,7 @@ export default new Router({
       path: "/panel/",
       name: "Home",
       component: () => import("@/Dashboard/Dashboard.vue"),
+      beforeEnter: Auth,
       children: [
         {
           path: "",
@@ -72,6 +74,11 @@ export default new Router({
           component: () => import("@/Dashboard/Settlements/Settlements.vue")
         }
       ]
+    },
+    {
+      path: "/sing-in",
+      component: () => import ("@/Dashboard/Sing In/SingIn.vue"),
+      name: "singIn"
     }
   ]
 })

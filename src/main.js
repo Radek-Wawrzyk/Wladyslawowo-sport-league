@@ -4,8 +4,10 @@ import "./Firebase"
 import VueFire from "vuefire"
 import Router from "./Router/index";
 import Store from "./Store/index";
+import Vuelidate from 'vuelidate'
 
 Vue.use(VueFire);
+Vue.use(Vuelidate)
 
 Vue.config.productionTip = false
 
