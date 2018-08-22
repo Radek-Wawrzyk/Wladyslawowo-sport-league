@@ -4,6 +4,6 @@ export default  (to, from, next) => {
   if (store.state.user) {
     next();
   } else {
-    next('/sing-in');
+    next('/sign-in');
   }
 }

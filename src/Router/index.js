@@ -76,9 +76,9 @@ export default new Router({
       ]
     },
     {
-      path: "/sing-in",
-      component: () => import ("@/Dashboard/Sing In/SingIn.vue"),
-      name: "singIn"
+      path: "/sign-in",
+      component: () => import ("@/Dashboard/Sign In/SignIn.vue"),
+      name: "signIn"
     }
   ]
 })
