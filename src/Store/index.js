@@ -82,7 +82,7 @@ export default new Vuex.Store({
     logout: ({commit}) => {
       firebase.auth().signOut();
       commit('logout');
-      router.push("sing-in");
+      router.push("/sign-in");
     },
     toggleMenu: event => {
       event.commit("toggleMenu");

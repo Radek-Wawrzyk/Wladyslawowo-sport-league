@@ -1,32 +1,45 @@
 <template>
-  <main>
+  <main id="sign-in">
+    <header class="sign-in-header has-text-centered">
+      <figure class="sing-in-img">
+        <img src="./logo.jpg" alt="Liga sportowa gminy Władysławowo" />
+      </figure>
+    </header>
     <form class="form" @submit.prevent="submit">
       <div class="field">
         <label class="label" for="email">Email</label>
         <div class="control">
-          <input type="text" v-model="$v.user.email.$model" :class="{'is-danger': $v.user.email.$error }" class="input"  id="email" placeholder="Login" >
+          <input type="text" v-model="$v.user.email.$model" :class="{'is-danger': $v.user.email.$error }" class="input"  id="email" placeholder="example@example.pl" >
         </div>
-        <p class="help is-danger" v-if="!$v.user.email.email">Błędy adres email.</p>
+        <transition name="fade-left">
+          <p class="help is-danger" v-if="!$v.user.email.email">Błędny adres email.</p>
+        </transition>
       </div>
       <div class="field">
-        <label class="label" for="password">Password</label>
+        <label class="label" for="password">Hasło</label>
         <div class="control">
-          <input type="password" v-model="$v.user.password.$model" class="input" :class="{'is-danger': $v.user.password.$error}" id="password" placeholder="Password">
+          <input type="password" v-model="$v.user.password.$model" class="input" :class="{'is-danger': $v.user.password.$error}" id="password" placeholder="Silne hasło">
         </div>
-        <p class="help is-danger" v-if="!$v.user.password.minLength">Hasło powinno mieć min 8 znaków.</p>
+        <transition name="fade-left">
+          <p class="help is-danger" v-if="!$v.user.password.minLength">Hasło powinno mieć min 8 znaków.</p>
+        </transition>
       </div>
       <div class="field">
         <div class="control">
-          <button class="button" type="submit">Login</button>
+          <button class="button is-danger sign-in-button"" type="submit">Zaloguj się</button>
         </div>
       </div>
     </form>
+    <footer class="sign-in-footer">
+      Copyright Gmina Władysławowo 2018 <br/>
+      Wykonanie Radek
+    </footer>
   </main>
 </template>
 
 <script>
 
-import { required, email, minLength } from 'vuelidate/lib/validators'
+import { email, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: "singUp",
@@ -45,20 +58,21 @@ export default {
       },
       password: {
         minLength: minLength(8),
-        required
       }
     }
   },
   methods: {
     submit() {
-      console.log(`Login is: ${this.email}, password is: ${this.password}`);
-      this.$store.dispatch("signIn", this.user);
-
+      if (!this.$v.$invalid) {
+        this.$store.dispatch("signIn", this.user);
+      }
     }
   }
 }
 
 </script>
+
+<style lang="scss" src="./SingIn.scss" scoped />
 
 
 
