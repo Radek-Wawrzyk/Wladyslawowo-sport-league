@@ -41,6 +41,9 @@ export default new Vuex.Store({
     signInError: (state, error) => {
       state.signInError = error;
     },
+    clearErrors: state => {
+      state.signInError = null;
+    },
     toggleMenu: state => {
       state.menuStatus =! state.menuStatus;
     }
@@ -74,6 +77,7 @@ export default new Vuex.Store({
             email: user.user.email
           };
           commit("singIn", newUser);
+          commit("clearErrors");
         })
         .catch(error => {
           console.log(error);
@@ -86,6 +90,7 @@ export default new Vuex.Store({
         email: user.email
       };
       commit('singIn', newUser);
+      commit("clearErrors");
     },
     logout: ({commit}) => {
       firebase.auth().signOut();
