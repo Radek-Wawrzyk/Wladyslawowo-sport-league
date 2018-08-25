@@ -17,6 +17,9 @@
   &:not(:last-child) {
     margin-bottom: 25px;
   }
+  &-error .help {
+    position: relative;
+  }
 }
 .help {
   position: absolute;

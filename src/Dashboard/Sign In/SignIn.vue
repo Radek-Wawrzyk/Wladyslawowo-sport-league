@@ -26,8 +26,11 @@
       </div>
       <div class="field">
         <div class="control">
-          <button class="button is-danger sign-in-button"" type="submit">Zaloguj się</button>
+          <button class="button is-danger sign-in-button" type="submit">Zaloguj się</button>
         </div>
+      </div>
+      <div class="field field-error" v-if="error">
+        <p class="help is-danger">{{error.message}}</p>
       </div>
     </form>
     <footer class="sign-in-footer">
@@ -49,6 +52,11 @@ export default {
         email: "",
         password: ""
       }
+    }
+  },
+  computed: {
+    error() {
+      return this.$store.getters.signInError;
     }
   },
   validations: {
