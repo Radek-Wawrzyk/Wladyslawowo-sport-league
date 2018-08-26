@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     settlements: [],
     menuStatus: false,
-    user: null
+    user: null,
+    signInError: null
   },
   getters: {
     menu: state => {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     user: state => {
       return state.user;
+    },
+    signInError: state => {
+      return state.signInError;
     }
   },
   mutations: {
@@ -33,6 +37,12 @@ export default new Vuex.Store({
     },
     logout: state => {
       state.user = null;
+    },
+    signInError: (state, error) => {
+      state.signInError = error;
+    },
+    clearErrors: state => {
+      state.signInError = null;
     },
     toggleMenu: state => {
       state.menuStatus =! state.menuStatus;
@@ -67,9 +77,11 @@ export default new Vuex.Store({
             email: user.user.email
           };
           commit("singIn", newUser);
+          commit("clearErrors");
         })
         .catch(error => {
-          console.log(error)
+          console.log(error);
+          commit("signInError", error);
         })
     },
     autoSignIn: ({commit}, user) => {
@@ -78,6 +90,7 @@ export default new Vuex.Store({
         email: user.email
       };
       commit('singIn', newUser);
+      commit("clearErrors");
     },
     logout: ({commit}) => {
       firebase.auth().signOut();
