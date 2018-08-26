@@ -1,6 +1,8 @@
 <template>
   <div class="footer-container">
-      <img class="footer-logo" src="@/Assets/logo.jpg"/>
+    	<router-link to="/">
+        <img class="footer-logo" src="@/Assets/logo.jpg"/>
+    	</router-link>
       <div class="footer-facebook">
         <label class="facebook-text">Znajdź nas na </label>
         <div class="logo-frame">
