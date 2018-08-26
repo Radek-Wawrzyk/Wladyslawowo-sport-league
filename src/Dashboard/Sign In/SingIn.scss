@@ -19,6 +19,8 @@
   }
   &-error .help {
     position: relative;
+    left: inherit;
+    bottom: inherit;
   }
 }
 .help {

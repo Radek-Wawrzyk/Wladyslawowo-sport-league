@@ -29,7 +29,7 @@
           <button class="button is-danger sign-in-button" type="submit">Zaloguj się</button>
         </div>
       </div>
-      <div class="field field-error" v-if="error">
+      <div class="field field-error has-text-centered" v-if="error">
         <p class="help is-danger">{{error.message}}</p>
       </div>
     </form>
