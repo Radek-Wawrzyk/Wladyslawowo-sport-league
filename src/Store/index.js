@@ -47,6 +47,9 @@ export default new Vuex.Store({
     clearErrors: state => {
       state.signInError = null;
     },
+    closeModal: () => {
+      router.push("/panel/settlements");
+    },
     toggleMenu: state => {
       state.menuStatus =! state.menuStatus;
     }
@@ -140,6 +143,9 @@ export default new Vuex.Store({
       firebase.auth().signOut();
       commit('logout');
       router.push("/sign-in");
+    },
+    closeModal: ({commit}) => {
+      commit('closeModal');
     },
     toggleMenu: event => {
       event.commit("toggleMenu");

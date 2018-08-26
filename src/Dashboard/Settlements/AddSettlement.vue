@@ -5,7 +5,7 @@
       <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">Dodaj osiedle</p>
-          <button class="delete" aria-label="close"></button>
+          <button class="delete" aria-label="close" @click="closeModal"></button>
         </header>
         <section class="modal-card-body">
           <form class="form">
@@ -45,7 +45,7 @@
         </section>
         <footer class="modal-card-foot">
           <button class="button is-danger" @click="addSettlement">Zapisz</button>
-          <button class="button">Cancel</button>
+          <button class="button" @click="closeModal">Cancel</button>
         </footer>
       </div>
     </div>
@@ -84,6 +84,9 @@ export default {
     addSettlement() {
       if (!this.$v.$invalid) {
         this.$store.dispatch('addSettlement', this.settlement);
+        for (let key in this.settlement) {
+          this.settlement[key] = '';
+        }
       } else {
         console.log("Wypełnij pola!");
       }
@@ -91,6 +94,9 @@ export default {
     onFileSelected(event) {
       this.imgName = event.target.files[0].name;
       this.settlement.img = event.target.files[0];
+    },
+    closeModal() {
+      this.$store.dispatch('closeModal');
     }
   }
 }
