@@ -2,7 +2,9 @@
   <nav class="navigation-bar">
     <div class="navigation-actions">
       <figure class="navigation-logo">
-				<img class="navigation-logo" src="@/Assets/logo.jpg" alt="Liga sportowa gminy Władysławowo"/>
+				<router-link to="/">
+					<img class="navigation-logo" src="@/Assets/logo.jpg" alt="Liga sportowa gminy Władysławowo"/>
+				</router-link>
 			</figure>
 			<ul :class="{ active : burgerToggled}" class="navigation-links">
 				<li :class="{ active : activeElement == 0 }" class="navigation-link"><router-link @click.native="toggleActiveElement(0)" to="/">Główna</router-link></li>
