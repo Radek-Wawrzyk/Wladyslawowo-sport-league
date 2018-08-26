@@ -46,25 +46,35 @@ $navigationHeight: 60px;
     {
         display: block;
         color: black;
-    }
-    padding: 0 15px;
-    position: relative;
-    &:hover, &.active
-    {
-        cursor: pointer;
+
         &::after
         {
             position: absolute;
             display: block;
             content: '';
-
-            width: 100%;
+    
+            width: 0;
             height: 3px;
             bottom: 0;
             left: 0;
             background: red;
+    
+            transition: width 0.5s;
+        }
+
+        &:hover, &.router-link-exact-active
+        {
+            cursor: pointer;
+            &::after
+            {
+                width: 100%;
+    
+            }
         }
     }
+    padding: 0 15px;
+    position: relative;
+
     line-height: $navigationHeight;    
 }
 
@@ -101,7 +111,7 @@ $navigationHeight: 60px;
     }
 }
 
-@media screen and(max-width: 768px)
+@media screen and(max-width: 1024px)
 {
     .navigation-burger
     {
@@ -124,6 +134,7 @@ $navigationHeight: 60px;
     .navigation-links
     {
         display: none;
+        height: 0;
         &.active
         {
             width: 100%;
@@ -132,8 +143,9 @@ $navigationHeight: 60px;
             align-items: center;
             justify-content: center;
 
-            position: absolute;
+            position: fixed;
             top: $navigationHeight;
+            height: 100%;
         }
     }
 }
