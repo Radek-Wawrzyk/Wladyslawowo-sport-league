@@ -71,7 +71,14 @@ export default new Router({
         },
         {
           path: "settlements",
-          component: () => import("@/Dashboard/Settlements/Settlements.vue")
+          component: () => import("@/Dashboard/Settlements/Settlements.vue"),
+          children: [
+            {
+              path: "add-settlement",
+              name: "AddSettlement",
+              component: () => import("@/Dashboard/Settlements/AddSettlement.vue"),
+            }
+          ]
         }
       ]
     },

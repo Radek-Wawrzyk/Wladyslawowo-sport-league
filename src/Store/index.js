@@ -31,6 +31,9 @@ export default new Vuex.Store({
     settlements: (state, settlements) => {
       state.settlements = settlements;
     },
+    addSettlement: (state, newSettlement) => {
+      state.settlements.push(newSettlement);
+    },
     singIn: (state, user) => {
       state.user = user;
       router.push("/panel");
@@ -43,6 +46,9 @@ export default new Vuex.Store({
     },
     clearErrors: state => {
       state.signInError = null;
+    },
+    closeModal: () => {
+      router.push("/panel/settlements");
     },
     toggleMenu: state => {
       state.menuStatus =! state.menuStatus;
@@ -60,7 +66,7 @@ export default new Vuex.Store({
               id: key,
               name: object[key].name,
               description: object[key].description,
-              logo: object[key].logo
+              imageUrl: object[key].imageUrl
             })
           }
           commit('settlements', settlements);
@@ -68,6 +74,47 @@ export default new Vuex.Store({
         .catch(error => {
           console.log(error);
         });
+    },
+    addSettlement: ({commit}, settlement) => {
+      const newSettlement = {
+        name: settlement.name,
+        description: settlement.description,
+      };
+
+      let imageUrl;
+      let key;
+      let uploadImg;
+
+      firebase.database().ref("settlements").push(newSettlement)
+        .then(data => {
+          key = data.key;
+          return key;
+        })
+        .then(key => {
+          const file = settlement.img.name;
+          const extension = file.slice(file.lastIndexOf('.'));
+          const storageRef = firebase.storage().ref();
+          uploadImg = storageRef.child(`settlements/${key}.${extension}`).put(settlement.img);
+        })
+        .then(() => {
+          uploadImg.on('state_changed', snapshot => {
+          }, error => {
+            console.log(error)
+          }, () => {
+            uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+              imageUrl = downloadURL;
+              firebase.database().ref('settlements').child(key).update({imageUrl: imageUrl});
+              commit('addSettlement', {
+                ...newSettlement,
+                imageUrl: imageUrl,
+                id: key
+              });
+            })
+          })
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     signIn: ({commit}, user) => {
       firebase.auth().signInWithEmailAndPassword(user.email, user.password)
@@ -96,6 +143,9 @@ export default new Vuex.Store({
       firebase.auth().signOut();
       commit('logout');
       router.push("/sign-in");
+    },
+    closeModal: ({commit}) => {
+      commit('closeModal');
     },
     toggleMenu: event => {
       event.commit("toggleMenu");
