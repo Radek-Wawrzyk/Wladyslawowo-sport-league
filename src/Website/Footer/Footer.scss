@@ -43,4 +43,12 @@
 .facebook-logo
 {
   height: 40px;
+  &:hover
+  {
+    path
+    {
+      fill: #3F51B5;
+      cursor: pointer;
+    }
+  }
 }
