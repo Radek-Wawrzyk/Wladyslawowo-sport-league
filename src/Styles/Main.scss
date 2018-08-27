@@ -31,3 +31,9 @@ select:-webkit-autofill  {
 {
   margin-top: 60px;
 }
+
+tbody tr:hover
+{
+  background: red;
+  cursor: pointer;
+}
