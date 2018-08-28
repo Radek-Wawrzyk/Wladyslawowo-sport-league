@@ -23,6 +23,10 @@ export default new Router({
         component: () => import("@/Website/Players/Players.vue")
       },
       {
+        path: "/players/:id",
+        component: () => import("@/Website/Players/PlayerDetails.vue")
+      },
+      {
         path: "/settlements",
         component: () => import("@/Website/Settlements/Settlements.vue")
       },
