@@ -147,6 +147,15 @@
   background: none;
   border: none;
   outline: none;
+
+  &:hover
+  {
+    cursor: pointer;
+    path
+    {
+      fill: gray;
+    }
+  }
 }
 
 .players-table
@@ -252,6 +261,9 @@
   width: 100%;
   height: 100%;
   position: absolute;
+
+  left: 0;
+  transition: left 0.5s;
 }
 
 .list-item
