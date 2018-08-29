@@ -1,15 +1,48 @@
 <template>
 	<main class="website-container home-container">
 		<header class="home-baner">
-			<div class="baner-frame">
-				<img class="baner-image" src="@/Assets/Home/baner.jpg"/>
+			<div class="carousel-nav">
+				<span @click="switchBaner(0)" class="carousel-btn"/>
+				<span @click="switchBaner(1)" class="carousel-btn"/>
+				<span @click="switchBaner(2)" class="carousel-btn"/>
 			</div>
-			<div class="baner-content">
-				<div class="content-frame">
-					<h1 class="content-header">Piraci Władysławowo znów na prowadzeniu!</h1>
-					<p class="content-text">Piraci Władysławowo wyprzedzili dotychczasowych 
-							mistrzów aż o 20 punktów w klasyfikacji generalnej
-					</p>
+			<div v-if="activeBaner == 0" class="baner-item">
+				<div class="baner-frame">
+					<img class="baner-image" src="@/Assets/Home/baner.jpg"/>
+				</div>
+				<div class="baner-content">
+					<div class="content-frame">
+						<h1 class="content-header">Piraci Władysławowo znów na prowadzeniu!</h1>
+						<p class="content-text">Piraci Władysławowo wyprzedzili dotychczasowych 
+								mistrzów aż o 20 punktów w klasyfikacji generalnej
+						</p>
+					</div>
+				</div>
+			</div>
+			<div v-if="activeBaner == 1" class="baner-item">
+				<div class="baner-frame">
+					<img class="baner-image" src="@/Assets/Home/baner.jpg"/>
+				</div>
+				<div class="baner-content">
+					<div class="content-frame">
+						<h1 class="content-header">Piraci Władysławowo znów na prowadzeniu!</h1>
+						<p class="content-text">Piraci Władysławowo wyprzedzili dotychczasowych 
+								mistrzów aż o 20 punktów w klasyfikacji generalnej
+						</p>
+					</div>
+				</div>
+			</div>
+			<div v-if="activeBaner == 2" class="baner-item">
+				<div class="baner-frame">
+					<img class="baner-image" src="@/Assets/Home/baner.jpg"/>
+				</div>
+				<div class="baner-content">
+					<div class="content-frame">
+						<h1 class="content-header">Piraci Władysławowo znów na prowadzeniu!</h1>
+						<p class="content-text">Piraci Władysławowo wyprzedzili dotychczasowych 
+								mistrzów aż o 20 punktów w klasyfikacji generalnej
+						</p>
+					</div>
 				</div>
 			</div>
 		</header>
@@ -299,6 +332,18 @@
 <style lang="scss" src="./Home.scss" scoped></style>
 <script>
 export default {
-  name: "Home"
+	name: "Home",
+	data: function()
+	{
+		return{
+			activeBaner: 0
+		}
+	}, methods:
+	{
+		switchBaner: function(id)
+		{
+			this.activeBaner = id;
+		}
+	}
 };
 </script>
