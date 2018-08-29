@@ -31,6 +31,10 @@ export default new Router({
         component: () => import("@/Website/Settlements/Settlements.vue")
       },
       {
+        path: "settlements/:id",
+        component: () => import("@/Website/Settlements/SettlementDetails.vue")
+      },
+      {
         path: "/events",
         component: () => import("@/Website/Events/Events.vue")
       },

@@ -144,4 +144,4 @@
 		</div>
   </main>
 </template>
-<style lang="scss" src="./PlayerDetails.scss"></style>
+<style lang="scss" src="./PlayerDetails.scss" scoped></style>
