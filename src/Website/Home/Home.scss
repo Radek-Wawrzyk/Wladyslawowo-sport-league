@@ -130,12 +130,19 @@ table
   flex-direction: column;
   justify-content: center;
   background: transparent;
+  margin-left: 10px;
 }
 
 .info-item
 {
   position: relative;
   height: 100%;
+
+  margin-top: 5px;
+  &:first-of-type
+  {
+    margin-top: 0;
+  }
 
   &:hover
   {
@@ -309,6 +316,12 @@ table
   {
     flex-direction: row;
     padding: 10px;
+    margin-left: 0;
+  }
+
+  .info-item
+  {
+    margin-top: 0;
   }
 
   .info-text
