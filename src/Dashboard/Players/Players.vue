@@ -10,19 +10,21 @@
     </header>
     
     <section class="section">
-      <table class="table is-bordered is-fullwidth"> <!--
+      <table class="table is-bordered is-fullwidth">
         <thead class="panel-head">
           <tr>
+            <th>Zdjęcie</th>
             <th>Imię i nazwisko</th>
             <th>Osiedle</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="player in players" :key="player.name">
+            <th>{{player.photo}}</th>
             <th>{{player.name}}</th>
             <th>{{player.settlement}}</th>
           </tr>
-        </tbody>-->
+        </tbody>
       </table>
     </section>
     <router-view></router-view>
@@ -33,7 +35,13 @@
 <script>
 
 export default {
-  name: "Players"
+  name: "Players",
+  data()
+  {
+    return{
+      players: this.$store.getters.players
+    };
+  }
 }
 
 </script>

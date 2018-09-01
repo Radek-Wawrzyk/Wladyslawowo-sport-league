@@ -9,6 +9,7 @@ Vue.use(firebase);
 export default new Vuex.Store({
   state: {
     settlements: [],
+    players: [],
     menuStatus: false,
     user: null,
     signInError: null
@@ -16,6 +17,10 @@ export default new Vuex.Store({
   getters: {
     menu: state => {
       return state.menuStatus;
+    },
+    players: state => 
+    {
+      return state.players;
     },
     settlements: state => {
       return state.settlements;
@@ -33,6 +38,10 @@ export default new Vuex.Store({
     },
     addSettlement: (state, newSettlement) => {
       state.settlements.push(newSettlement);
+    },
+    addPlayer: (state, newPlayer) =>
+    {
+      state.players.push(newPlayer);
     },
     singIn: (state, user) => {
       state.user = user;
@@ -115,6 +124,10 @@ export default new Vuex.Store({
         .catch(error => {
           console.log(error)
         })
+    },
+    addPlayer: ({comit}, player) =>
+    {
+      
     },
     signIn: ({commit}, user) => {
       firebase.auth().signInWithEmailAndPassword(user.email, user.password)
