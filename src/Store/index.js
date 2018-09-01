@@ -83,7 +83,7 @@ export default new Vuex.Store({
 
       let imageUrl;
       let key;
-      let uploadImg;
+      let uploadImg = settlement.img;
 
       firebase.database().ref("settlements").push(newSettlement)
         .then(data => {
@@ -91,10 +91,10 @@ export default new Vuex.Store({
           return key;
         })
         .then(key => {
-          const file = settlement.img.name;
+          const file = uploadImg.name;
           const extension = file.slice(file.lastIndexOf('.'));
           const storageRef = firebase.storage().ref();
-          uploadImg = storageRef.child(`settlements/${key}.${extension}`).put(settlement.img);
+          uploadImg = storageRef.child(`settlements/${key}.${extension}`).put(uploadImg);
         })
         .then(() => {
           uploadImg.on('state_changed', snapshot => {
