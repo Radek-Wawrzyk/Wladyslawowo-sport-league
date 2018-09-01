@@ -19,8 +19,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="player in players" :key="player.name">
-            <th>{{player.photo}}</th>
+          <tr v-for="player in players" :key="player.id">
+            <th><img :src="player.imageUrl" :alt="player.name" style="max-width: 100px;height: auto" /></th>
             <th>{{player.name}}</th>
             <th>{{player.settlement}}</th>
           </tr>
@@ -36,11 +36,10 @@
 
 export default {
   name: "Players",
-  data()
-  {
-    return{
-      players: this.$store.getters.players
-    };
+  computed: {
+    players() {
+      return this.$store.getters.players;
+    }
   }
 }
 

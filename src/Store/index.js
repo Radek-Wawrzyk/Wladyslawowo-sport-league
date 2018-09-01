@@ -36,6 +36,10 @@ export default new Vuex.Store({
     settlements: (state, settlements) => {
       state.settlements = settlements;
     },
+    players: (state, players) =>
+    {
+      state.players = players;
+    },
     addSettlement: (state, newSettlement) => {
       state.settlements.push(newSettlement);
     },
@@ -84,6 +88,27 @@ export default new Vuex.Store({
           console.log(error);
         });
     },
+    players: ({commit}) => 
+    {
+      firebase.database().ref('players').once('value')
+        .then(data => {
+          let players = [];
+          const object = data.val();
+
+          for (let key in object) {
+            players.push({
+              id: key,
+              name: object[key].name,
+              settlement: object[key].settlement,
+              imageUrl: object[key].imageUrl
+            })
+          }
+          commit('players', players);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     addSettlement: ({commit}, settlement) => {
       const newSettlement = {
         name: settlement.name,
@@ -125,9 +150,47 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-    addPlayer: ({comit}, player) =>
+    addPlayer: ({commit}, player) =>
     {
-      
+      const newPlayer = {
+        name: player.name,
+        settlement: player.settlement,
+      };
+
+      let imageUrl;
+      let key;
+      let uploadImg = player.img;
+
+      firebase.database().ref("players").push(newPlayer)
+        .then(data => {
+          key = data.key;
+          return key;
+        })
+        .then(key => {
+          const file = uploadImg.name;
+          const extension = file.slice(file.lastIndexOf('.'));
+          const storageRef = firebase.storage().ref();
+          uploadImg = storageRef.child(`players/${key}.${extension}`).put(uploadImg);
+        })
+        .then(() => {
+          uploadImg.on('state_changed', snapshot => {
+          }, error => {
+            console.log(error)
+          }, () => {
+            uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+              imageUrl = downloadURL;
+              firebase.database().ref('players').child(key).update({imageUrl: imageUrl});
+              commit('addSettlement', {
+                ...newPlayer,
+                imageUrl: imageUrl,
+                id: key
+              });
+            })
+          })
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     signIn: ({commit}, user) => {
       firebase.auth().signInWithEmailAndPassword(user.email, user.password)

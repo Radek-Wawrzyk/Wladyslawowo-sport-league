@@ -16,6 +16,7 @@ new Vue({
   render: h => h(App),
   created () {
     this.$store.dispatch('settlements');
+    this.$store.dispatch('players');
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.$store.dispatch("autoSignIn", user);
