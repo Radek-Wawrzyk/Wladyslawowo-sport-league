@@ -48,7 +48,7 @@ export default new Vuex.Store({
       state.signInError = null;
     },
     closeModal: () => {
-      router.push("/panel/settlements");
+      router.go(-1);
     },
     toggleMenu: state => {
       state.menuStatus =! state.menuStatus;
