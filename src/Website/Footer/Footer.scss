@@ -1,11 +1,12 @@
-.footer-container
-{
-  height: 120px;
+@import "@/Styles/Colors.scss";
+
+.footer-container {
+  padding: 25px 15px;
+  background: #ebebeb;
   width: 100%;
   position: relative;
-
-  &::before
-  {
+  text-align: center;
+  &::before {
     content: '';
     display: block;
     height: 2px;
@@ -13,42 +14,40 @@
     position: absolute;
     top: 0;
     left: 0;
-
-    background: red;
+    background: rgba(0,0,0,0.1);
   }
-
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
 }
 
-.footer-logo
-{
-  height: 100px;
+//Footer logo
+
+.footer-logo {
+  height: 80px;
 }
 
-.footer-facebook
-{
-  display: flex;
-  align-items: center;
+//Footer Copyright
+
+.footer-copyright {
+  color: #858585;
+  font-size: 14px;
+  a {
+    color: #ce1d13;
+  }
 }
 
-.logo-frame
-{
-  margin-left: 15px;
-}
+//Social link
 
-.facebook-logo
-{
-  height: 40px;
-  &:hover
-  {
-    path
-    {
-      fill: #3F51B5;
-      cursor: pointer;
+.logo-frame {
+  color: #3273dc;
+  &:hover, &:focus {
+    svg {
+      path {
+        fill: #3F51B5;
+      }
     }
+  }
+  .facebook-logo {
+    height: 30px;
+    margin: 5px 0;
+    fill: #3F51B5;
   }
 }

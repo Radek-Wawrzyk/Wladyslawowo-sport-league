@@ -12,10 +12,7 @@ $navigationHeight: 60px;
 {
     height: $navigationHeight;
     background-color: white;
-    -webkit-box-shadow: 0px 3px 16px -1px rgba(94,84,94,0.62);
-    -moz-box-shadow: 0px 3px 16px -1px rgba(94,84,94,0.62);
-    box-shadow: 0px 3px 16px -1px rgba(94,84,94,0.62);
-
+    box-shadow: 0 4px 6px -6px rgba(34,34,34,.6);
     position: fixed;
     top: 0;
     width: 100%;

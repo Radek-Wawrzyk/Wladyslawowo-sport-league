@@ -3,9 +3,7 @@
         <Navigation/>
         <router-view>
         </router-view>
-        <footer>
-            <Footer/>
-        </footer>
+        <Footer/>
     </div>
 </template>
 
