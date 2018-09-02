@@ -7,8 +7,7 @@
       <div class="column has-text-right">
         <router-link class="button is-medium is-danger" to="/panel/players/add-player">Dodaj zawodnika</router-link>
       </div>
-    </header>
-    
+    </header>   
     <section class="section">
       <table class="table is-bordered is-fullwidth">
         <thead class="panel-head">

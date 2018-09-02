@@ -9,6 +9,7 @@ Vue.use(firebase);
 export default new Vuex.Store({
   state: {
     settlements: [],
+    events: [],
     players: [],
     menuStatus: false,
     user: null,
@@ -25,6 +26,9 @@ export default new Vuex.Store({
     settlements: state => {
       return state.settlements;
     },
+    events: state => {
+      return state.events;
+    },
     user: state => {
       return state.user;
     },
@@ -40,12 +44,20 @@ export default new Vuex.Store({
     {
       state.players = players;
     },
+    events: (state,events) =>
+    {
+      state.events = events;
+    },
     addSettlement: (state, newSettlement) => {
       state.settlements.push(newSettlement);
     },
     addPlayer: (state, newPlayer) =>
     {
       state.players.push(newPlayer);
+    },
+    addEvent: (state,newEvent) =>
+    {
+      state.events.push(newEvent);
     },
     singIn: (state, user) => {
       state.user = user;
@@ -104,6 +116,28 @@ export default new Vuex.Store({
             })
           }
           commit('players', players);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    events: ({commit}) =>
+    {
+      firebase.database().ref('events').once('value')
+        .then(data => {
+          let events = [];
+          const object = data.val();
+
+          for (let key in object) {
+            events.push({
+              id: key,
+              name: object[key].name,
+              description: object[key].settlement,
+              imageUrl: object[key].imageUrl,
+              date: object[key].date
+            })
+          }
+          commit('events', events);
         })
         .catch(error => {
           console.log(error);
@@ -180,8 +214,51 @@ export default new Vuex.Store({
             uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
               imageUrl = downloadURL;
               firebase.database().ref('players').child(key).update({imageUrl: imageUrl});
-              commit('addSettlement', {
+              commit('addPlayer', {
                 ...newPlayer,
+                imageUrl: imageUrl,
+                id: key
+              });
+            })
+          })
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    addEvent: ({commit}, event) =>
+    {
+      const newEvent = {
+        name: event.name,
+        description: event.description,
+        date: event.date
+      };
+
+      let imageUrl;
+      let key;
+      let uploadImg = event.img;
+
+      firebase.database().ref("events").push(newEvent)
+        .then(data => {
+          key = data.key;
+          return key;
+        })
+        .then(key => {
+          const file = uploadImg.name;
+          const extension = file.slice(file.lastIndexOf('.'));
+          const storageRef = firebase.storage().ref();
+          uploadImg = storageRef.child(`events/${key}.${extension}`).put(uploadImg);
+        })
+        .then(() => {
+          uploadImg.on('state_changed', snapshot => {
+          }, error => {
+            console.log(error)
+          }, () => {
+            uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+              imageUrl = downloadURL;
+              firebase.database().ref('events').child(key).update({imageUrl: imageUrl});
+              commit('addEvent', {
+                ...newEvent,
                 imageUrl: imageUrl,
                 id: key
               });
