@@ -11,6 +11,7 @@ export default new Vuex.Store({
     settlements: [],
     events: [],
     players: [],
+    news: [],
     menuStatus: false,
     user: null,
     signInError: null
@@ -32,6 +33,10 @@ export default new Vuex.Store({
     user: state => {
       return state.user;
     },
+    news: state =>
+    {
+      return state.news;
+    },
     signInError: state => {
       return state.signInError;
     }
@@ -48,6 +53,10 @@ export default new Vuex.Store({
     {
       state.events = events;
     },
+    news: (state,news) =>
+    {
+      state.news = news
+    },
     addSettlement: (state, newSettlement) => {
       state.settlements.push(newSettlement);
     },
@@ -58,6 +67,10 @@ export default new Vuex.Store({
     addEvent: (state,newEvent) =>
     {
       state.events.push(newEvent);
+    },
+    addNews: (state,newNews) =>
+    {
+      state.news.push(newNews);
     },
     singIn: (state, user) => {
       state.user = user;
@@ -132,8 +145,8 @@ export default new Vuex.Store({
             events.push({
               id: key,
               name: object[key].name,
-              description: object[key].settlement,
-              imageUrl: object[key].imageUrl,
+              description: object[key].description,
+              imageUrls: object[key].imageUrls,
               date: object[key].date
             })
           }
@@ -142,6 +155,28 @@ export default new Vuex.Store({
         .catch(error => {
           console.log(error);
         });
+    },
+    news: ({commit}) =>
+    {
+      firebase.database().ref('news').once('value')
+      .then(data => {
+        let news = [];
+        const object = data.val();
+
+        for (let key in object) {
+          news.push({
+            id: key,
+            name: object[key].name,
+            description: object[key].description,
+            imageUrl: object[key].imageUrl,
+            date: object[key].date
+          })
+        }
+        commit('news', news);
+      })
+      .catch(error => {
+        console.log(error);
+      });
     },
     addSettlement: ({commit}, settlement) => {
       const newSettlement = {
@@ -237,7 +272,7 @@ export default new Vuex.Store({
       let imageUrl;
       let key;
       let uploadImg = event.img;
-
+      
       firebase.database().ref("events").push(newEvent)
         .then(data => {
           key = data.key;
@@ -259,6 +294,49 @@ export default new Vuex.Store({
               firebase.database().ref('events').child(key).update({imageUrl: imageUrl});
               commit('addEvent', {
                 ...newEvent,
+                imageUrl: imageUrl,
+                id: key
+              });
+            })
+          })
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    addNews: ({commit}, news) =>
+    {
+      const newNews = {
+        name: news.name,
+        description: news.description,
+        date: news.date
+      };
+
+      let imageUrl;
+      let key;
+      let uploadImg = news.img;
+      
+      firebase.database().ref("news").push(newNews)
+        .then(data => {
+          key = data.key;
+          return key;
+        })
+        .then(key => {
+          const file = uploadImg.name;
+          const extension = file.slice(file.lastIndexOf('.'));
+          const storageRef = firebase.storage().ref();
+          uploadImg = storageRef.child(`news/${key}.${extension}`).put(uploadImg);
+        })
+        .then(() => {
+          uploadImg.on('state_changed', snapshot => {
+          }, error => {
+            console.log(error)
+          }, () => {
+            uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+              imageUrl = downloadURL;
+              firebase.database().ref('news').child(key).update({imageUrl: imageUrl});
+              commit('addNews', {
+                ...newNews,
                 imageUrl: imageUrl,
                 id: key
               });

@@ -74,6 +74,17 @@ export default new Router({
           ]
         },
         {
+          path: "news",
+          component: () => import("@/Dashboard/News/News.vue"),
+          children: [
+            {
+              path: "add-news",
+              name: "AddNews",
+              component: () => import("@/Dashboard/News/AddNews.vue")
+            }
+          ]
+        },
+        {
           path: "events",
           component: () => import("@/Dashboard/Events/Events.vue"),
           children: [
