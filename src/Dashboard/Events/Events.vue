@@ -2,10 +2,10 @@
   <div>
     <header class="columns">
       <div class="column">
-        <h1 class="title is-3">Wydarzenia</h1>
+        <h1 class="title is-3">Imprezy</h1>
       </div>
       <div class="column has-text-right">
-        <router-link class="button is-medium is-danger" to="/panel/events/add-event">Dodaj wydarzenie</router-link>
+        <router-link class="button is-medium is-danger" to="/panel/events/add-event">Dodaj imprezę</router-link>
       </div>
     </header>
     <section class="section">
@@ -14,7 +14,7 @@
         <tr>
           <th>Tytuł</th>
           <th>Data</th>
-          <th>Opis wydarzenia</th>
+          <th>Opis imprezy</th>
         </tr>
         </thead>
         <tbody>
@@ -36,7 +36,6 @@ export default {
   name: "Events",
   computed: {
     events() {
-      console.log( this.$store.getters.events);
       return this.$store.getters.events;
     }
   }
