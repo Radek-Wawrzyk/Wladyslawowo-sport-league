@@ -87,13 +87,11 @@ export default new Router({
         {
           path: "events",
           component: () => import("@/Dashboard/Events/Events.vue"),
-          children: [
-            {
-              path: "add-event",
-              name: "AddEvent",
-              component: () => import("@/Dashboard/Events/AddEvent.vue")
-            }
-          ]
+        },
+        {
+          path: "events/add-event",
+          name: "AddEvent",
+          component: () => import("@/Dashboard/Events/AddEvent.vue")
         },
         {
           path: "settlements",

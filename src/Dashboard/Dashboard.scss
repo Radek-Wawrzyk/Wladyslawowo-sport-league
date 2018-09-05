@@ -1,3 +1,5 @@
+@import "@/Styles/Colors.scss";
+
 .panel {
   position: fixed;
   left: 95px;
@@ -14,6 +16,16 @@
     left: 95px;
     width: calc(100% - 95px);
   }
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 50px 0;
+    h1 {
+      margin: 0 !important;
+    }
+  }
 }
 
 //Media
@@ -26,8 +38,16 @@
 
 @media screen and (max-width: 768px) {
   .panel {
-    padding: 25px;
+    padding: 15px;
     left: 0;
     width: 100%;
+    &-header {
+      justify-content: center;
+      text-align: center;
+      h1 {
+        width: 100%;
+        margin: 0 0 25px 0 !important;
+      }
+    }
   }
 }

@@ -1,14 +1,10 @@
 <template>
-  <div>
-    <header class="columns">
-      <div class="column">
-        <h1 class="title is-3">Imprezy</h1>
-      </div>
-      <div class="column has-text-right">
-        <router-link class="button is-medium is-danger" to="/panel/events/add-event">Dodaj imprezę</router-link>
-      </div>
+  <section>
+    <header class="panel-header">
+      <h1 class="title is-3">Imprezy</h1>
+      <router-link class="button is-medium is-danger" to="/panel/events/add-event">Dodaj imprezę</router-link>
     </header>
-    <section class="section">
+    <div class="table-responsive">
       <table class="table is-bordered is-fullwidth">
         <thead class="panel-head">
         <tr>
@@ -25,9 +21,8 @@
         </tr>
         </tbody>
       </table>
-    </section>
-    <router-view></router-view>
-  </div>
+    </div>
+  </section>
 </template>
 
 <script>
