@@ -8,9 +8,10 @@
       <table class="table is-bordered is-fullwidth">
         <thead class="panel-head">
         <tr>
-          <th>Tytuł</th>
+          <th>Nazwa</th>
           <th>Data</th>
           <th>Opis imprezy</th>
+          <th>Ilość zawodników</th>
         </tr>
         </thead>
         <tbody>
@@ -18,6 +19,7 @@
           <th>{{event.name}}</th>
           <th>{{event.date}}</th>
           <th>{{event.description}}</th>
+          <th>{{event.players.length}}</th>
         </tr>
         </tbody>
       </table>

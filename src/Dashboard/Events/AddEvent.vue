@@ -1,5 +1,85 @@
 <template>
-  <h1>Imprezki!</h1>
+  <section id="add-event">
+    <div class="event-container">
+      <div class="event-column">
+        <h2 class="title is-5">Dane imprezy</h2>
+        <div class="field">
+          <label class="label">Nazwa imprezy</label>
+          <div class="control">
+            <input class="input" type="text" v-model="event.name" placeholder="Nazwa imprezy">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Opis imprezy</label>
+          <div class="control">
+            <textarea class="textarea" v-model="event.description" placeholder="Opis wydarzenia"></textarea>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Data imprezy</label>
+          <div class="control">
+            <input class="input" type="date" v-model="event.date" >
+          </div>
+        </div>
+      </div>
+      <div class="event-column">
+        <h2 class="title is-5">Zawodnicy</h2>
+        <div class="table-responsive">
+          <table class="table is-bordered is-fullwidth">
+            <thead class="panel-head">
+              <tr>
+                <th>LP</th>
+                <th>Zawodnik</th>
+                <th>Punkty</th>
+                <th>Edycja</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>0</th>
+                <th>
+                  <div class="control">
+                    <div class="select">
+                      <select v-model="currentPlayer.name">
+                        <option value="" disabled selected>Wybierz zawodnika</option>
+                        <option v-for="player in players">{{player.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </th>
+                <th>
+                  <div class="control">
+                    <div class="control">
+                      <input class="input" type="number" placeholder="Punkty" v-model="currentPlayer.points">
+                    </div>
+                  </div>
+                </th>
+                <th>
+                  <div class="buttons">
+                    <button class="button is-success is-5" @click="addPlayer">Dodaj</button>
+                  </div>
+                </th>
+              </tr>
+              <tr v-for="(player, index) in event.players">
+                <th>{{index + 1}}</th>
+                <th>{{player.name}}</th>
+                <th>{{player.points}} pkt</th>
+                <th>
+                  <div class="buttons">
+                    <button class="button is-danger is-5" @click="deletePlayer(index)">Usuń</button>
+                  </div>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="buttons event-submit">
+      <button class="button is-danger" @click="addEvent">Dodaj imprezę</button>
+      <button class="button" @click="goBack">Anuluj</button>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -11,27 +91,37 @@ export default {
   data() {
     return {
       event: {
-        name: "",
-        description: "",
-        img: ""
+        name: '',
+        description: '',
+        date: '',
+        players: []
       },
-      imgName: null
+      currentPlayer: {
+        name: '',
+        points: ''
+      }
+    }
+  },
+  computed: {
+    players() {
+      return this.$store.getters.players;
     }
   },
   methods: {
     addEvent() {
-        this.$store.dispatch('addEvent', this.event);
-        for (let key in this.event) {
-          this.event[key] = '';
-        }
+      this.$store.dispatch('addEvent', this.event);
     },
-    onFileSelected(event) {
-      //this.imgNames.push(event.target.files[0].name);
-      //this.event.imgs.push(event.target.files[0]);
-      this.imgName = event.target.files[0].name;
-      this.event.img = event.target.files[0];
+    addPlayer() {
+      const player = {
+        name: this.currentPlayer.name,
+        points: this.currentPlayer.points
+      };
+      this.event.players.push(player);
     },
-    closeModal() {
+    deletePlayer(index) {
+      this.event.players.splice(index, 1);
+    },
+    goBack() {
       this.$store.dispatch('closeModal');
     }
   }
@@ -39,6 +129,4 @@ export default {
 
 </script>
 
-<style scoped>
-
-</style>
+<style src="./AddEvent.scss" scoped />

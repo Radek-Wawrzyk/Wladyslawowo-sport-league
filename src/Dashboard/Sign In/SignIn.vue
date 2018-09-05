@@ -35,7 +35,7 @@
     </form>
     <footer class="sign-in-footer">
       Copyright Gmina Władysławowo 2018 <br/>
-      Wykonanie Radek
+      Wykonanie Radek & Kuba
     </footer>
   </main>
 </template>

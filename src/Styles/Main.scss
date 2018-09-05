@@ -31,10 +31,9 @@ select:-webkit-autofill  {
   overflow-x: auto;
   overflow-y: none;
 }
-
-tbody tr {
-  transition: background 0.25s;
-  &:hover {
-    background: rgba(131, 0, 11, 0.13);
-  }
+table .buttons {
+  flex-wrap: nowrap;
+  justify-content: center;
+  margin: 0 auto;
 }
+
