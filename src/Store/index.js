@@ -227,7 +227,7 @@ export default new Vuex.Store({
             const file = uploadImg.name;
             const extension = file.slice(file.lastIndexOf('.'));
             const storageRef = firebase.storage().ref();
-            uploadImg = storageRef.child(`players/${key}.${extension}`).put(uploadImg);
+            uploadImg = storageRef.child(`players/${key}${extension}`).put(uploadImg);
           })
           .then(() => {
             uploadImg.on('state_changed', snapshot => {
