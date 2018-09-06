@@ -58,6 +58,10 @@ export default new Vuex.Store({
     addPlayer: (state, newPlayer) => {
       state.players.push(newPlayer);
     },
+    removePlayer: (state, player) => 
+    {
+      state.players.splice(state.players.indexOf(player),1);
+    },
     addEvent: (state, newEvent) => {
       state.events.push(newEvent);
     },
@@ -217,6 +221,7 @@ export default new Vuex.Store({
       let imageUrl;
       let key;
       let uploadImg = player.img;
+      let extension;
 
       firebase.database().ref("players").push(newPlayer)
           .then(data => {
@@ -224,8 +229,8 @@ export default new Vuex.Store({
             return key;
           })
           .then(key => {
-            const file = uploadImg.name;
-            const extension = file.slice(file.lastIndexOf('.'));
+            let file = uploadImg.name;
+            extension = file.slice(file.lastIndexOf('.'));
             const storageRef = firebase.storage().ref();
             uploadImg = storageRef.child(`players/${key}${extension}`).put(uploadImg);
           })
@@ -240,7 +245,8 @@ export default new Vuex.Store({
                 commit('addPlayer', {
                   ...newPlayer,
                   imageUrl: imageUrl,
-                  id: key
+                  id: key,
+                  extension: extension
                 });
               })
             })
@@ -248,6 +254,17 @@ export default new Vuex.Store({
           .catch(error => {
             console.log(error)
           })
+    },
+    removePlayer: ( {commit},player) =>
+    {
+      firebase.database().ref('players').child(player.id).remove().then(key => {
+        const storageRef = firebase.storage().ref();
+        const imageRef = storageRef.child(`players/${player.id}${player.extension}`);
+        imageRef.delete();
+      }).then(() =>
+      {
+        commit('removePlayer',player);
+      })
     },
     addEvent: ({commit}, event) => {
       const newEvent = {
