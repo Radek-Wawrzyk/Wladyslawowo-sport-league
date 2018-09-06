@@ -16,6 +16,7 @@
           <th>Opis</th>
           <th>Data</th>
           <th>Zdjęcie</th>
+          <th>Edycja</th>
         </tr>
         </thead>
         <tbody>
@@ -23,7 +24,12 @@
           <th>{{news.name}}</th>
           <th>{{news.description}}</th>
           <th>{{news.date}}</th>
-            <th><img :src="news.imageUrl" :alt="news.name" style="max-width: 100px;height: auto" /></th>
+          <th><img :src="news.imageUrl" :alt="news.name" style="max-width: 100px;height: auto" /></th>
+          <th>
+            <button class="button" type="button">Edytuj</button>
+            <br/>
+            <button class="button" type="button" @click="removeNews(news)">Usuń</button>
+          </th>
         </tr>
         </tbody>
       </table>
@@ -39,6 +45,12 @@ export default {
   computed: {
     newsList() {
       return this.$store.getters.news;
+    }
+  },
+  methods: {
+    removeNews(news)
+    {
+      this.$store.dispatch('removeNews',news);
     }
   }
 }
