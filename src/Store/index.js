@@ -65,6 +65,9 @@ export default new Vuex.Store({
     addEvent: (state, newEvent) => {
       state.events.push(newEvent);
     },
+    removeEvent: (state, event) =>{
+      state.events.splice(state.events.indexOf(event),1);
+    },
     addNews: (state, newNews) => {
       state.news.push(newNews);
     },
@@ -290,6 +293,12 @@ export default new Vuex.Store({
       .catch(error => {
         console.log(error)
       })
+    },
+    removeEvent: ({commit}, event) =>
+    {
+      firebase.database().ref('events').child(event.id).remove().then(key => {
+        commit('removeEvent',event);
+      });
     },
     addNews: ({commit}, news) => {
       const newNews = {
