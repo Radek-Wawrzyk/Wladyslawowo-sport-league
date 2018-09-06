@@ -15,6 +15,7 @@
           <th>Logo</th>
           <th>Nazwa osiedla</th>
           <th>Opis osiedla</th>
+          <th>Edycja</th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +23,10 @@
           <th><img :src="settlement.imageUrl" :alt="settlement.name" style="max-width: 100px;height: auto" /></th>
           <th>{{settlement.name}}</th>
           <th>{{settlement.description}}</th>
+          <th>
+            <button class="button" type="button">Edytuj</button>
+            <button class="button" type="button" @click="removeSettlement(settlement)">Usuń</button>
+          </th>
         </tr>
         </tbody>
       </table>
@@ -37,6 +42,13 @@ export default {
   computed: {
     settlements() {
       return this.$store.getters.settlements;
+    }
+  },
+  methods:
+  {
+    removeSettlement(settlement)
+    {
+      this.$store.dispatch('removeSettlement',settlement);
     }
   }
 }

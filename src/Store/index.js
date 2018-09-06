@@ -55,6 +55,10 @@ export default new Vuex.Store({
     addSettlement: (state, newSettlement) => {
       state.settlements.push(newSettlement);
     },
+    removeSettlement: (state, settlement) =>
+    {
+      state.settlements.splice(state.settlements.indexOf(settlement),1);
+    },
     addPlayer: (state, newPlayer) => {
       state.players.push(newPlayer);
     },
@@ -183,6 +187,7 @@ export default new Vuex.Store({
       let imageUrl;
       let key;
       let uploadImg = settlement.img;
+      let extension;
 
       firebase.database().ref("settlements").push(newSettlement)
           .then(data => {
@@ -190,10 +195,10 @@ export default new Vuex.Store({
             return key;
           })
           .then(key => {
-            const file = uploadImg.name;
-            const extension = file.slice(file.lastIndexOf('.'));
+            let file = uploadImg.name;
+            extension = file.slice(file.lastIndexOf('.'));
             const storageRef = firebase.storage().ref();
-            uploadImg = storageRef.child(`settlements/${key}.${extension}`).put(uploadImg);
+            uploadImg = storageRef.child(`settlements/${key}${extension}`).put(uploadImg);
           })
           .then(() => {
             uploadImg.on('state_changed', snapshot => {
@@ -206,7 +211,8 @@ export default new Vuex.Store({
                 commit('addSettlement', {
                   ...newSettlement,
                   imageUrl: imageUrl,
-                  id: key
+                  id: key,
+                  extension: extension
                 });
               })
             })
@@ -214,6 +220,42 @@ export default new Vuex.Store({
           .catch(error => {
             console.log(error)
           })
+    },
+    removeSettlement: ({commit}, settlement) =>
+    {
+      firebase.database().ref('settlements').child(settlement.id).remove().then(key => {
+        const storageRef = firebase.storage().ref();
+        const imageRef = storageRef.child(`settlements/${settlement.id}${settlement.extension}`);
+        imageRef.delete();
+      }).then(() =>
+      {
+        commit('removeSettlement',settlement);
+      })
+    },
+    addEvent: ({commit}, event) => {
+      const newEvent = {
+        name: event.name,
+        description: event.description,
+        date: event.date,
+        players: event.players
+      };
+
+      let key;
+
+      firebase.database().ref("events").push(newEvent)
+      .then(data => {
+        key = data.key;
+        return key;
+      })
+      .then(key => {
+        commit('addEvent', {
+          ...newEvent,
+          id: key
+        });
+      })
+      .catch(error => {
+        console.log(error)
+      })
     },
     addPlayer: ({commit}, player) => {
       const newPlayer = {
