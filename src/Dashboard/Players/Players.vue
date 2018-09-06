@@ -15,6 +15,7 @@
             <th>Zdjęcie</th>
             <th>Imię i nazwisko</th>
             <th>Osiedle</th>
+            <th>Edycja</th>
           </tr>
         </thead>
         <tbody>
@@ -22,6 +23,11 @@
             <th><img :src="player.imageUrl" :alt="player.name" style="max-width: 100px;height: auto" /></th>
             <th>{{player.name}}</th>
             <th>{{player.settlement}}</th>
+            <th>
+              <button class="button" type="button">Edytuj</button>
+              <br/>
+              <button class="button" type="button" @click="removePlayer(player)">Usuń</button>
+            </th>
           </tr>
         </tbody>
       </table>
@@ -38,6 +44,12 @@ export default {
   computed: {
     players() {
       return this.$store.getters.players;
+    }
+  }, methods:
+  {
+    removePlayer(player)
+    {
+      this.$store.dispatch('removePlayer',player);
     }
   }
 }
