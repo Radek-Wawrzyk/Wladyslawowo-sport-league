@@ -75,6 +75,10 @@ export default new Vuex.Store({
     addNews: (state, newNews) => {
       state.news.push(newNews);
     },
+    removeNews: (state, news) =>
+    {
+      state.news.splice(state.news.indexOf(news),1);
+    },
     singIn: (state, user) => {
       state.user = user;
       router.push("/panel");
@@ -352,6 +356,7 @@ export default new Vuex.Store({
       let imageUrl;
       let key;
       let uploadImg = news.img;
+      let extension;
 
       firebase.database().ref("news").push(newNews)
           .then(data => {
@@ -359,10 +364,10 @@ export default new Vuex.Store({
             return key;
           })
           .then(key => {
-            const file = uploadImg.name;
-            const extension = file.slice(file.lastIndexOf('.'));
+            let file = uploadImg.name;
+            extension = file.slice(file.lastIndexOf('.'));
             const storageRef = firebase.storage().ref();
-            uploadImg = storageRef.child(`news/${key}.${extension}`).put(uploadImg);
+            uploadImg = storageRef.child(`news/${key}${extension}`).put(uploadImg);
           })
           .then(() => {
             uploadImg.on('state_changed', snapshot => {
@@ -375,7 +380,8 @@ export default new Vuex.Store({
                 commit('addNews', {
                   ...newNews,
                   imageUrl: imageUrl,
-                  id: key
+                  id: key,
+                  extension: extension
                 });
               })
             })
@@ -383,6 +389,17 @@ export default new Vuex.Store({
           .catch(error => {
             console.log(error)
           })
+    },
+    removeNews: ({commit}, news) =>
+    {
+      firebase.database().ref('news').child(news.id).remove().then(key => {
+        const storageRef = firebase.storage().ref();
+        const imageRef = storageRef.child(`news/${news.id}${news.extension}`);
+        imageRef.delete();
+      }).then(() =>
+      {
+        commit('removeNews',news);
+      })
     },
     signIn: ({commit}, user) => {
       firebase.auth().signInWithEmailAndPassword(user.email, user.password)
