@@ -24,7 +24,7 @@
           <th>{{settlement.name}}</th>
           <th>{{settlement.description}}</th>
           <th>
-            <button class="button" type="button">Edytuj</button>
+            <button class="button" type="button" @click="updateSettlement(settlement)">Edytuj</button>
             <button class="button" type="button" @click="removeSettlement(settlement)">Usuń</button>
           </th>
         </tr>
@@ -49,6 +49,10 @@ export default {
     removeSettlement(settlement)
     {
       this.$store.dispatch('removeSettlement',settlement);
+    },
+    updateSettlement(settlement)
+    {
+      this.$router.push({name: "UpdateSettlement", params: {id: settlement.id}});
     }
   }
 }

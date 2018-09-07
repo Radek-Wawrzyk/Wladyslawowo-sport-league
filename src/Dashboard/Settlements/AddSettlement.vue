@@ -4,7 +4,7 @@
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Dodaj osiedle</p>
+          <p class="modal-card-title">{{ modalTitle }}</p>
           <button class="delete" aria-label="close" @click="closeModal"></button>
         </header>
         <section class="modal-card-body">
@@ -44,7 +44,7 @@
           </form>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-danger" @click="addSettlement">Zapisz</button>
+          <button class="button is-danger" @click="handleSubmit">Zapisz</button>
           <button class="button" @click="closeModal">Cancel</button>
         </footer>
       </div>
@@ -58,6 +58,7 @@ import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: "AddSettlement",
+  props: ['update', 'id'],
   data() {
     return {
       settlement: {
@@ -65,7 +66,8 @@ export default {
         description: "",
         img: ""
       },
-      imgName: null
+      imgName: null,
+      modalTitle: null
     }
   },
   validations: {
@@ -82,6 +84,7 @@ export default {
   },
   methods: {
     addSettlement() {
+      console.log('add');
       if (!this.$v.$invalid) {
         this.$store.dispatch('addSettlement', this.settlement);
         for (let key in this.settlement) {
@@ -91,6 +94,19 @@ export default {
         console.log("Wypełnij pola!");
       }
     },
+    updateSettlement()
+    {
+      console.log('update');
+      this.$store.dispatch('updateSettlement',this.settlement);
+      this.closeModal();
+    },
+    handleSubmit()
+    {
+      if(this.update === true)
+        this.updateSettlement();
+      else
+        this.addSettlement();
+    },
     onFileSelected(event) {
       this.imgName = event.target.files[0].name;
       this.settlement.img = event.target.files[0];
@@ -98,7 +114,23 @@ export default {
     closeModal() {
       this.$store.dispatch('closeModal');
     }
+  },
+  mounted()
+  {
+    if(this.update === true)
+    {
+      this.modalTitle = "Edytuj osiedle";
+      var settlement = this.$store.getters.settlement(this.$route.params.id);
+      this.settlement = settlement[0];
+      this.imgName = this.settlement.id;
+    }
+    else
+    {
+      this.modalTitle = "Dodaj osiedle";
+      this.settlement = {};
+    }
   }
+  
 }
 
 </script>

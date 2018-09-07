@@ -93,6 +93,7 @@ export default {
     updatePlayer()
     {
         this.$store.dispatch('updatePlayer',this.player);
+        this.closeModal();
     },
     handleSubmit()
     {

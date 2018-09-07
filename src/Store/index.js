@@ -28,6 +28,11 @@ export default new Vuex.Store({
     players: state => {
       return state.players;
     },
+    settlement(state){
+      return id => state.settlements.filter(s =>{ 
+        return s.id == id
+      });
+    },
     settlements: state => {
       return state.settlements;
     },
@@ -59,6 +64,10 @@ export default new Vuex.Store({
     },
     addSettlement: (state, newSettlement) => {
       state.settlements.push(newSettlement);
+    },
+    updateSettlement: (state, settlement) =>
+    {
+      state.settlements[state.settlements.indexOf(settlement)] = settlement;
     },
     removeSettlement: (state, settlement) =>
     {
@@ -196,12 +205,12 @@ export default new Vuex.Store({
       const newSettlement = {
         name: settlement.name,
         description: settlement.description,
+        extension: settlement.img.name.slice(settlement.img.name.lastIndexOf('.'))
       };
 
       let imageUrl;
       let key;
       let uploadImg = settlement.img;
-      let extension;
 
       firebase.database().ref("settlements").push(newSettlement)
           .then(data => {
@@ -210,9 +219,8 @@ export default new Vuex.Store({
           })
           .then(key => {
             let file = uploadImg.name;
-            extension = file.slice(file.lastIndexOf('.'));
             const storageRef = firebase.storage().ref();
-            uploadImg = storageRef.child(`settlements/${key}${extension}`).put(uploadImg);
+            uploadImg = storageRef.child(`settlements/${key}${newSettlement.extension}`).put(uploadImg);
           })
           .then(() => {
             uploadImg.on('state_changed', snapshot => {
@@ -226,7 +234,6 @@ export default new Vuex.Store({
                   ...newSettlement,
                   imageUrl: imageUrl,
                   id: key,
-                  extension: extension
                 });
               })
             })
@@ -234,6 +241,39 @@ export default new Vuex.Store({
           .catch(error => {
             console.log(error)
           })
+    },
+    updateSettlement: ({commit}, settlement) =>
+    {
+      var editedImage = settlement.img !== undefined;
+      let file,extension,uploadImg,imageRef,imageUrl;
+      let storageRef;
+      if(editedImage)
+      {
+        file = settlement.img.name;
+        extension = file.slice(file.lastIndexOf('.'));
+        uploadImg = settlement.img;
+        storageRef = firebase.storage().ref();
+
+        settlement.extension = extension;
+        console.log('extension changed to ' + extension);
+      }
+
+      firebase.database().ref('settlements').child(settlement.id).update(settlement).then(key => 
+      {
+        if(editedImage)
+          uploadImg = storageRef.child(`settlements/${settlement.id}${settlement.extension}`).put(uploadImg)
+      }).then(() =>
+      {
+        if(editedImage)
+        {
+          uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          imageUrl = downloadURL;
+          firebase.database().ref('settlements').child(settlement.id).update({imageUrl: imageUrl});
+          settlement.imageUrl = imageUrl;
+        })
+        }
+        commit('updateSettlement',settlement);
+      })
     },
     removeSettlement: ({commit}, settlement) =>
     {
@@ -275,7 +315,6 @@ export default new Vuex.Store({
       let imageUrl;
       let key;
       let uploadImg = player.img;
-      let extension;
 
       const newPlayer = {
         name: player.name,
@@ -289,11 +328,8 @@ export default new Vuex.Store({
             return key;
           })
           .then(key => {
-            let file = uploadImg.name;
-            extension = file.slice(file.lastIndexOf('.'));
-
             const storageRef = firebase.storage().ref();
-            uploadImg = storageRef.child(`players/${key}${extension}`).put(uploadImg);
+            uploadImg = storageRef.child(`players/${key}${newPlayer.extension}`).put(uploadImg);
           })
           .then(() => {
             uploadImg.on('state_changed', snapshot => {
@@ -308,7 +344,6 @@ export default new Vuex.Store({
                   imageUrl: imageUrl,
                   id: key,
                 });
-                console.log('created player with extension ' + extension);
               })
             })
           })
@@ -318,25 +353,35 @@ export default new Vuex.Store({
     },
     updatePlayer: ({commit}, player) =>
     {
-      let file = player.img.name;
-      let extension = file.slice(file.lastIndexOf('.'));
-      let uploadImg = player.img;
-      const storageRef = firebase.storage().ref();
-      let imageUrl;
+      var editedImage = player.img !== undefined;
+      let file,extension,uploadImg,imageRef,imageUrl;
+      let storageRef;
+      if(editedImage)
+      {
+        file = player.img.name;
+        extension = file.slice(file.lastIndexOf('.'));
+        uploadImg = player.img;
+        storageRef = firebase.storage().ref();
 
-      player.extension = extension;
+        player.extension = extension;
+      }
 
       firebase.database().ref('players').child(player.id).update(player).then(key => 
       {
-        uploadImg = storageRef.child(`players/${player.id}${player.extension}`).put(uploadImg)
+        if(editedImage)
+        {
+          uploadImg = storageRef.child(`players/${player.id}${player.extension}`).put(uploadImg)
+        }
       }).then(() =>
       {
-          uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-          imageUrl = downloadURL;
-          firebase.database().ref('players').child(player.id).update({imageUrl: imageUrl});
-          player.imageUrl = imageUrl;
-        })
-
+        if(editedImage)
+        {
+            uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+            imageUrl = downloadURL;
+            firebase.database().ref('players').child(player.id).update({imageUrl: imageUrl});
+            player.imageUrl = imageUrl;
+          })
+        }
         commit('updatePlayer',player);
       })
     },
