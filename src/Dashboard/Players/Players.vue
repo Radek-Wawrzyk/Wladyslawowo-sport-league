@@ -24,7 +24,7 @@
             <th>{{player.name}}</th>
             <th>{{player.settlement}}</th>
             <th>
-              <button class="button" type="button">Edytuj</button>
+              <button class="button" type="button" @click="updatePlayer(player)">Edytuj</button>
               <br/>
               <button class="button" type="button" @click="removePlayer(player)">Usuń</button>
             </th>
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import router from "@/Router/index";
 
 export default {
   name: "Players",
@@ -45,11 +46,15 @@ export default {
     players() {
       return this.$store.getters.players;
     }
-  }, methods:
+  },methods:
   {
     removePlayer(player)
     {
       this.$store.dispatch('removePlayer',player);
+    },
+    updatePlayer(player)
+    {
+      router.push({ name: 'UpdatePlayer', params: { id: player.id }})
     }
   }
 }

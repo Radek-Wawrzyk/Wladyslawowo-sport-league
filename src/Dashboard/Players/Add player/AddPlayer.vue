@@ -4,7 +4,7 @@
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Dodaj zawodnika</p>
+          <p class="modal-card-title">{{ modalTitle }}</p>
           <button class="delete" aria-label="close" @click="closeModal"></button>
         </header>
         <section class="modal-card-body">
@@ -44,7 +44,7 @@
           </form>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-danger" @click="addPlayer">Zapisz</button>
+          <button class="button is-danger" @click="handleSubmit">Zapisz</button>
           <button class="button" @click="closeModal">Cancel</button>
         </footer>
       </div>
@@ -58,14 +58,17 @@ import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: "AddPlayer",
+  props: ['update', 'id'],
   data() {
     return {
       player: {
         name: "",
         settlement: "",
-        img: ""
+        img: "",
+        extension: ""
       },
-      imgName: null
+      imgName: null,
+      modalTitle: null
     }
   },
   validations: {
@@ -87,6 +90,17 @@ export default {
           this.player[key] = '';
         }
     },
+    updatePlayer()
+    {
+        this.$store.dispatch('updatePlayer',this.player);
+    },
+    handleSubmit()
+    {
+      if(this.update === true)
+        this.updatePlayer();
+      else
+        this.addPlayer();
+    },
     onFileSelected(event) {
       this.imgName = event.target.files[0].name;
       this.player.img = event.target.files[0];
@@ -98,6 +112,21 @@ export default {
   computed: {
     settlements() {
       return this.$store.getters.settlements;
+    }
+  },
+  mounted()
+  {
+    if(this.update === true)
+    {
+      this.modalTitle = "Edytuj zawodnika";
+      var player = this.$store.getters.player(this.$route.params.id);
+      this.player = player[0];
+      this.imgName = this.player.id;
+    }
+    else
+    {
+      this.modalTitle = "Dodaj zawodnika";
+      this.player = {};
     }
   }
 }

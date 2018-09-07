@@ -20,6 +20,11 @@ export default new Vuex.Store({
     menu: state => {
       return state.menuStatus;
     },
+    player(state) {
+      return id => state.players.filter(p =>{
+        return p.id === id
+      });
+    },
     players: state => {
       return state.players;
     },
@@ -61,6 +66,10 @@ export default new Vuex.Store({
     },
     addPlayer: (state, newPlayer) => {
       state.players.push(newPlayer);
+    },
+    updatePlayer: (state, player) => 
+    {
+      state.players[state.players.indexOf(player)] = player;
     },
     removePlayer: (state, player) => 
     {
@@ -131,6 +140,7 @@ export default new Vuex.Store({
                 id: key,
                 name: object[key].name,
                 settlement: object[key].settlement,
+                extension: object[key].extension,
                 imageUrl: object[key].imageUrl
               })
             }
@@ -261,16 +271,17 @@ export default new Vuex.Store({
         console.log(error)
       })
     },
-    addPlayer: ({commit}, player) => {
-      const newPlayer = {
-        name: player.name,
-        settlement: player.settlement,
-      };
-
+    addPlayer: ({commit}, player) => {      
       let imageUrl;
       let key;
       let uploadImg = player.img;
       let extension;
+
+      const newPlayer = {
+        name: player.name,
+        settlement: player.settlement,
+        extension: player.img.name.slice(player.img.name.lastIndexOf('.'))
+      };
 
       firebase.database().ref("players").push(newPlayer)
           .then(data => {
@@ -280,6 +291,7 @@ export default new Vuex.Store({
           .then(key => {
             let file = uploadImg.name;
             extension = file.slice(file.lastIndexOf('.'));
+
             const storageRef = firebase.storage().ref();
             uploadImg = storageRef.child(`players/${key}${extension}`).put(uploadImg);
           })
@@ -295,14 +307,38 @@ export default new Vuex.Store({
                   ...newPlayer,
                   imageUrl: imageUrl,
                   id: key,
-                  extension: extension
                 });
+                console.log('created player with extension ' + extension);
               })
             })
           })
           .catch(error => {
             console.log(error)
           })
+    },
+    updatePlayer: ({commit}, player) =>
+    {
+      let file = player.img.name;
+      let extension = file.slice(file.lastIndexOf('.'));
+      let uploadImg = player.img;
+      const storageRef = firebase.storage().ref();
+      let imageUrl;
+
+      player.extension = extension;
+
+      firebase.database().ref('players').child(player.id).update(player).then(key => 
+      {
+        uploadImg = storageRef.child(`players/${player.id}${player.extension}`).put(uploadImg)
+      }).then(() =>
+      {
+          uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          imageUrl = downloadURL;
+          firebase.database().ref('players').child(player.id).update({imageUrl: imageUrl});
+          player.imageUrl = imageUrl;
+        })
+
+        commit('updatePlayer',player);
+      })
     },
     removePlayer: ( {commit},player) =>
     {

@@ -70,6 +70,12 @@ export default new Router({
               path: "add-player",
               name: "AddPlayer",
               component: () => import("@/Dashboard/Players/Add player/AddPlayer.vue")
+            },
+            {
+              path: "update-player/:id",
+              name: "UpdatePlayer",
+              component: () => import("@/Dashboard/Players/Add player/AddPlayer.vue"),
+              props: { update: true}
             }
           ]
         },
