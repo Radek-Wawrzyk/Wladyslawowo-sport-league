@@ -87,6 +87,12 @@ export default new Router({
               path: "add-news",
               name: "AddNews",
               component: () => import("@/Dashboard/News/AddNews.vue")
+            },
+            {
+              path: 'update-news/:id',
+              name: 'UpdateNews',
+              component: () => import("@/Dashboard/News/AddNews.vue"),
+              props: { update: true}
             }
           ]
         },

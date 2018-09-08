@@ -51,6 +51,12 @@ export default new Vuex.Store({
     news: state => {
       return state.news;
     },
+    singleNews(state)
+    {
+      return id => state.news.filter(n =>{
+        return n.id == id
+      }); 
+    },
     signInError: state => {
       return state.signInError;
     }
@@ -102,6 +108,10 @@ export default new Vuex.Store({
     },
     addNews: (state, newNews) => {
       state.news.push(newNews);
+    },
+    updateNews: (state, news) =>
+    {
+      state.news[state.news.indexOf(news)] = news;
     },
     removeNews: (state, news) =>
     {
@@ -325,7 +335,7 @@ export default new Vuex.Store({
     {
       if(event.players === undefined)
         event.players = [];
-        
+
       firebase.database().ref('events').child(event.id).update(event).then(key => 
       {
         commit('updateEvent',event);
@@ -451,13 +461,13 @@ export default new Vuex.Store({
       const newNews = {
         name: news.name,
         description: news.description,
-        date: news.date
+        date: news.date,
+        extension: news.img.name.slice(news.img.name.lastIndexOf('.'))
       };
 
       let imageUrl;
       let key;
       let uploadImg = news.img;
-      let extension;
 
       firebase.database().ref("news").push(newNews)
           .then(data => {
@@ -465,10 +475,8 @@ export default new Vuex.Store({
             return key;
           })
           .then(key => {
-            let file = uploadImg.name;
-            extension = file.slice(file.lastIndexOf('.'));
             const storageRef = firebase.storage().ref();
-            uploadImg = storageRef.child(`news/${key}${extension}`).put(uploadImg);
+            uploadImg = storageRef.child(`news/${key}${newNews.extension}`).put(uploadImg);
           })
           .then(() => {
             uploadImg.on('state_changed', snapshot => {
@@ -481,8 +489,7 @@ export default new Vuex.Store({
                 commit('addNews', {
                   ...newNews,
                   imageUrl: imageUrl,
-                  id: key,
-                  extension: extension
+                  id: key
                 });
               })
             })
@@ -490,6 +497,40 @@ export default new Vuex.Store({
           .catch(error => {
             console.log(error)
           })
+    },
+    updateNews: ({commit}, news) =>
+    {
+      var editedImage = news.img !== undefined;
+      let file,extension,uploadImg,imageRef,imageUrl;
+      let storageRef;
+      if(editedImage)
+      {
+        file = news.img.name;
+        extension = file.slice(file.lastIndexOf('.'));
+        uploadImg = news.img;
+        storageRef = firebase.storage().ref();
+
+        news.extension = extension;
+      }
+
+      firebase.database().ref('news').child(news.id).update(news).then(key => 
+      {
+        if(editedImage)
+        {
+          uploadImg = storageRef.child(`news/${news.id}${news.extension}`).put(uploadImg)
+        }
+      }).then(() =>
+      {
+        if(editedImage)
+        {
+            uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+            imageUrl = downloadURL;
+            firebase.database().ref('news').child(news.id).update({imageUrl: imageUrl});
+            news.imageUrl = imageUrl;
+          })
+        }
+        commit('updateNews',news);
+      })
     },
     removeNews: ({commit}, news) =>
     {

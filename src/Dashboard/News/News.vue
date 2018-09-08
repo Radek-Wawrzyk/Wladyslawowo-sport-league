@@ -26,7 +26,7 @@
           <th>{{news.date}}</th>
           <th><img :src="news.imageUrl" :alt="news.name" style="max-width: 100px;height: auto" /></th>
           <th>
-            <button class="button" type="button">Edytuj</button>
+            <button class="button" type="button" @click="updateNews(news)">Edytuj</button>
             <br/>
             <button class="button" type="button" @click="removeNews(news)">Usuń</button>
           </th>
@@ -51,6 +51,10 @@ export default {
     removeNews(news)
     {
       this.$store.dispatch('removeNews',news);
+    },
+    updateNews(news)
+    {
+      this.$router.push( {name: 'UpdateNews', params: {id: news.id}});
     }
   }
 }

@@ -4,7 +4,7 @@
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Dodaj wydarzenie</p>
+          <p class="modal-card-title">{{ modalTitle }}</p>
           <button class="delete" aria-label="close" @click="closeModal"></button>
         </header>
         <section class="modal-card-body">
@@ -40,7 +40,7 @@
                     </span>
                   </span>
                   <span class="file-name">
-                    {{news.img.name}}
+                    {{imgName}}
                   </span>
                 </label>
               </div>
@@ -48,7 +48,7 @@
           </form>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-danger" @click="addNews">Zapisz</button>
+          <button class="button is-danger" @click="handleSubmit">Zapisz</button>
           <button class="button" @click="closeModal">Cancel</button>
         </footer>
       </div>
@@ -62,6 +62,7 @@ import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: "AddNews",
+  props: ['update', 'id'],
   data() {
     return {
       news: {
@@ -70,7 +71,8 @@ export default {
         date: null,
         img: ""
       },
-      imgName: null
+      imgName: null,
+      modalTitle: null
     }
   },
   methods: {
@@ -80,12 +82,40 @@ export default {
           this.news[key] = '';
         }
     },
+    updateNews() {
+      this.$store.dispatch('updateNews', this.news);
+      this.closeModal();
+    },
+    handleSubmit()
+    {
+      if(this.update === true)
+      {
+        this.updateNews();
+      }
+      else
+        this.addNews();
+    },
     onFileSelected(event) {
       this.imgName = event.target.files[0].name;
       this.news.img = event.target.files[0];
     },
     closeModal() {
       this.$store.dispatch('closeModal');
+    }
+  },
+  mounted()
+  {
+    if(this.update === true)
+    {
+      this.modalTitle = "Edytuj zawodnika";
+      var news = this.$store.getters.singleNews(this.$route.params.id);
+      this.news = news[0];
+      this.imgName = this.news.id;
+    }
+    else
+    {
+      this.modalTitle = "Dodaj zawodnika";
+      this.news = {};
     }
   }
 }
