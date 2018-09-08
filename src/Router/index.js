@@ -100,6 +100,12 @@ export default new Router({
           component: () => import("@/Dashboard/Events/AddEvent.vue")
         },
         {
+          path: "events/update-event/:id",
+          name: "UpdateEvent",
+          component: () => import("@/Dashboard/Events/AddEvent.vue"),
+          props: { update: true}
+        },
+        {
           path: "settlements",
           component: () => import("@/Dashboard/Settlements/Settlements.vue"),
           children: [

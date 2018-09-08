@@ -36,6 +36,12 @@ export default new Vuex.Store({
     settlements: state => {
       return state.settlements;
     },
+    event(state)
+    {
+      return id => state.events.filter(e =>{
+        return e.id == id
+      }); 
+    },
     events: state => {
       return state.events;
     },
@@ -86,6 +92,10 @@ export default new Vuex.Store({
     },
     addEvent: (state, newEvent) => {
       state.events.push(newEvent);
+    },
+    updateEvent: (state, event) =>
+    {
+      state.events[state.events.indexOf(event)] = event;
     },
     removeEvent: (state, event) =>{
       state.events.splice(state.events.indexOf(event),1);
@@ -310,6 +320,16 @@ export default new Vuex.Store({
       .catch(error => {
         console.log(error)
       })
+    },
+    updateEvent: ({commit}, event) =>
+    {
+      if(event.players === undefined)
+        event.players = [];
+        
+      firebase.database().ref('events').child(event.id).update(event).then(key => 
+      {
+        commit('updateEvent',event);
+      });
     },
     addPlayer: ({commit}, player) => {      
       let imageUrl;

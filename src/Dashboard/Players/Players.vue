@@ -54,7 +54,7 @@ export default {
     },
     updatePlayer(player)
     {
-      router.push({ name: 'UpdatePlayer', params: { id: player.id }})
+      router.push({ name: 'UpdatePlayer', params: { id: player.id }});
     }
   }
 }

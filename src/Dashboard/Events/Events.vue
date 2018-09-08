@@ -11,7 +11,7 @@
           <th>Nazwa</th>
           <th>Data</th>
           <th>Opis imprezy</th>
-          <th>Ilość zawodników</th>
+          <!--<th>Ilość zawodników</th>-->
           <th>Edycja</th>
         </tr>
         </thead>
@@ -20,11 +20,11 @@
           <th>{{event.name}}</th>
           <th>{{event.date}}</th>
           <th>{{event.description}}</th>
-          <th>{{event.players.length}}</th>
+          <!--<th>{{event.players.length}}</th>-->
           <th>
-              <button class="button" type="button">Edytuj</button>
+              <button class="button" type="button" @click="updateEvent(event)">Edytuj</button>
               <button class="button" type="button" @click="removeEvent(event)">Usuń</button>
-            </th>
+          </th>
         </tr>
         </tbody>
       </table>
@@ -46,6 +46,10 @@ export default {
     removeEvent(event)
     {
       this.$store.dispatch('removeEvent',event);
+    },
+    updateEvent(event)
+    {
+      this.$router.push({ name: 'UpdateEvent', params: { id: event.id }});
     }
   }
 }

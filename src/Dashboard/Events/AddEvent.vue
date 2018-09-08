@@ -42,7 +42,7 @@
                     <div class="select">
                       <select v-model="currentPlayer.name">
                         <option value="" disabled selected>Wybierz zawodnika</option>
-                        <option v-for="player in players">{{player.name}}</option>
+                        <option v-for="player in players" :key="player.id">{{player.name}}</option>
                       </select>
                     </div>
                   </div>
@@ -60,7 +60,7 @@
                   </div>
                 </th>
               </tr>
-              <tr v-for="(player, index) in event.players">
+              <tr v-for="(player, index) in event.players" :key="index">
                 <th>{{index + 1}}</th>
                 <th>{{player.name}}</th>
                 <th>{{player.points}} pkt</th>
@@ -76,7 +76,7 @@
       </div>
     </div>
     <div class="buttons event-submit">
-      <button class="button is-danger" @click="addEvent">Dodaj imprezę</button>
+      <button class="button is-danger" @click="handleSubmit">{{ buttonText }}</button>
       <button class="button" @click="goBack">Anuluj</button>
     </div>
   </section>
@@ -88,6 +88,7 @@ import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: "AddEvent",
+  props: ['update', 'id'],
   data() {
     return {
       event: {
@@ -99,7 +100,8 @@ export default {
       currentPlayer: {
         name: '',
         points: ''
-      }
+      },
+      buttonText: null
     }
   },
   computed: {
@@ -111,11 +113,27 @@ export default {
     addEvent() {
       this.$store.dispatch('addEvent', this.event);
     },
+    updateEvent()
+    {
+      this.$store.dispatch('updateEvent',this.event);
+      this.goBack();
+    },
+    handleSubmit()
+    {
+      if(this.update === true)
+        this.updateEvent();
+      else
+        this.addEvent();
+    },
     addPlayer() {
       const player = {
         name: this.currentPlayer.name,
         points: this.currentPlayer.points
       };
+
+      if(this.event.players === undefined)
+        this.event.players = [];
+
       this.event.players.push(player);
     },
     deletePlayer(index) {
@@ -123,6 +141,20 @@ export default {
     },
     goBack() {
       this.$store.dispatch('closeModal');
+    }
+  },
+  mounted()
+  {
+    if(this.update === true)
+    {
+      this.buttonText = "Edytuj imprezę";
+      var event = this.$store.getters.event(this.$route.params.id);
+      this.event = event[0];
+    }
+    else
+    {
+      this.buttonText = "Dodaj imprezę";
+      this.player = {};
     }
   }
 }
