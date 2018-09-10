@@ -1,28 +1,9 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import firebase from 'firebase';
-import router from '@/Router/index';
 
-//Modules
-import shared from './Modules/Shared'
-import events from './Modules/Events'
-import players from './Modules/Players'
-import settlements from './Modules/Settlements'
-import news from './Modules/News'
-import signIn from './Modules/SignIn'
+/*
+import firebase from 'firebase'
+import router from '@/Router/index'
 
-Vue.use(Vuex);
-Vue.use(firebase);
-
-export default new Vuex.Store({
-  modules: {
-    shared: shared,
-    events: events,
-    players: players,
-    settlements: settlements,
-    news: news,
-    signIn: signIn
-  },
+export default {
   state: {
     user: null,
     signInError: null
@@ -53,18 +34,18 @@ export default new Vuex.Store({
   actions: {
     signIn: ({commit}, user) => {
       firebase.auth().signInWithEmailAndPassword(user.email, user.password)
-          .then(user => {
-            const newUser = {
-              id: user.user.uid,
-              email: user.user.email
-            };
-            commit("singIn", newUser);
-            commit("clearErrors");
-          })
-          .catch(error => {
-            console.log(error);
-            commit("signInError", error);
-          })
+        .then(user => {
+          const newUser = {
+            id: user.user.uid,
+            email: user.user.email
+          };
+          commit("singIn", newUser);
+          commit("clearErrors");
+        })
+        .catch(error => {
+          console.log(error);
+          commit("signInError", error);
+        })
     },
     autoSignIn: ({commit}, user) => {
       const newUser = {
@@ -80,4 +61,4 @@ export default new Vuex.Store({
       router.push("/sign-in");
     },
   }
-});
+} */
