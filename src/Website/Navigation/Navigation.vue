@@ -1,31 +1,33 @@
 <template>
-  <nav class="navigation-bar">
-    <div class="navigation-actions">
-      <figure class="navigation-logo">
-				<router-link to="/">
-					<img class="navigation-logo" src="@/Assets/logo.jpg" alt="Liga sportowa gminy Władysławowo"/>
-				</router-link>
-			</figure>
-			<ul :class="{ active : burgerToggled}" class="navigation-links">
-				<li :class="{ active : activeElement == 0 }" class="navigation-link"><router-link @click.native="toggleActiveElement(0)" to="/">Główna</router-link></li>
-				<li :class="{ active : activeElement == 1 }" class="navigation-link"><router-link @click.native="toggleActiveElement(1)" to="/players">Zawodnicy</router-link></li>
-				<li :class="{ active : activeElement == 2 }" class="navigation-link"><router-link @click.native="toggleActiveElement(2)" to="/settlements">Osiedla</router-link></li>
-				<li :class="{ active : activeElement == 3 }" class="navigation-link"><router-link @click.native="toggleActiveElement(3)" to="/events">Imprezy</router-link></li>
-				<li :class="{ active : activeElement == 4 }" class="navigation-link"><router-link @click.native="toggleActiveElement(4)" to="/contact">Kontakt</router-link></li>
-				<li :class="{ active : activeElement == 5 }" class="navigation-link"><router-link @click.native="toggleActiveElement(5)" to="/help">Pomoc</router-link></li>
-			</ul>
-			<div class="navigation-searchbar">
-				<Searchbar/>
-			</div>
-			<button @click="toggleBurger" class="navigation-burger">
-				<span class="burger-segment"/>
-			</button>
+	<nav class="navigation">
+		<figure class="navigation-logo">
+			<router-link to="/" aria-label="Homepage">
+				<img src="@/Assets/logo.jpg" alt="Liga sportowa gminy Władysławowo"/>
+			</router-link>
+		</figure>
+		<ul class="navigation-menu" :class="{ 'is-active' : menuStatus}">
+			<li class="navigation-menu-link"><router-link to="/" aria-label="Strona główna">Główna</router-link></li>
+			<li class="navigation-menu-link"><router-link to="/players" aria-label="Zawodnicy">Zawodnicy</router-link></li>
+			<li class="navigation-menu-link"><router-link to="/settlements" aria-label="Osiedla">Osiedla</router-link></li>
+			<li class="navigation-menu-link"><router-link to="/events" aria-label="Wydarzenia">Imprezy</router-link></li>
+			<li class="navigation-menu-link"><router-link to="/contact" aria-label="Kontakt">Kontakt</router-link></li>
+			<li class="navigation-menu-link"><router-link to="/help" aria-label="Pomoc">Pomoc</router-link></li>
+		</ul>
+		<div class="navigation-searchbar">
+			<Searchbar/>
 		</div>
+		<button role="button" class="navbar-burger navigation-icon" :class="{'is-active' : menuStatus}" aria-label="Open menu" :aria-expanded="menuStatus ? 'true' : 'false'" @click="toggleMenu">
+			<span aria-hidden="true"></span>
+			<span aria-hidden="true"></span>
+			<span aria-hidden="true"></span>
+		</button>
 	</nav>
 </template>
 
 <script>
+
 import Searchbar from "./Searchbar/Searchbar";
+
 export default {
   name: "Navigation",
   components: {
@@ -33,22 +35,16 @@ export default {
   },
   data() {
     return {
-			activeElement: 0,
-			burgerToggled: false
+      menuStatus: false
     };
   },
   methods: {
-    toggleActiveElement(id) {
-      this.activeElement = id;
-		},
-		toggleBurger()
-		{
-			this.burgerToggled = !this.burgerToggled;
-		}
+    toggleMenu() {
+      this.menuStatus = !this.menuStatus;
+    }
   }
-};
+}
+
 </script>
 
-
-<style lang="scss" src="./Navigation.scss" scoped>
-</style>
+<style lang="scss" src="./Navigation.scss" scoped />
