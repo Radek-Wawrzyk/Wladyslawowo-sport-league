@@ -1,41 +1,37 @@
-.searchbar-text
-{
+@import '@/Styles/Components/Colors.scss';
+
+.searchbar-text {
+  font-size: 15px;
   width: 140px;
   display: inline-block;
-  outline: none;
   border: none;
   border-bottom: 1px solid black;
-  &:active, &:focus
-  {
-    border: none;
-    border-bottom: 1px solid black;
+  transition: border 0.25s;
+  padding: 5px;
+  &:active, &:focus {
+    outline: none;
+    border-color: $brandColor;
   }
-  
 }
 
-::placeholder
-{
-  color: darkgray;
-}
+//Search button
 
-.searchbar-button
-{
+.searchbar-button {
   display: inline-block;
-
   background: none;
   border: none;
   outline: none;
-  >svg
-  {
-    width:15px;
+  > svg {
+    width: 15px;
     height: 15px;
+    transition: all 0.25s;
   }
-  &:hover
-  {
+  &:hover, &:focus {
     cursor: pointer;
-    path
-    {
-        fill: gray;
+    svg {
+      path {
+        fill: $brandColor;
+      }
     }
   }
 }

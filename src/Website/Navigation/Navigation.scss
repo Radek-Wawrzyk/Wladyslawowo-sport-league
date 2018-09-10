@@ -84,6 +84,9 @@
 //Media
 
 @media screen and(max-width: 1024px) {
+  .navigation {
+    padding: 0 15px;
+  }
   .navigation-icon {
     display: block;
   }
