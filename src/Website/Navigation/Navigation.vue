@@ -6,12 +6,12 @@
 			</router-link>
 		</figure>
 		<ul class="navigation-menu" :class="{ 'is-active' : menuStatus}">
-			<li class="navigation-menu-link"><router-link to="/" aria-label="Strona główna">Główna</router-link></li>
-			<li class="navigation-menu-link"><router-link to="/players" aria-label="Zawodnicy">Zawodnicy</router-link></li>
-			<li class="navigation-menu-link"><router-link to="/settlements" aria-label="Osiedla">Osiedla</router-link></li>
-			<li class="navigation-menu-link"><router-link to="/events" aria-label="Wydarzenia">Imprezy</router-link></li>
-			<li class="navigation-menu-link"><router-link to="/contact" aria-label="Kontakt">Kontakt</router-link></li>
-			<li class="navigation-menu-link"><router-link to="/help" aria-label="Pomoc">Pomoc</router-link></li>
+			<li class="navigation-menu-link" @click="closeMenu"><router-link to="/" aria-label="Strona główna">Główna</router-link></li>
+			<li class="navigation-menu-link" @click="closeMenu"><router-link to="/players" aria-label="Zawodnicy">Zawodnicy</router-link></li>
+			<li class="navigation-menu-link" @click="closeMenu"><router-link to="/settlements" aria-label="Osiedla">Osiedla</router-link></li>
+			<li class="navigation-menu-link" @click="closeMenu"><router-link to="/events" aria-label="Wydarzenia">Imprezy</router-link></li>
+			<li class="navigation-menu-link" @click="closeMenu"><router-link to="/contact" aria-label="Kontakt">Kontakt</router-link></li>
+			<li class="navigation-menu-link" @click="closeMenu"><router-link to="/help" aria-label="Pomoc">Pomoc</router-link></li>
 		</ul>
 		<div class="navigation-searchbar">
 			<Searchbar/>
@@ -41,7 +41,12 @@ export default {
   methods: {
     toggleMenu() {
       this.menuStatus = !this.menuStatus;
-    }
+    },
+		closeMenu() {
+      if ( window.innerWidth <= 1024 ) {
+        this.menuStatus = false;
+			}
+		}
   }
 }
 
