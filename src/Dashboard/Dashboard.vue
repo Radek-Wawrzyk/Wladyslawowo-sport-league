@@ -1,7 +1,6 @@
 <template>
   <div id="dashboard">
-    <PageLoader>
-    </PageLoader>
+    <PageLoader></PageLoader>
     <Navigation></Navigation>
     <Menu></Menu>
     <main class="panel" :class="{'is-active': menu}">
