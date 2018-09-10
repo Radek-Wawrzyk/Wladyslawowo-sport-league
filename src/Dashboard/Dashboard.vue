@@ -1,6 +1,5 @@
 <template>
   <div id="dashboard">
-    <PageLoader></PageLoader>
     <Navigation></Navigation>
     <Menu></Menu>
     <main class="panel" :class="{'is-active': menu}">
@@ -15,14 +14,12 @@
 
 import Navigation from "./Navigation/Navigation.vue"
 import Menu from "./Menu/Menu.vue"
-import PageLoader from "./PageLoader.vue"
 
 export default {
   name: "home",
   components: {
     Navigation,
     Menu,
-    PageLoader
   },
   computed: {
     menu() {

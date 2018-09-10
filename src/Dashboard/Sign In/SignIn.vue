@@ -37,15 +37,21 @@
       Copyright Gmina Władysławowo 2018 <br/>
       Wykonanie Radek & Kuba
     </footer>
+    <PageLoader></PageLoader>
   </main>
 </template>
 
 <script>
 
 import { email, minLength } from 'vuelidate/lib/validators'
+import PageLoader from '@/Dashboard/PageLoader.vue'
+import * as firebase from 'firebase'
 
 export default {
   name: "singUp",
+  components: {
+    PageLoader
+  },
   data() {
     return {
       user: {
@@ -75,6 +81,13 @@ export default {
         this.$store.dispatch("signIn", this.user);
       }
     }
+  },
+  created: function() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch("autoSignIn", user);
+      }
+    })
   }
 }
 

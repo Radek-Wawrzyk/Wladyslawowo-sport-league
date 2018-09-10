@@ -19,10 +19,5 @@ new Vue({
     this.$store.dispatch('players');
     this.$store.dispatch('events');
     this.$store.dispatch('news');
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.$store.dispatch("autoSignIn", user);
-      }
-    })
   }
 }).$mount('#app')
