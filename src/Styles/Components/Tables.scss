@@ -1,0 +1,16 @@
+//Table responsive parent
+
+.table-responsive {
+  overflow-x: auto;
+  overflow-y: none;
+}
+
+//Buttons in table
+
+table .buttons {
+  flex-wrap: nowrap;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+//Website table

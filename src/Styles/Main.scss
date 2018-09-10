@@ -1,39 +1,13 @@
+//Bulma CSS Framework
 @import "./Bulma/Bulma.sass";
-@import "./Animations.scss";
 
-html {
-  overflow-y: auto;
-}
-.box {
-  border-radius: 0;
-}
-.form {
-  width: 100%;
-}
+//Colors and variables
+@import "./Components/Colors";
 
+//Global Components
+@import "./Components/Layout";
+@import "./Components/Forms";
+@import "./Components/Tables";
 
-input:-webkit-autofill, textarea:-webkit-autofill,
-select:-webkit-autofill  {
-  background-color: white !important;
-  box-shadow: 0 0 0 30px white inset;
-  -webkit-box-shadow: 0 0 0 30px white inset;
-}
-
-
-.website-container
-{
-  margin-top: 60px;
-}
-
-//Table
-
-.table-responsive {
-  overflow-x: auto;
-  overflow-y: none;
-}
-table .buttons {
-  flex-wrap: nowrap;
-  justify-content: center;
-  margin: 0 auto;
-}
-
+//Animations
+@import "Components/Animations";
