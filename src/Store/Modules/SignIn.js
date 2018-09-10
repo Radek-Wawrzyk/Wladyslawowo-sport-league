@@ -1,5 +1,3 @@
-
-/*
 import firebase from 'firebase'
 import router from '@/Router/index'
 
@@ -61,4 +59,4 @@ export default {
       router.push("/sign-in");
     },
   }
-} */
+}
