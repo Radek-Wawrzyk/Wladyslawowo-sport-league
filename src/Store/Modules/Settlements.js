@@ -55,7 +55,7 @@ export default {
       const newSettlement = {
         name: settlement.name,
         description: settlement.description,
-        extension: settlement.img.name.slice(settlement.img.name.lastIndexOf('.'))
+        extension: settlement.img === undefined ? "" : settlement.img.name.slice(settlement.img.name.lastIndexOf('.'))
       };
 
       let imageUrl;
@@ -68,25 +68,39 @@ export default {
           return key;
         })
         .then(key => {
-          let file = uploadImg.name;
-          const storageRef = firebase.storage().ref();
-          uploadImg = storageRef.child(`settlements/${key}${newSettlement.extension}`).put(uploadImg);
-        })
-        .then(() => {
-          uploadImg.on('state_changed', snapshot => {
-          }, error => {
-            console.log(error)
-          }, () => {
-            uploadImg.snapshot.ref.getDownloadURL().then(downloadURL => {
-              imageUrl = downloadURL;
-              firebase.database().ref('settlements').child(key).update({imageUrl: imageUrl});
+          if(uploadImg !== undefined)
+          {
+            let file = uploadImg.name;
+            const storageRef = firebase.storage().ref();
+            uploadImg = storageRef.child(`settlements/${key}${newSettlement.extension}`).put(uploadImg);
+          }
+          else
+          {
+            firebase.database().ref('settlements').child(key).update({key: key});
               commit('addSettlement', {
                 ...newSettlement,
-                imageUrl: imageUrl,
                 id: key,
               });
+          }
+        })
+        .then(() => {
+          if(uploadImg !== undefined)
+          {
+            uploadImg.on('state_changed', snapshot => {
+            }, error => {
+              console.log(error)
+            }, () => {
+              uploadImg.snapshot.ref.getDownloadURL().then(downloadURL => {
+                imageUrl = downloadURL;
+                firebase.database().ref('settlements').child(key).update({imageUrl: imageUrl});
+                commit('addSettlement', {
+                  ...newSettlement,
+                  imageUrl: imageUrl,
+                  id: key,
+                });
+              })
             })
-          })
+          }
         })
         .catch(error => {
           console.log(error)
@@ -122,10 +136,12 @@ export default {
     },
     removeSettlement: ({commit}, settlement) => {
       firebase.database().ref('settlements').child(settlement.id).remove().then(key => {
-        const storageRef = firebase.storage().ref();
-        const imageRef = storageRef.child(`settlements/${settlement.id}${settlement.extension}`);
-        imageRef.delete();
-
+        if(settlement.extension !== undefined)
+        {
+          const storageRef = firebase.storage().ref();
+          const imageRef = storageRef.child(`settlements/${settlement.id}${settlement.extension}`);
+          imageRef.delete();
+        }
       }).then(() => {
         commit('removeSettlement', settlement);
       })

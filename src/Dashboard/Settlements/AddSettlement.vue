@@ -1,8 +1,13 @@
 <template>
   <transition name="fade-normal">
     <div class="modal is-active">
+      
       <div class="modal-background"></div>
       <div class="modal-card">
+        <div v-if="alertMessage" :class="[ sentProperly ? 'is-success' : 'is-danger' ]" class="notification">
+          <button class="delete"></button>
+          {{ alertMessage }}
+        </div>
         <header class="modal-card-head">
           <p class="modal-card-title">{{ modalTitle }}</p>
           <button class="delete" aria-label="close" @click="closeModal"></button>
@@ -67,7 +72,9 @@ export default {
         img: ""
       },
       imgName: null,
-      modalTitle: null
+      modalTitle: null,
+      alertMessage: null,
+      sentProperly: false
     }
   },
   validations: {
@@ -79,24 +86,26 @@ export default {
       description: {
         required,
         minLength: minLength(3)
-      },
+      }
     }
   },
   methods: {
     addSettlement() {
-      console.log('add');
-      if (!this.$v.$invalid) {
+      if (this.settlement.name && this.settlement.description) {
         this.$store.dispatch('addSettlement', this.settlement);
         for (let key in this.settlement) {
           this.settlement[key] = '';
         }
+        this.sentProperly = true;
+        this.alertMessage = "Pomyślnie dodano nowe osiedle"
       } else {
-        console.log("Wypełnij pola!");
+        this.sentProperly = false;
+        this.alertMessage = "Wypełnij pola";
+        this.$v.reset();
       }
     },
     updateSettlement()
     {
-      console.log('update');
       this.$store.dispatch('updateSettlement',this.settlement);
       this.closeModal();
     },
