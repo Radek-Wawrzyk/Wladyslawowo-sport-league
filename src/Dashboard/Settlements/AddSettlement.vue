@@ -1,13 +1,14 @@
 <template>
   <transition name="fade-normal">
     <div class="modal is-active">
-      
       <div class="modal-background"></div>
       <div class="modal-card">
-        <div v-if="alertMessage" :class="[ sentProperly ? 'is-success' : 'is-danger' ]" class="notification">
-          <button class="delete"></button>
-          {{ alertMessage }}
-        </div>
+        <transition name="fade">
+          <div v-show="alertMessage" :class="[ sentProperly ? 'is-success' : 'is-danger' ]" class="notification">
+            <button @click="dismissModal" class="delete"></button>
+            {{ alertMessage }}
+          </div>
+        </transition>
         <header class="modal-card-head">
           <p class="modal-card-title">{{ modalTitle }}</p>
           <button class="delete" aria-label="close" @click="closeModal"></button>
@@ -74,7 +75,8 @@ export default {
       imgName: null,
       modalTitle: null,
       alertMessage: null,
-      sentProperly: false
+      sentProperly: false,
+      alertTimeoutId: null
     }
   },
   validations: {
@@ -91,6 +93,8 @@ export default {
   },
   methods: {
     addSettlement() {
+      clearTimeout(this.alertTimeoutId)
+
       if (this.settlement.name && this.settlement.description) {
         this.$store.dispatch('addSettlement', this.settlement);
         for (let key in this.settlement) {
@@ -101,8 +105,11 @@ export default {
       } else {
         this.sentProperly = false;
         this.alertMessage = "Wypełnij pola";
-        this.$v.reset();
       }
+
+      this.alertTimeoutId = setTimeout(() => {
+        this.alertMessage = undefined;          
+      }, 3000);
     },
     updateSettlement()
     {
@@ -122,6 +129,14 @@ export default {
     },
     closeModal() {
       this.$store.dispatch('closeModal');
+    },
+    dismissModal()
+    {
+      this.alertMessage = null;
+    },
+    fade()
+    {
+      console.log('fade');
     }
   },
   mounted()
@@ -139,7 +154,6 @@ export default {
       this.settlement = {};
     }
   }
-  
 }
 
 </script>
