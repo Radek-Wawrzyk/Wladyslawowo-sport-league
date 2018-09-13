@@ -51,13 +51,11 @@ export default {
         });
     },
     addNews: ({commit}, news) => {
-
-      //Add condition of the case when there is not any img
       const newNews = {
         name: news.name,
         description: news.description,
         date: news.date,
-        extension: news.img.name.slice(news.img.name.lastIndexOf('.'))
+        extension: news.img === undefined ? "" : news.img.name.slice(news.img.name.lastIndexOf('.'))
       };
 
       let imageUrl;
@@ -70,24 +68,38 @@ export default {
           return key;
         })
         .then(key => {
-          const storageRef = firebase.storage().ref();
-          uploadImg = storageRef.child(`news/${key}${newNews.extension}`).put(uploadImg);
-        })
-        .then(() => {
-          uploadImg.on('state_changed', snapshot => {
-          }, error => {
-            console.log(error)
-          }, () => {
-            uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-              imageUrl = downloadURL;
-              firebase.database().ref('news').child(key).update({imageUrl: imageUrl});
+          if(uploadImg !== undefined)
+          {
+            const storageRef = firebase.storage().ref();
+            uploadImg = storageRef.child(`news/${key}${newNews.extension}`).put(uploadImg);
+          }
+          else
+          {
+            firebase.database().ref('news').child(key).update({key: key});
               commit('addNews', {
                 ...newNews,
-                imageUrl: imageUrl,
-                id: key
+                id: key,
               });
+          }
+        })
+        .then(() => {
+          if(uploadImg !== undefined)
+          {
+            uploadImg.on('state_changed', snapshot => {
+            }, error => {
+              console.log(error)
+            }, () => {
+              uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                imageUrl = downloadURL;
+                firebase.database().ref('news').child(key).update({imageUrl: imageUrl});
+                commit('addNews', {
+                  ...newNews,
+                  imageUrl: imageUrl,
+                  id: key
+                });
+              })
             })
-          })
+          }
         })
         .catch(error => {
           console.log(error)
@@ -123,9 +135,12 @@ export default {
     },
     removeNews: ({commit}, news) => {
       firebase.database().ref('news').child(news.id).remove().then(key => {
-        const storageRef = firebase.storage().ref();
-        const imageRef = storageRef.child(`news/${news.id}${news.extension}`);
-        imageRef.delete();
+        if(news.extension !== undefined)
+        {
+          const storageRef = firebase.storage().ref();
+          const imageRef = storageRef.child(`news/${news.id}${news.extension}`);
+          imageRef.delete();
+        }
       }).then(() => {
         commit('removeNews', news);
       })

@@ -51,7 +51,6 @@ export default {
     },
     addSettlement: ({commit}, settlement) => {
 
-      //Add condition in the case of less img
       const newSettlement = {
         name: settlement.name,
         description: settlement.description,
@@ -70,7 +69,6 @@ export default {
         .then(key => {
           if(uploadImg !== undefined)
           {
-            let file = uploadImg.name;
             const storageRef = firebase.storage().ref();
             uploadImg = storageRef.child(`settlements/${key}${newSettlement.extension}`).put(uploadImg);
           }

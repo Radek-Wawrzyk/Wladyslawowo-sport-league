@@ -3,6 +3,10 @@
     <div class="modal is-active">
       <div class="modal-background"></div>
       <div class="modal-card">
+        <div v-if="alertMessage" :class="[ sentProperly ? 'is-success' : 'is-danger' ]" class="notification">
+          <button class="delete"></button>
+          {{ alertMessage }}
+        </div>
         <header class="modal-card-head">
           <p class="modal-card-title">{{ modalTitle }}</p>
           <button class="delete" aria-label="close" @click="closeModal"></button>
@@ -72,15 +76,37 @@ export default {
         img: ""
       },
       imgName: null,
-      modalTitle: null
+      modalTitle: null,
+      alertMessage: null,
+      sentProperly: false,
+      alertTimeoutId: null
     }
   },
   methods: {
     addNews() {
-        this.$store.dispatch('addNews', this.news);
-        for (let key in this.news) {
-          this.news[key] = '';
+        clearTimeout(this.alertTimeoutId);
+
+        if(this.news.name && this.news.name && this.news.date)
+        {
+          this.$store.dispatch('addNews', this.news);
+          for (let key in this.news) {
+            this.news[key] = '';
+          }
+
+          this.sentProperly = true;
+          this.alertMessage = "Pomyślnie dodano nowe wydarzenie";
         }
+        else
+        {
+          this.sentProperly = false;
+          this.alertMessage = "Wypełnij pola";
+        }
+
+        
+      this.alertTimeoutId = setTimeout(() => {
+        this.alertMessage = undefined;          
+      }, 3000);
+
     },
     updateNews() {
       this.$store.dispatch('updateNews', this.news);
