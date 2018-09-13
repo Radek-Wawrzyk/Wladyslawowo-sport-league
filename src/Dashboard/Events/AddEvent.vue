@@ -1,5 +1,11 @@
 <template>
   <section id="add-event">
+    <transition name="fade">
+      <div v-show="alertMessage" :class="[ sentProperly ? 'is-success' : 'is-danger' ]" class="notification">
+        <button @click="dismissModal" class="delete"></button>
+        {{ alertMessage }}
+      </div>
+    </transition>
     <div class="event-container">
       <div class="event-column">
         <h2 class="title is-5">Dane imprezy</h2>
@@ -101,7 +107,10 @@ export default {
         name: '',
         points: ''
       },
-      buttonText: null
+      buttonText: null,
+      alertMessage: null,
+      sentProperly: false,
+      alertTimeoutId: null
     }
   },
   computed: {
@@ -111,8 +120,23 @@ export default {
   },
   methods: {
     addEvent() {
-      this.$store.dispatch('addEvent', this.event);
-    },
+      clearTimeout(this.alertTimeoutId)
+
+      if (this.event.name && this.event.description && this.event.date) {
+        this.$store.dispatch('addEvent', this.event);
+        for (let key in this.settlement) {
+          this.settlement[key] = '';
+        }
+        this.sentProperly = true;
+        this.alertMessage = "Pomyślnie dodano nowe osiedle"
+      } else {
+        this.sentProperly = false;
+        this.alertMessage = "Wypełnij pola";
+      }
+
+      this.alertTimeoutId = setTimeout(() => {
+        this.alertMessage = undefined;          
+      }, 3000);    },
     updateEvent()
     {
       this.$store.dispatch('updateEvent',this.event);
@@ -141,6 +165,10 @@ export default {
     },
     goBack() {
       this.$store.dispatch('closeModal');
+    },
+    dismissModal()
+    {
+      this.alertMessage = null;
     }
   },
   mounted()
