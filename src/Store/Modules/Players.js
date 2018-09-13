@@ -55,13 +55,10 @@ export default {
       let key;
       let uploadImg = player.img;
 
-      console.log(player);
-
-      //Add condition in the case of less img
       const newPlayer = {
         name: player.name,
         settlement: player.settlement,
-        extension: player.img.name.slice(player.img.name.lastIndexOf('.'))
+        extension: player.img === undefined ? "" : player.img.name.slice(player.img.name.lastIndexOf('.'))
       };
 
       firebase.database().ref("players").push(newPlayer)
@@ -70,24 +67,38 @@ export default {
           return key;
         })
         .then(key => {
-          const storageRef = firebase.storage().ref();
-          uploadImg = storageRef.child(`players/${key}${newPlayer.extension}`).put(uploadImg);
-        })
-        .then(() => {
-          uploadImg.on('state_changed', snapshot => {
-          }, error => {
-            console.log(error)
-          }, () => {
-            uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-              imageUrl = downloadURL;
-              firebase.database().ref('players').child(key).update({imageUrl: imageUrl});
+          if(uploadImg !== undefined)
+          {
+            const storageRef = firebase.storage().ref();
+            uploadImg = storageRef.child(`players/${key}${newPlayer.extension}`).put(uploadImg);
+          }
+          else
+          {
+            firebase.database().ref('players').child(key).update({key: key});
               commit('addPlayer', {
                 ...newPlayer,
-                imageUrl: imageUrl,
                 id: key,
               });
+          }
+        })
+        .then(() => {
+          if(uploadImg !== undefined)
+          {
+            uploadImg.on('state_changed', snapshot => {
+            }, error => {
+              console.log(error)
+            }, () => {
+              uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                imageUrl = downloadURL;
+                firebase.database().ref('players').child(key).update({imageUrl: imageUrl});
+                commit('addPlayer', {
+                  ...newPlayer,
+                  imageUrl: imageUrl,
+                  id: key,
+                });
+              })
             })
-          })
+          }
         })
         .catch(error => {
           console.log(error)
@@ -123,9 +134,12 @@ export default {
     },
     removePlayer: ({commit}, player) => {
       firebase.database().ref('players').child(player.id).remove().then(key => {
-        const storageRef = firebase.storage().ref();
-        const imageRef = storageRef.child(`players/${player.id}${player.extension}`);
-        imageRef.delete();
+        if(player.extension !== undefined)
+        {
+          const storageRef = firebase.storage().ref();
+          const imageRef = storageRef.child(`players/${player.id}${player.extension}`);
+          imageRef.delete();
+        }
       }).then(() => {
         commit('removePlayer', player);
       })

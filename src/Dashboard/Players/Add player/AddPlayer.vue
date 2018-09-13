@@ -3,6 +3,12 @@
     <div class="modal is-active">
       <div class="modal-background"></div>
       <div class="modal-card">
+        <transition name="fade">
+          <div v-show="alertMessage" :class="[ sentProperly ? 'is-success' : 'is-danger' ]" class="notification">
+            <button @click="dismissModal" class="delete"></button>
+            {{ alertMessage }}
+          </div>
+        </transition>
         <header class="modal-card-head">
           <p class="modal-card-title">{{ modalTitle }}</p>
           <button class="delete" aria-label="close" @click="closeModal"></button>
@@ -68,7 +74,10 @@ export default {
         extension: ""
       },
       imgName: null,
-      modalTitle: null
+      modalTitle: null,
+      alertMessage: null,
+      sentProperly: false,
+      alertTimeoutId: null
     }
   },
   validations: {
@@ -85,10 +94,23 @@ export default {
   },
   methods: {
     addPlayer() {
+      clearTimeout(this.alertTimeoutId)
+
+      if (this.player.name && this.player.settlement) {
         this.$store.dispatch('addPlayer', this.player);
         for (let key in this.player) {
           this.player[key] = '';
         }
+        this.sentProperly = true;
+        this.alertMessage = "Pomyślnie dodano nowego gracza"
+      } else {
+        this.sentProperly = false;
+        this.alertMessage = "Wypełnij pola";
+      }
+
+      this.alertTimeoutId = setTimeout(() => {
+        this.alertMessage = undefined;          
+      }, 3000);
     },
     updatePlayer()
     {
@@ -108,6 +130,10 @@ export default {
     },
     closeModal() {
       this.$store.dispatch('closeModal');
+    },
+    dismissModal()
+    {
+      this.alertMessage = null;
     }
   },
   computed: {

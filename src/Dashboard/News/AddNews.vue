@@ -3,10 +3,12 @@
     <div class="modal is-active">
       <div class="modal-background"></div>
       <div class="modal-card">
-        <div v-if="alertMessage" :class="[ sentProperly ? 'is-success' : 'is-danger' ]" class="notification">
-          <button class="delete"></button>
-          {{ alertMessage }}
-        </div>
+        <transition name="fade">
+          <div v-show="alertMessage" :class="[ sentProperly ? 'is-success' : 'is-danger' ]" class="notification">
+            <button @click="dismissModal" class="delete"></button>
+            {{ alertMessage }}
+          </div>
+        </transition>
         <header class="modal-card-head">
           <p class="modal-card-title">{{ modalTitle }}</p>
           <button class="delete" aria-label="close" @click="closeModal"></button>
@@ -127,6 +129,10 @@ export default {
     },
     closeModal() {
       this.$store.dispatch('closeModal');
+    },
+    dismissModal()
+    {
+      this.alertMessage = null;
     }
   },
   mounted()

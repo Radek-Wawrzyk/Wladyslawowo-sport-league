@@ -133,10 +133,6 @@ export default {
     dismissModal()
     {
       this.alertMessage = null;
-    },
-    fade()
-    {
-      console.log('fade');
     }
   },
   mounted()
