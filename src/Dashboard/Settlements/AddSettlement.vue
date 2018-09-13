@@ -5,7 +5,7 @@
       <div class="modal-card">
         <transition name="fade">
           <div v-show="alertMessage" :class="[ sentProperly ? 'is-success' : 'is-danger' ]" class="notification">
-            <button @click="dismissModal" class="delete"></button>
+            <button @click="dismissAlert" class="delete"></button>
             {{ alertMessage }}
           </div>
         </transition>
@@ -130,7 +130,7 @@ export default {
     closeModal() {
       this.$store.dispatch('closeModal');
     },
-    dismissModal()
+    dismissAlert()
     {
       this.alertMessage = null;
     }
