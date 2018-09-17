@@ -55,10 +55,17 @@ export default {
         name: event.name,
         description: event.description,
         date: event.date,
-        players: event.players
+        players: event.players,
+        extensions: []
       };
 
+      for(let i = 0;i < event.images.length;i++)
+      {
+        newEvent.extensions.push(event.images[i].name.slice(event.images[i].name.lastIndexOf('.')))
+      }
+
       let key;
+      let imageUrls = [];
 
       firebase.database().ref("events").push(newEvent)
         .then(data => {
@@ -66,8 +73,33 @@ export default {
           return key;
         })
         .then(key => {
+
+          for(let i = 0;i < newEvent.extensions.length;i++)
+          {
+              const storageRef = firebase.storage().ref();
+              event.images[i] = storageRef.child(`events/${key + i}${newEvent.extensions[i]}`).put(event.images[i]);
+          }
+
+        }).then(() => 
+        {
+          for(let i = 0;i < newEvent.extensions.length;i++)
+          {
+            if(event.images[i] !== undefined)
+            {
+              event.images[i].on('state_changed', snapshot => {
+              }, error => {
+                console.log(error)
+              }, () => {
+                event.images[i].snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                  imageUrls.push(downloadURL);
+                  firebase.database().ref('events').child(key).update({imageUrl: downloadURL});
+                })
+              })
+            }
+          }
           commit('addEvent', {
             ...newEvent,
+            imageUrls: imageUrls,
             id: key
           });
         })
@@ -83,9 +115,17 @@ export default {
       });
     },
     removeEvent: ({commit}, event) => {
+
       firebase.database().ref('events').child(event.id).remove().then(key => {
+        const storageRef = firebase.storage().ref();
+        for(let i = 0;i < event.extensions.length;i++)
+        {
+          const imageRef = storageRef.child(`events/${event.id + i}${event.extensions[i]}`);
+          imageRef.delete();
+        }
+      }).then(() => {
         commit('removeEvent', event);
-      });
+      })
     },
   }
 }

@@ -27,6 +27,24 @@
             <input class="input" type="date" v-model="event.date" >
           </div>
         </div>
+        <div class="field">
+          <div class="file has-name">
+            <label class="file-label">
+              <input class="file-input" type="file" name="file" @change="onFileSelected" accept="image/*">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fa fa-cloud-upload-alt"></i>
+                </span>
+                <span class="file-label">
+                  Dodaj zdjęcie
+                </span>
+              </span>
+              <span class="file-name" v-for="imgName in imgNames" :key="imgName">
+                {{imgName}}
+              </span>
+            </label>
+          </div>
+          </div>
       </div>
       <div class="event-column">
         <h2 class="title is-5">Zawodnicy</h2>
@@ -101,12 +119,15 @@ export default {
         name: '',
         description: '',
         date: '',
-        players: []
+        players: [],
+        images: []
       },
       currentPlayer: {
         name: '',
         points: ''
       },
+      imgNames: [],
+
       buttonText: null,
       alertMessage: null,
       sentProperly: false,
@@ -169,6 +190,11 @@ export default {
     dismissAlert()
     {
       this.alertMessage = null;
+    },
+    onFileSelected()
+    {
+      this.imgNames.push(event.target.files[0].name);
+      this.event.images.push(event.target.files[0]);
     }
   },
   mounted()
