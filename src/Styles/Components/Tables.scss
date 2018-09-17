@@ -14,3 +14,20 @@ table .buttons {
 }
 
 //Website table
+
+.table-head {
+  background: $brandColor;
+  tr th {
+    border-color: $brandColor;
+    color: white !important;
+  }
+}
+.table-body {
+  tr {
+    transition: background 0.25s;
+    &:hover {
+      background: rgba(255, 48, 48, 0.15);
+      cursor: pointer;
+    }
+  }
+}
