@@ -10,6 +10,20 @@ export default {
         return e.id == id
       });
     },
+    briefEvents: state =>
+    {
+      var result = state.events.map(function(event)
+      {
+        return{
+          id: event.id,
+          name: event.name,
+          date: event.date,
+          players: event.players
+        }
+      });
+
+      return result;
+    },
     events: state => {
       return state.events;
     },

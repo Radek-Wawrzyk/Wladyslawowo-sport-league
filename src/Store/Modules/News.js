@@ -5,6 +5,20 @@ export default {
     news: [],
   },
   getters: {
+    briefNews: state =>
+    {
+      var result = state.news.map(function(news)
+      {
+        return{
+          id: news.id,
+          name: news.name,
+          date: news.date,
+          description: news.description,
+          imageUrl: news.imageUrl
+        }
+      });
+      return result;
+    },
     news: state => {
       return state.news;
     },
