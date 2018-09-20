@@ -10,6 +10,25 @@ export default {
         return settlement.id === id;
       });
     },
+    briefSettlements: state =>
+    {
+      var result = state.settlements.map(function(settlement)
+      {
+        return{
+          id: settlement.id,
+          name: settlement.name,
+          points: settlement.points,
+          imageUrl: settlement.imageUrl
+        }
+      });
+      return result;
+    },
+    briefSettlementById: state =>
+    {
+      return id => state.settlements.filter(settlement => {
+        return settlement.id === id;
+      });
+    },
     settlements: state => {
       return state.settlements;
     },

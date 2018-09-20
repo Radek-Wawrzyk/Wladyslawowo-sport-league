@@ -22,7 +22,7 @@ export default {
     news: state => {
       return state.news;
     },
-    singleNews: state => {
+    briefNewsById: state => {
       return id => state.news.filter(news => {
         return news.id === id;
       });

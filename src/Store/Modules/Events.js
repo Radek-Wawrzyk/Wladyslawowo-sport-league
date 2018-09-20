@@ -10,6 +10,10 @@ export default {
         return e.id == id
       });
     },
+    topEvents: state =>
+    {
+      
+    },
     briefEvents: state =>
     {
       var result = state.events.map(function(event)

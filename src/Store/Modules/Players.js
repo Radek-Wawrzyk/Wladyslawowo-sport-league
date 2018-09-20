@@ -10,6 +10,25 @@ export default {
         return player.id === id;
       });
     },
+    topPlayers: state =>
+    {
+      
+    },
+    briefPlayers: state =>
+    {
+      var result = state.players.map(function(player)
+      {
+        return{
+          id: player.id,
+          name: player.name,
+          points: player.points,
+          settlement: player.settlement,
+          imageUrl: player.imageUrl,
+          position: player.position
+        }
+      });
+      return result;
+    },
     players: state => {
       return state.players;
     },
