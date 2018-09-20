@@ -1,9 +1,13 @@
 import firebase from 'firebase'
+import players from './Players'
+import events from './Events'
 
 export default {
   state: {
     settlements: [],
   },
+  players,
+  events,
   getters: {
     settlement: state => {
       return id => state.settlements.filter(settlement =>{
@@ -12,22 +16,80 @@ export default {
     },
     briefSettlements: state =>
     {
-      var result = state.settlements.map(function(settlement)
+      let playersOfSettlement;
+      var result = state.settlements.map(function(settlement) // for each settlement
       {
+        playersOfSettlement = players.getters.players(players.state).filter(x => x.settlement === settlement.name); //players from that settlement
+
+        //get from every event a players from playersOfSettlement and sum points per each
+        let allEvents = events.getters.events(events.state);
+        let sum = 0;
+        for(let i = 0;i < allEvents.length;i++) //per each event
+        {
+          if(allEvents[i].players !== undefined) //if event has some records about players
+          {
+            for(let p = 0;p < allEvents[i].players.length;p++) // per each player that took part in that event
+            {
+              for(let s = 0;s < playersOfSettlement.length;s++) // per each player in the explored settlement
+              {
+                if(allEvents[i].players[p].name == playersOfSettlement[s].name) // check if the player from Event is present in the settlement
+                {
+                  sum += parseInt(allEvents[i].players[p].points);
+                }
+              }
+            }
+          }
+        }
+
         return{
           id: settlement.id,
           name: settlement.name,
-          points: settlement.points,
+          points: sum,
           imageUrl: settlement.imageUrl
         }
       });
       return result;
     },
-    briefSettlementById: state =>
+    briefSettlementById: state => id =>
     {
-      return id => state.settlements.filter(settlement => {
-        return settlement.id === id;
-      });
+      let settlement = state.settlements.filter(s => s.id == id);
+      let playersOfSettlement = players.getters.players(players.state).filter(x => x.settlement === settlement.name); //players from that settlement
+      let allEvents = events.getters.events(events.state);
+      let sum = 0;
+
+      let scoreMap = new Map();
+      for(let i = 0;i < playersOfSettlement.length;i++)
+      {
+        scoreMap.set(playersOfSettlement[i].name,0);
+      }
+
+      for(let i = 0;i < allEvents.length;i++) //for each event
+      {
+        if(allEvents[i].players !== undefined) //if event has records about players
+        {
+          for(let p = 0;p < allEvents[i].players.length;p++)
+          {
+            for(let s = 0;s < playersOfSettlement.length;s++) // per each player in the explored settlement
+            {
+              if(allEvents[i].players[p].name == playersOfSettlement[s].name) // check if the player from Event is present in the settlement
+              {
+                sum += parseInt(allEvents[i].players[p].points);
+                scoreMap.set(playersOfSettlement[i].name,scoreMap.get(playersOfSettlement[i]) + parseInt(allEvents[i].players[p].points));
+              }
+            }
+          }
+        }
+      }
+
+      return{
+        id: settlement.id,
+        name: settlement.name,
+        description: settlement.description,
+        points: sum,
+        imageUrl: settlement.imageUrl,
+        scoreMap: scoreMap,
+        players: playersOfSettlement
+      };
     },
     settlements: state => {
       return state.settlements;

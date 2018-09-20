@@ -12,7 +12,6 @@ import signIn from './Modules/SignIn'
 
 Vue.use(Vuex);
 Vue.use(firebase);
-
 export default new Vuex.Store({
   modules: {
     shared: shared,
