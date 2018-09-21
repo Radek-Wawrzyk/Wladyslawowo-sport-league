@@ -22,11 +22,24 @@ export default {
           id: event.id,
           name: event.name,
           date: event.date,
-          players: event.players
+          playerCount: event.players.length
         }
       });
 
       return result;
+    },
+    briefEventById: state => id =>
+    {
+      let event = state.events.filter(e => e.id === id);
+      return{
+        id: event.id,
+        name: event.name,
+        date: event.date,
+        description: event.description,
+        ruleSet: event.ruleSet,
+        imageUrls: event.imageUrls,
+        players: event.players
+      }
     },
     events: state => {
       return state.events;

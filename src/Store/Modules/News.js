@@ -22,10 +22,16 @@ export default {
     news: state => {
       return state.news;
     },
-    briefNewsById: state => {
-      return id => state.news.filter(news => {
-        return news.id === id;
-      });
+    briefNewsById: state => id =>
+    {
+      var news = state.news.file(n => n.id === id);
+      return{
+        id: news.id,
+        name: news.name,
+        date: news.date,
+        description: news.description,
+        imageUrl: news.imageUrl
+      }
     },
   },
   mutations: {

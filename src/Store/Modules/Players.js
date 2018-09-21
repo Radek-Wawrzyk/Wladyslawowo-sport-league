@@ -1,32 +1,89 @@
 import firebase from 'firebase'
+import events from './Events'
 
 export default {
   state: {
     players: [],
   },
+  events,
   getters: {
     player: state => {
       return id => state.players.filter(player =>{
         return player.id === id;
       });
     },
-    topPlayers: state =>
+    topPlayers: getters =>
     {
+      let players = getters.briefPlayers;
+      players = players.splice(9,players.length-10);
+      return players;
+    },
+    briefPlayerById: state => id =>
+    {
+      let allEvents = events.getters.events(events.state);
+      var player = state.players.filter(p => p.id === id);
       
+      let sum = 0;
+
+      for(let i = 0;i < allEvents.length;i++)
+      {
+        for(let p = 0;p < allEvents[i].players;p++)
+        {
+          if(allEvents[i].players[p].name === player.name)
+          {
+            sum += parseInt(allEvents[i].players[p].points);
+            break;
+          }
+        }
+      }
+      
+      return{
+        id: player.id,
+        name: player.name,
+        points: sum,
+        settlement: player.settlement,
+        imageUrl: player.imageUrl
+      }
     },
     briefPlayers: state =>
     {
+      let allEvents = events.getters.events(events.state);
       var result = state.players.map(function(player)
       {
+        let sum = 0;
+
+        for(let i = 0;i < allEvents.length;i++)
+        {
+          for(let p = 0;p < allEvents[i].players;p++)
+          {
+            if(allEvents[i].players[p].name === player.name)
+            {
+              sum += parseInt(allEvents[i].players[p].points);
+              break;
+            }
+          }
+        }
         return{
           id: player.id,
           name: player.name,
-          points: player.points,
+          points: sum,
           settlement: player.settlement,
-          imageUrl: player.imageUrl,
-          position: player.position
+          imageUrl: player.imageUrl
         }
       });
+
+      result = result.sort((a,b) =>
+      {
+        if(a.points > b.points)
+        {
+          return 1;
+        }else if(b.points > a.points)
+        {
+          return -1;
+        }
+        return 0;
+      });
+
       return result;
     },
     players: state => {

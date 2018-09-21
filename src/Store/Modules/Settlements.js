@@ -17,12 +17,12 @@ export default {
     briefSettlements: state =>
     {
       let playersOfSettlement;
+      let allEvents = events.getters.events(events.state);
       var result = state.settlements.map(function(settlement) // for each settlement
       {
         playersOfSettlement = players.getters.players(players.state).filter(x => x.settlement === settlement.name); //players from that settlement
 
         //get from every event a players from playersOfSettlement and sum points per each
-        let allEvents = events.getters.events(events.state);
         let sum = 0;
         for(let i = 0;i < allEvents.length;i++) //per each event
         {
@@ -35,6 +35,7 @@ export default {
                 if(allEvents[i].players[p].name == playersOfSettlement[s].name) // check if the player from Event is present in the settlement
                 {
                   sum += parseInt(allEvents[i].players[p].points);
+                  break;
                 }
               }
             }
