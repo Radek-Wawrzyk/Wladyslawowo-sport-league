@@ -22,6 +22,16 @@ export default {
     news: state => {
       return state.news;
     },
+    sliderNews: state =>
+    {
+      let news = state.news.sort((a,b) =>
+      {
+        return new Date(b.date) - new Date(a.date);
+      });
+
+      news = news.splice(2, news.length - 3);
+      return news;
+    },
     briefNewsById: state => id =>
     {
       var news = state.news.file(n => n.id === id);
