@@ -10,7 +10,7 @@ export default {
   events,
   getters: {
     settlement: state => {
-      return id => state.settlements.filter(settlement =>{
+      return id => state.settlements.filter(settlement => {
         return settlement.id === id;
       });
     },

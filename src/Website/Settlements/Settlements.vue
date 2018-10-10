@@ -16,7 +16,7 @@
 				<tr v-for="(settlement, index) in settlements" :key="index" @click="$router.push(`/settlements/${settlement.id}`)" :aria-label="settlement.name" :title="settlement.name">
 					<th>{{index +1}}</th>
 					<th>{{settlement.name}}</th>
-					<th></th>
+					<th>{{settlement.points}}</th>
 				</tr>
 				</tbody>
 			</table>
@@ -30,7 +30,7 @@ export default {
 	name: "Settlements",
 	computed: {
 	  settlements() {
-	    return this.$store.getters.settlements;
+	    return this.$store.getters.briefSettlements;
 		}
 	}
 }

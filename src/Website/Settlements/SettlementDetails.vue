@@ -200,10 +200,13 @@
 		</div>
   </main>
 </template>
+
 <script>
+
 export default {
   name: "SettlementDetails"
 }
+
 </script>
 
-<style lang="scss" src="./SettlementDetails.scss" scoped/>
+<style lang="scss" src="./SettlementDetails.scss" scoped />
