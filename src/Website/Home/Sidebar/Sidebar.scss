@@ -1,0 +1,126 @@
+@import "@/styles/Components/Colors.scss";
+
+.sidebar {
+  max-width: 320px;
+  width: 100%;
+  &-section {
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+    padding: 15px;
+    background: white;
+    margin:  0 0 25px 0;
+    &-title {
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 0 0 15px 0;
+    }
+  }
+  a {
+    color: inherit;
+    &:hover {
+      color: $brandColor;
+      transition: color 0.25s;
+    }
+  }
+}
+
+//Stats
+
+.stats {
+  &-tabs {
+    position: relative;
+    display: flex;
+    &::before {
+      position: absolute;
+      content: '';
+      left: 0;
+      bottom: 0;
+      height: 1px;
+      width: 100%;
+      background: #dbdbdb;
+    }
+    &-btn {
+      width: 50%;
+      background: none;
+      border: none;
+      border-radius: 0;
+      color: #363636;
+      font-size: 17px;
+      font-weight: 600;
+      padding: 6px 12px;
+      outline: none;
+      transition: color 0.25s;
+      &:focus, &:hover {
+        cursor: pointer;
+        color: $brandColor;
+      }
+      &.is-active {
+        border-bottom: 4px solid $brandColor;
+      }
+    }
+  }
+  &-footer {
+    padding: 10px 0 0 0;
+    a {
+      font-weight: 600;
+      font-size: 14px;
+      color: #363636;
+    }
+  }
+  &-list-item-link {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 5px 0;
+    margin: 5px 0;
+    border-bottom: 1px solid #dbdbdb;
+    color: #363636;
+  }
+}
+
+.item-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 0 15px 0 0;
+  background: grey;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+.item-description {
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - 65px);
+  &-text {
+
+  }
+}
+
+//Contact section
+
+.contact-list {
+  &-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 10px 0;
+    svg {
+      width: 20px;
+      height: 20px;
+      margin: 0 15px 0 0;
+    }
+  }
+  &-item:last-of-type {
+    border-bottom: none;
+  }
+}
+
+//Media
+
+@media screen and (max-width: 992px) {
+  .sidebar {
+    max-width: 100%;
+  }
+}
