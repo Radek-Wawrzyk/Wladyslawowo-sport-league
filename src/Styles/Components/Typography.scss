@@ -3,3 +3,7 @@
 html, body, * {
   font-family: 'Open Sans', sans-serif;
 }
+
+a:hover, a:focus {
+  outline-color: $brandColor;
+}
