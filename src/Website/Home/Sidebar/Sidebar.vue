@@ -48,6 +48,12 @@
         </ul>
       </div>
     </section>
+    <section class="sidebar-section facebook">
+      <h2 class="sidebar-section-title">Social Media</h2>
+      <div class="sidebar-section-content">
+        <div class="fb-page" data-href="https://www.facebook.com/ligawladyslawowo/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/ligawladyslawowo/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/ligawladyslawowo/">Liga Sportowa Gminy Władysławowo</a></blockquote></div>
+      </div>
+    </section>
   </aside>
 </template>
 
@@ -57,7 +63,16 @@
     name: "Sidebar",
     props: [
       "players"
-    ]
+    ],
+    created: function() {
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v3.1';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    }
   }
 </script>
 
