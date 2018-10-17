@@ -5,8 +5,10 @@ import './Firebase'
 import Router from './Router/index'
 import Store from './Store/index'
 import Vuelidate from 'vuelidate'
+import VueCarousel from 'vue-carousel';
 
 Vue.use(Vuelidate)
+Vue.use(VueCarousel)
 
 Vue.config.productionTip = false
 
