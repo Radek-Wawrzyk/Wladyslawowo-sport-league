@@ -12,12 +12,12 @@ export default {
         return player.id === id;
       });
     },
-    topPlayers: getters =>
+    /*topPlayers: getters => It crashes Vue Devtool!!!
     {
       let players = getters.briefPlayers;
       players = players.splice(9,players.length-10);
       return players;
-    },
+    } ,*/
     briefPlayerById: state => id =>
     {
       let allEvents = events.getters.events(events.state);
