@@ -1,14 +1,115 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:600');
+@import "@/Styles/Components/Colors.scss";
 
 .home {
   display: flex;
   justify-content: space-between;
   align-items: end;
+  &-column {
+    width: 70%;
+    background: white;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+    &:last-of-type {
+      width: auto;
+      padding: 0 0 0 25px;
+      box-shadow: none;
+      background: inherit;
+    }
+  }
 }
+
+//Information section
+
+.info {
+  border-bottom: 1px solid #dbdbdb;
+  padding: 15px 15px 44px 15px;
+  &-title {
+    color: #FF3333;
+  }
+}
+
+//Event
+
+.event {
+  display: flex;
+  align-items: stretch;
+  padding: 15px;
+  border-bottom: 1px solid #dbdbdb;
+  height: 100%;
+  &-title {
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 10px;
+    border-left: 6px solid $brandColor;
+  }
+  &-img {
+    width: 40%;
+    height: 200px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &-description {
+    position: relative;
+    width: 60%;
+    padding: 0 0 0 15px;
+    display: flex;
+    flex-direction: column;
+
+    a {
+      color: #363636;
+      font-weight: 600;
+      transition: color 0.25s;
+      &:hover, &:focus {
+        color: $brandColor;
+      }
+    }
+    &-btn {
+      border-radius: 0;
+      width: 150px;
+      margin: 15px 0 0 0;
+      background: $brandColor;
+      color: white !important;
+      font-weight: normal !important;
+    }
+    &-date {
+      position: absolute;
+      right: 20px;
+      transform: translateX(20px);
+      bottom: 0;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 10px 0 0 0;
+    }
+  }
+}
+
+//Media
 
 @media screen and (max-width: 992px) {
   .home {
     flex-wrap: wrap;
+    &-column {
+      width: 100%;
+      &:last-of-type {
+        width: 100%;
+        padding: 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .event {
+    flex-wrap: wrap;
+    &-img {
+      width: 100%;
+    }
+    &-description {
+      padding: 0;
+      width: 100%;
+      h4 {
+        margin: 15px 0;
+      }
+    }
   }
 }

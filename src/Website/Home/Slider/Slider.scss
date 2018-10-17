@@ -46,3 +46,17 @@
     margin: 0 0 25px 0;
   }
 }
+
+@media screen and (max-width: 576px) {
+  .slider-item {
+    height: 300px;
+    &-content {
+      bottom: 25px;
+      width: 100%;
+      padding: 15px 0;
+    }
+    &-date {
+      font-size: 12px;
+    }
+  }
+}
