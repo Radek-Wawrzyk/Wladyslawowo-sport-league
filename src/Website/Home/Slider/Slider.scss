@@ -1,3 +1,5 @@
+@import "@/Styles/Components/Colors.scss";
+
 .slider {
   width: 100%;
   position: relative;
@@ -23,6 +25,15 @@
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
+      &-title a {
+        color: white;
+        transition: color 0.25s;
+        font-size: 18px;
+        font-weight: 600;
+        &:hover {
+          color: $brandColor;
+        }
+      }
     }
     &-date {
       position: absolute;
