@@ -6,6 +6,7 @@ import Router from './Router/index'
 import Store from './Store/index'
 import Vuelidate from 'vuelidate'
 import VueCarousel from 'vue-carousel';
+import "./Filters";
 
 Vue.use(Vuelidate)
 Vue.use(VueCarousel)
