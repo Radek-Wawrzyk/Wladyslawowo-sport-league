@@ -4,24 +4,37 @@
       <h2 class="sidebar-section-title">Ranking</h2>
       <div class="sidebar-section-content">
         <div class="stats-tabs">
-          <button class="stats-tabs-btn is-active">Zawodnicy</button>
-          <button class="stats-tabs-btn">Osiedla</button>
+          <button class="stats-tabs-btn" :class="{'is-active': activeTab === 'players'}" @click="toggleTab('players')">Zawodnicy</button>
+          <button class="stats-tabs-btn" :class="{'is-active': activeTab === 'settlements'}" @click="toggleTab('settlements')">Osiedla</button>
         </div>
-        <ul class="stats-list">
+        <ul class="stats-list" v-if="activeTab === 'players'">
           <li class="stats-list-item" v-for="player in players">
-            <a class="stats-list-item-link" href="#" :aria-label="player.name" :title="player.name">
-              <figure class="item-img">
-                <img :src="player.img" alt="player.name" />
+            <router-link :to="`players/${player.id}`" class="stats-list-item-link" href="#" :aria-label="player.name" :title="player.name">
+              <figure class="item-img" v-if="player.img">
+                <img :src="player.img" :alt="player.name" />
               </figure>
               <div class="item-description">
                 <p class="item-description-text">{{player.name}}</p>
                 <span class="item-description-points">{{player.points}} pkt</span>
               </div>
-            </a>
+            </router-link>
+          </li>
+        </ul>
+        <ul class="stats-list" v-if="activeTab === 'settlements'">
+          <li class="stats-list-item" v-for="settlement in settlements">
+            <router-link :to="`settlements/${settlement.id}`" class="stats-list-item-link" :aria-label="settlement.name" :title="settlement.name">
+              <figure class="item-img" v-if="settlement.img">
+                <img :src="settlement.img" :alt="settlement.name" />
+              </figure>
+              <div class="item-description">
+                <p class="item-description-text">{{settlement.name}}</p>
+                <span class="item-description-points">{{settlement.points}} pkt</span>
+              </div>
+            </router-link>
           </li>
         </ul>
         <footer class="stats-footer">
-          <router-link to="/players" aria-label="Więcej statystyk" title="Więcej statystyk">Więcej statystyk graczy</router-link>
+          <router-link to="/settlements" aria-label="Więcej statystyk" title="Więcej statystyk">Więcej statystyk Osiedl</router-link>
         </footer>
       </div>
     </section>
@@ -62,8 +75,19 @@
   export default {
     name: "Sidebar",
     props: [
-      "players"
+      "players",
+      "settlements"
     ],
+    data() {
+      return {
+        activeTab: 'players'
+      }
+    },
+    methods: {
+      toggleTab(item) {
+        this.activeTab = item;
+      }
+    },
     created: function() {
       (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];

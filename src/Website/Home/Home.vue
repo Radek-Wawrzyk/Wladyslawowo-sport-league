@@ -33,7 +33,7 @@
           </section>
         </div>
         <div class="home-column">
-          <Sidebar :players="players"></Sidebar>
+          <Sidebar :players="players" :settlements="settlements"></Sidebar>
         </div>
       </div>
     </main>
@@ -85,12 +85,10 @@ export default {
     },
     events() {
       return this.$store.getters.events;
+    },
+    settlements() {
+      return this.$store.getters.briefSettlements;
     }
-  },
-  created: function () {
-    const events = this.$store.getters.events;
-
-    console.log(events);
   }
 };
 
