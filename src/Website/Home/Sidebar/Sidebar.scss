@@ -61,45 +61,6 @@
       }
     }
   }
-  &-footer {
-    padding: 10px 0 0 0;
-    a {
-      font-weight: 600;
-      font-size: 14px;
-      color: #363636;
-    }
-  }
-  &-list-item-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 0;
-    margin: 5px 0;
-    border-bottom: 1px solid #dbdbdb;
-    color: #363636;
-  }
-}
-
-.item-img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin: 0 15px 0 0;
-  background: grey;
-  overflow: hidden;
-  img {
-    width: 100%;
-    height: auto;
-  }
-}
-.item-description {
-  display: flex;
-  flex-shrink: 10;
-  justify-content: space-between;
-  width: 100%;
-  &-text {
-
-  }
 }
 
 //Contact section
@@ -132,17 +93,3 @@
     display: none;
   }
 }
-
-.fade {
-  &-enter-active, &-leave-active {
-    transition: opacity 0.4s;
-  }
-  &-enter {
-    opacity: 0;
-  }
-  &-leave-to {
-    display: none;
-  }
-}
-
-

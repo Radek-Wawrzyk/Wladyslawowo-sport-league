@@ -1,0 +1,51 @@
+@import "@/Styles/Components/Colors.scss";
+
+.list {
+  &-item {
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 0;
+      margin: 5px 0;
+      border-bottom: 1px solid #dbdbdb;
+      color: #363636;
+      transition: color 0.25s;
+      &:hover, &:focus {
+        color: $brandColor;
+      }
+    }
+    &-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin: 0 15px 0 0;
+      background: grey;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    &-content {
+      display: flex;
+      flex-shrink: 10;
+      justify-content: space-between;
+      width: 100%;
+      &-points {
+        font-weight: 600;
+      }
+    }
+  }
+  &-footer {
+    padding: 10px 0 0 0;
+    a {
+      font-weight: 600;
+      font-size: 14px;
+      color: #363636;
+      &:focus, &:hover {
+        color: $brandColor;
+      }
+    }
+  }
+}

@@ -7,35 +7,9 @@
           <button class="stats-tabs-btn" :class="{'is-active': activeTab === 'players'}" @click="toggleTab('players')">Zawodnicy</button>
           <button class="stats-tabs-btn" :class="{'is-active': activeTab === 'settlements'}" @click="toggleTab('settlements')">Osiedla</button>
         </div>
-        <ul class="stats-list" v-if="activeTab === 'players'">
-          <li class="stats-list-item" v-for="player in players">
-            <router-link :to="`players/${player.id}`" class="stats-list-item-link" href="#" :aria-label="player.name" :title="player.name">
-              <figure class="item-img" v-if="player.img">
-                <img :src="player.img" :alt="player.name" />
-              </figure>
-              <div class="item-description">
-                <p class="item-description-text">{{player.name}}</p>
-                <span class="item-description-points">{{player.points}} pkt</span>
-              </div>
-            </router-link>
-          </li>
-        </ul>
-        <ul class="stats-list" v-if="activeTab === 'settlements'">
-          <li class="stats-list-item" v-for="settlement in settlements">
-            <router-link :to="`settlements/${settlement.id}`" class="stats-list-item-link" :aria-label="settlement.name" :title="settlement.name">
-              <figure class="item-img" v-if="settlement.img">
-                <img :src="settlement.img" :alt="settlement.name" />
-              </figure>
-              <div class="item-description">
-                <p class="item-description-text">{{settlement.name}}</p>
-                <span class="item-description-points">{{settlement.points}} pkt</span>
-              </div>
-            </router-link>
-          </li>
-        </ul>
-        <footer class="stats-footer">
-          <router-link to="/settlements" aria-label="Więcej statystyk" title="Więcej statystyk">Więcej statystyk Osiedl</router-link>
-        </footer>
+        <List :items="settlements" :link="'settlements'" v-if="activeTab === 'settlements'"></List>
+        <List :items="players" :link="'players'" v-if="activeTab === 'players'"></List>
+
       </div>
     </section>
     <section class="sidebar-section contact">
@@ -67,13 +41,19 @@
         <div class="fb-page" data-href="https://www.facebook.com/ligawladyslawowo/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/ligawladyslawowo/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/ligawladyslawowo/">Liga Sportowa Gminy Władysławowo</a></blockquote></div>
       </div>
     </section>
+
   </aside>
 </template>
 
 <script>
 
+  import List from "./List/List"
+
   export default {
     name: "Sidebar",
+    components: {
+      List
+    },
     props: [
       "players",
       "settlements"
