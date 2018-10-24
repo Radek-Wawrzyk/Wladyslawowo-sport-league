@@ -65,7 +65,8 @@ export default {
           name: player.name,
           points: sum,
           settlement: player.settlement,
-          imageUrl: player.imageUrl
+          imageUrl: player.imageUrl,
+          extension: player.extension
         }
       });
 
