@@ -52,33 +52,6 @@ export default {
     Slider,
     Sidebar
   },
-  data() {
-    return {
-      players: [
-        {
-          id: 1,
-          name: "Jan Bednarek",
-          points: 25,
-          settlement: "Chałpowo",
-          img: "https://www.ics.usi.ch/images/IMG_0754-avatar.jpg"
-        },
-        {
-          id: 2,
-          name: "Maciek z klanu",
-          points: 50,
-          settlement: "Karwia",
-          img: "https://www.ics.usi.ch/images/IMG_0754-avatar.jpg"
-        },
-        {
-          id: 3,
-          name: "Bob budowniczy",
-          points: 5,
-          settlement: "Władysławowo Centrum",
-          img: "https://www.ics.usi.ch/images/IMG_0754-avatar.jpg"
-        }
-      ]
-    }
-  },
   computed: {
     lastNews() {
       return this.$store.getters.topNews;
@@ -88,6 +61,9 @@ export default {
     },
     settlements() {
       return this.$store.getters.topSettlements;
+    },
+    players() {
+      return this.$store.getters.topPlayers;
     }
   }
 };

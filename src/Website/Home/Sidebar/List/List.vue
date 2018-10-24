@@ -4,7 +4,7 @@
       <li class="list-item" v-for="item in items">
         <router-link :to="`${link}/${item.id}`"  href="#" :aria-label="item.name" :title="item.name">
           <figure class="list-item-img" v-if="item.img">
-            <img :src="item.img" :alt="item.name" />
+            <img :src="item.imageUrl" :alt="item.name" />
           </figure>
           <div class="list-item-content">
             <p class="ilist-item-content-text">{{item.name}}</p>
