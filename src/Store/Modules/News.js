@@ -22,15 +22,12 @@ export default {
     news: state => {
       return state.news;
     },
-    sliderNews: state =>
+    topNews: state =>
     {
-      let news = state.news.sort((a,b) =>
-      {
-        return new Date(b.date) - new Date(a.date);
-      });
-
-      news = news.splice(2, news.length - 3);
-      return news;
+      return state.news.sort(function(a,b)
+        {
+          return new Date(b.date) - new Date(a.date);
+        }).slice(0,5);
     },
     briefNewsById: state => id =>
     {

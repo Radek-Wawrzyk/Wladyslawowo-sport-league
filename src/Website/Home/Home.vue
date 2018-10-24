@@ -81,10 +81,10 @@ export default {
   },
   computed: {
     lastNews() {
-      return this.$store.getters.briefNews;
+      return this.$store.getters.topNews;
     },
     events() {
-      return this.$store.getters.events;
+      return this.$store.getters.topEvents;
     },
     settlements() {
       return this.$store.getters.briefSettlements;

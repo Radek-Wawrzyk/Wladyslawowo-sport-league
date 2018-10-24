@@ -10,10 +10,6 @@ export default {
         return e.id == id
       });
     },
-    topEvents: state =>
-    {
-      
-    },
     briefEvents: state =>
     {
       var result = state.events.map(function(event)
@@ -40,6 +36,13 @@ export default {
         imageUrls: event.imageUrls,
         players: event.players
       }
+    },
+    topEvents: state => 
+    {
+        return state.events.sort(function(a,b)
+        {
+          return new Date(b.date) - new Date(a.date);
+        }).slice(0,5);
     },
     events: state => {
       return state.events;
