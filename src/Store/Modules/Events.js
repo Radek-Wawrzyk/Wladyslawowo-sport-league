@@ -10,33 +10,6 @@ export default {
         return e.id == id
       });
     },
-    briefEvents: state =>
-    {
-      var result = state.events.map(function(event)
-      {
-        return{
-          id: event.id,
-          name: event.name,
-          date: event.date,
-          playerCount: event.players.length
-        }
-      });
-
-      return result;
-    },
-    briefEventById: state => id =>
-    {
-      let event = state.events.filter(e => e.id === id);
-      return{
-        id: event.id,
-        name: event.name,
-        date: event.date,
-        description: event.description,
-        ruleSet: event.ruleSet,
-        imageUrls: event.imageUrls,
-        players: event.players
-      }
-    },
     topEvents: state => 
     {
         return state.events.sort(function(a,b)
