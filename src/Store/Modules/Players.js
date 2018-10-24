@@ -81,7 +81,7 @@ export default {
         return 0;
       });
 
-      return result;
+      return result.slice(0,5);
     },
     players: state => {
       return state.players;

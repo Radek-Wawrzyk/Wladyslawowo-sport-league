@@ -14,7 +14,7 @@ export default {
         return settlement.id === id;
       });
     },
-    briefSettlements: state =>
+    topSettlements: state =>
     {
       let playersOfSettlement;
       let allEvents = events.getters.events(events.state);
@@ -49,7 +49,20 @@ export default {
           imageUrl: settlement.imageUrl
         }
       });
-      return result;
+
+      result = result.sort((a,b) =>
+      {
+        if(a.points > b.points)
+        {
+          return -1;
+        }else if(b.points > a.points)
+        {
+          return 1;
+        }
+        return 0;
+      });
+
+      return result.slice(0,5);
     },
     briefSettlementById: state => id =>
     {
