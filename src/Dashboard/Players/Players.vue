@@ -1,11 +1,9 @@
 <template>
   <div>
-    <header class="columns">
-      <div class="column">
-        <h1 class="title is-3">Zawodnicy</h1>
-      </div>
-      <div class="column has-text-right">
-        <router-link class="button is-medium is-danger" to="/panel/players/add-player">Dodaj zawodnika</router-link>
+    <header class="panel-header">
+      <h1 class="panel-header-title title is-3">Zawodnicy</h1>
+      <div class="panel-header-link">
+        <router-link class="button is-danger" to="/panel/players/add-player">Dodaj zawodnika</router-link>
       </div>
     </header>
     <section class="">
