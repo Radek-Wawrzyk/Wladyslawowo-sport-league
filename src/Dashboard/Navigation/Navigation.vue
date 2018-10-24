@@ -22,41 +22,29 @@
     </section>
     <section class="navigation-right">
       <div class="navigation-panel">
-        <button class="navigation-panel-btn" @click="toggleDropDown" :class="{'is-active': dropDown}">
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/111863/profile/profile-512.jpg" alt="user name"/>
-          <p>{{user.email}}</p>
-          <svg width="292.36px" height="292.36px" enable-background="new 0 0 292.362 292.362" version="1.1" viewBox="0 0 292.362 292.362" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-            <path d="m286.94 69.377c-3.614-3.617-7.898-5.424-12.848-5.424h-255.81c-4.952 0-9.233 1.807-12.85 5.424-3.617 3.621-5.424 7.902-5.424 12.851 0 4.948 1.807 9.229 5.424 12.847l127.91 127.91c3.621 3.617 7.902 5.428 12.85 5.428s9.233-1.811 12.847-5.428l127.91-127.91c3.613-3.617 5.427-7.898 5.427-12.847 0-4.948-1.814-9.229-5.427-12.85z"/>
+        <p class="navigation-panel-user">{{user.email}}</p>
+        <button @click="logout" class="navigation-panel-logout" type="button" aria-label="Wyloguj się" title="Wyloguj się">
+          <svg enable-background="new 0 0 512 512" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+	          <path d="m320 73.294v67.979c18.104 7.902 34.75 19.204 49.137 33.59 30.22 30.22 46.863 70.4 46.863 113.14 0 42.736-16.643 82.917-46.863 113.14-30.221 30.22-70.399 46.863-113.14 46.863s-82.917-16.643-113.14-46.863-46.863-70.401-46.863-113.14c0-42.737 16.643-82.917 46.863-113.14 14.387-14.387 31.034-25.689 49.137-33.591v-67.978c-92.524 27.54-160 113.24-160 214.71 0 123.71 100.29 224 224 224 123.71 0 224-100.29 224-224 0-101.47-67.475-187.17-160-214.71zm-96-73.294h64v256h-64v-256z"/>
           </svg>
         </button>
-        <transition name="fade-normal" tag="div">
-          <div class="navigation-dropdown" :class="{'is-active': dropDown}" v-if="dropDown">
-            <ul class="navigation-dropdown-content">
-              <li>Profil użytkownika</li>
-              <li @click="logout">Wyloguj</li>
-            </ul>
-          </div>
-        </transition>
       </div>
     </section>
   </nav>
 </template>
 
 <script>
+
 import { mapGetters } from "vuex"
 
 export default {
   name: "Navigation",
   data() {
     return {
-      dropDown: false,
       searchValue: ""
     }
   },
   methods: {
-    toggleDropDown: function() {
-      this.dropDown =! this.dropDown;
-    },
     toggleMenu: function() {
       this.$store.dispatch("toggleMenu");
     },
@@ -75,5 +63,3 @@ export default {
 </script>
 
 <style lang="scss" src="./Navigation.scss" scoped />
-
-
