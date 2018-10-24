@@ -87,7 +87,7 @@ export default {
       return this.$store.getters.topEvents;
     },
     settlements() {
-      return this.$store.getters.briefSettlements;
+      return this.$store.getters.topSettlements;
     }
   }
 };
