@@ -9,7 +9,6 @@
         </div>
         <List :items="settlements" :link="'settlements'" v-if="activeTab === 'settlements'"></List>
         <List :items="players" :link="'players'" v-if="activeTab === 'players'"></List>
-
       </div>
     </section>
     <section class="sidebar-section contact">
