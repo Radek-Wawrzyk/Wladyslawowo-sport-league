@@ -19,28 +19,40 @@ export default new Router({
         component: () => import("@/Website/Home/Home.vue")
       },
       {
+        name: "Search",
+        path: "/search/:phrase",
+        component: () => import("@/Website/Navigation/Searchbar/SearchResults.vue"),
+        props: true
+      },
+      {
         path: "/players",
         component: () => import("@/Website/Players/Players.vue")
       },
       {
+        name: 'SearchPlayer',
         path: "/players/:id",
-        component: () => import("@/Website/Players/PlayerDetails.vue")
+        component: () => import("@/Website/Players/PlayerDetails.vue"),
+        props: true
       },
       {
         path: "/settlements",
         component: () => import("@/Website/Settlements/Settlements.vue")
       },
       {
+        name: 'SearchSettlement',
         path: "settlements/:id",
-        component: () => import("@/Website/Settlements/SettlementDetails.vue")
+        component: () => import("@/Website/Settlements/SettlementDetails.vue"),
+        props: true
       },
       {
         path: "/events",
         component: () => import("@/Website/Events/Events.vue")
       },
       {
+        name: 'SearchEvent',
         path: "/events/:id"  ,
-        component: () => import("@/Website/Events/EventDetails.vue")
+        component: () => import("@/Website/Events/EventDetails.vue"),
+        props: true
       },
       {
         path: "/help",
