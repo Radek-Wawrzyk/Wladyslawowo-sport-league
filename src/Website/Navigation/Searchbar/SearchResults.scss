@@ -1,0 +1,37 @@
+.tab-headers
+{
+  display: flex;
+  justify-content: center;
+}
+
+.tab
+{
+  padding: 5px;
+  &:hover
+  {
+    color: red;
+    cursor: pointer;
+  }
+
+  &.active
+  {
+    color: red;
+  }
+}
+
+.tab-contents
+{
+  padding: 10px;
+}
+
+.result-list
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result-item
+{
+  padding: 5px;
+}
