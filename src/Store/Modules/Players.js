@@ -12,12 +12,6 @@ export default {
         return player.id === id;
       });
     },
-    /*topPlayers: getters => It crashes Vue Devtool!!!
-    {
-      let players = getters.briefPlayers;
-      players = players.splice(9,players.length-10);
-      return players;
-    } ,*/
     briefPlayerById: state => id =>
     {
       let allEvents = events.getters.events(events.state);
@@ -45,7 +39,7 @@ export default {
         imageUrl: player.imageUrl
       }
     },
-    briefPlayers: state =>
+    topPlayers: state =>
     {
       let allEvents = events.getters.events(events.state);
       var result = state.players.map(function(player)
@@ -54,12 +48,15 @@ export default {
 
         for(let i = 0;i < allEvents.length;i++)
         {
-          for(let p = 0;p < allEvents[i].players;p++)
+          if(allEvents[i].players !== undefined)
           {
-            if(allEvents[i].players[p].name === player.name)
+            for(let p = 0;p < allEvents[i].players.length;p++)
             {
-              sum += parseInt(allEvents[i].players[p].points);
-              break;
+              if(allEvents[i].players[p].name == player.name)
+              {
+                sum += parseInt(allEvents[i].players[p].points);
+                break;
+              }
             }
           }
         }
@@ -76,10 +73,10 @@ export default {
       {
         if(a.points > b.points)
         {
-          return 1;
+          return -1;
         }else if(b.points > a.points)
         {
-          return -1;
+          return 1;
         }
         return 0;
       });

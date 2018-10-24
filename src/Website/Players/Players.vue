@@ -91,6 +91,13 @@
 </style>
 <script>
 	export default {
-		name: "Players"
+		name: "Players",
+		computed:
+		{
+			topPlayers()
+			{
+				return this.$store.getters.topPlayers;
+			}
+		}
 	}
 </script>
