@@ -45,12 +45,16 @@
       width: 25px;
       height: 25px;
       fill: #4a4a4a;
+      transition: fill 0.25s;
     }
     span {
       margin: 0 5px 0 0;
     }
     &:hover, &:focus {
       cursor: pointer;
+      svg {
+        fill: $brandColor;
+      }
     }
   }
 }

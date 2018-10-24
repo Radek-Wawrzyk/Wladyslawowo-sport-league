@@ -31,3 +31,71 @@ table .buttons {
     }
   }
 }
+
+//Table panel
+
+.table-panel {
+  width: 100%;
+  background: white;
+  border: 1px solid $borderColor;
+  thead th {
+    padding: 25px;
+    border-bottom: 1px solid $borderColor;
+    font-weight: 700;
+  }
+  tbody th {
+    font-weight: normal;
+    padding: 10px 25px;
+    border-bottom: 1px solid $borderColor;
+    img {
+      width: 100px;
+      height: auto;
+    }
+  }
+  &-buttons {
+    display: flex;
+    button {
+      background: none;
+      &:first-of-type {
+        margin: 0 10px 0 0;
+      }
+      svg {
+        width: 20px;
+        height: 20px;
+        path {
+          fill: #363636;
+        }
+      }
+    }
+  }
+}
+
+//Table pagination
+
+.table-pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px 0;
+  &-counter {
+    margin: 0 10px;
+  }
+}
+
+//Media
+
+@media screen and (max-width: 768px) {
+  .table-pagination {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width:  576px) {
+  .table-panel {
+    thead th {
+      padding: 10px 25px;
+      white-space: nowrap;
+    }
+  }
+
+}
