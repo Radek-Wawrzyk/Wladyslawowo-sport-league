@@ -11,7 +11,7 @@
     </div>
     <p class="footer-copyright">
       &copy; Copyright Gmina Władysławowo 2018 <br/>
-      Design: <a href="https://plus.google.com/105337576128668418187"> Nigtellios</a> Realizacja:
+      Design: <a href="https://plus.google.com/105337576128668418187"> Nigtellios</a> i  <a href="http://radek-wawrzyk.pl/">Radek</a> Realizacja:
       <a href="http://radek-wawrzyk.pl/">Radek</a> & <a href="https://github.com/JakubK">Jakub</a>
     </p>
   </footer>

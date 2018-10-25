@@ -1,6 +1,6 @@
 <template>
   <carousel class="slider" :per-page="1" :autoplay="true" pagination-active-color="#ff3333"
-  :autoplayHoverPause="true" :autoplayTimeout="3400"
+  :autoplayHoverPause="true" :autoplayTimeout="3400" :loop="true"
   >
     <slide class="slider-item" v-for="news in lastNews" :key="news.id" :style="{'background-image': `url(${news.imageUrl})`}">
       <div class="slider-item-content">
