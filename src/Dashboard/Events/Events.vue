@@ -19,7 +19,7 @@
           </tr>
           </thead>
           <transition-group tag="tbody" name="fade">
-            <tr v-for="(event, index) in events" :key="event.id">
+            <tr v-for="(event) in events" :key="event.id">
               <th>{{event.index}}</th>
               <th>{{event.name}}</th>
               <th>{{event.date}}</th>

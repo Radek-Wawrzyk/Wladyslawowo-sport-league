@@ -52,7 +52,6 @@ export default {
   name: "News",
   data() {
     return {
-      data: [],
       currentPage: 1,
       pageSize: 8,
     }
@@ -60,13 +59,13 @@ export default {
   computed: {
     newsList() {
       //Add dynamically updated index for each element in array
-      for ( let i = 0; i <= this.data.length; i++) {
-        this.data.forEach(item => {
+      for ( let i = 0; i <= this.newsData.length; i++) {
+        this.newsData.forEach(item => {
           item["index"] = (i++) + 1;
         });
       }
 
-      return this.data.filter((row, index) => {
+      return this.newsData.filter((row, index) => {
         let start = (this.currentPage - 1) * this.pageSize;
         let end = this.currentPage * this.pageSize;
 
@@ -76,11 +75,12 @@ export default {
       });
     },
     pages() {
-      return Math.ceil(this.data.length / this.pageSize);
+      return Math.ceil(this.newsData.length / this.pageSize);
     },
-  },
-  created() {
-    this.data = this.$store.getters.news;
+    newsData()
+    {
+      return this.$store.getters.news;
+    }
   },
   methods: {
     removeNews(news) {
@@ -90,7 +90,7 @@ export default {
       this.$router.push({name: 'UpdateNews', params: {id: news.id}});
     },
     next() {
-      if ((this.currentPage * this.pageSize) < this.data.length) {
+      if ((this.currentPage * this.pageSize) < this.newsData.length) {
         this.currentPage++;
       }
     },

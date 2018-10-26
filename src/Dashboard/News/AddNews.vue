@@ -140,8 +140,8 @@ export default {
     if(this.update === true)
     {
       this.modalTitle = "Edytuj zawodnika";
-      var news = this.$store.getters.singleNews(this.$route.params.id);
-      this.news = news[0];
+      var n = this.$store.getters.briefNewsById(this.$route.params.id);
+      this.news = n;
       this.imgName = this.news.id;
     }
     else

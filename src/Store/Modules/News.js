@@ -17,7 +17,8 @@ export default {
     },
     briefNewsById: state => id =>
     {
-      var news = state.news.file(n => n.id === id);
+      var news = state.news.filter(n => n.id == id)[0];
+
       return{
         id: news.id,
         name: news.name,
@@ -35,7 +36,14 @@ export default {
       state.news.push(newNews);
     },
     updateNews: (state, news) => {
-      state.news[state.news.indexOf(news)] = news;
+      for(let i = 0;i < state.news.length;i++)
+      {
+        if(state.news[i].id === news.id)
+        {
+          state.news[i] = news;
+          break;
+        }
+      }
     },
     removeNews: (state, news) => {
       state.news.splice(state.news.indexOf(news), 1);
@@ -130,7 +138,6 @@ export default {
 
         news.extension = extension;
       }
-
       firebase.database().ref('news').child(news.id).update(news).then(key => {
         if (editedImage) {
           uploadImg = storageRef.child(`news/${news.id}${news.extension}`).put(uploadImg)
@@ -144,7 +151,7 @@ export default {
           })
         }
         commit('updateNews', news);
-      })
+      }).catch();
     },
     removeNews: ({commit}, news) => {
       firebase.database().ref('news').child(news.id).remove().then(key => {
