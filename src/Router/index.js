@@ -75,6 +75,12 @@ export default new Router({
           component: () => import("@/Dashboard/Home/Home.vue")
         },
         {
+          name: "SearchDashboard",
+          path: "search/:phrase",
+          component: () => import("@/Dashboard/Navigation/SearchResults.vue"),
+          props: true
+        },
+        {
           path: "players",
           component: () => import("@/Dashboard/Players/Players.vue"),
           children: [

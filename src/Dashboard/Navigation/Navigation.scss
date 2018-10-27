@@ -134,3 +134,15 @@
     }
   }
 } 
+
+.input-icon
+{
+  &:hover
+  {
+    cursor: pointer;
+    path
+    {
+      fill: gray;
+    }
+  }
+}

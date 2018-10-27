@@ -17,7 +17,7 @@
           </tr>
           </thead>
           <transition-group tag="tbody" name="fade">
-            <tr v-for="(settlement, index) in settlements" :key="settlement.id">
+            <tr v-for="(settlement) in settlements" :key="settlement.id">
               <th>{{settlement.index}}</th>
               <th>{{settlement.name}}</th>
               <th>
