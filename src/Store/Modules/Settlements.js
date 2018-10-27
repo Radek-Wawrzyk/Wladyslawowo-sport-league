@@ -203,6 +203,9 @@ export default {
       let editedImage = settlement.img !== undefined;
       let file, extension, uploadImg, imageRef, imageUrl, storageRef;
 
+      if(settlement.imageUrl === undefined)
+        settlement.imageUrl = null;
+
       if (editedImage) {
         file = settlement.img.name;
         extension = file.slice(file.lastIndexOf('.'));
@@ -210,12 +213,12 @@ export default {
         storageRef = firebase.storage().ref();
 
         settlement.extension = extension;
-        console.log('extension changed to ' + extension);
       }
-
       firebase.database().ref('settlements').child(settlement.id).update(settlement).then(key => {
         if (editedImage)
-          uploadImg = storageRef.child(`settlements/${settlement.id}${settlement.extension}`).put(uploadImg)
+          {
+            uploadImg = storageRef.child(`settlements/${settlement.id}${settlement.extension}`).put(uploadImg)
+          }
       }).then(() => {
         if (editedImage) {
           uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {

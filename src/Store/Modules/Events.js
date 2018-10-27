@@ -122,13 +122,15 @@ export default {
       });
     },
     removeEvent: ({commit}, event) => {
-
       firebase.database().ref('events').child(event.id).remove().then(key => {
         const storageRef = firebase.storage().ref();
-        for(let i = 0;i < event.extensions.length;i++)
+        if(event.extensions !== undefined)
         {
-          const imageRef = storageRef.child(`events/${event.id + i}${event.extensions[i]}`);
-          imageRef.delete();
+          for(let i = 0;i < event.extensions.length;i++)
+          {
+            const imageRef = storageRef.child(`events/${event.id + i}${event.extensions[i]}`);
+            imageRef.delete();
+          }
         }
       }).then(() => {
         commit('removeEvent', event);

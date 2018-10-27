@@ -54,6 +54,7 @@ export default {
     return {
       currentPage: 1,
       pageSize: 8,
+      newsData: []
     }
   },
   computed: {
@@ -76,11 +77,11 @@ export default {
     },
     pages() {
       return Math.ceil(this.newsData.length / this.pageSize);
-    },
-    newsData()
-    {
-      return this.$store.getters.news;
     }
+  },
+  created()
+  {
+    this.newsData = this.$store.getters.news;
   },
   methods: {
     removeNews(news) {

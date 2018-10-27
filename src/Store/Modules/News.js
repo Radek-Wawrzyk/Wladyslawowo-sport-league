@@ -36,14 +36,16 @@ export default {
       state.news.push(newNews);
     },
     updateNews: (state, news) => {
+      let index = 0;
       for(let i = 0;i < state.news.length;i++)
       {
-        if(state.news[i].id === news.id)
+        if(state.news[i].id == news.id)
         {
-          state.news[i] = news;
+          index = i;
           break;
         }
       }
+      state.news[index] = news;
     },
     removeNews: (state, news) => {
       state.news.splice(state.news.indexOf(news), 1);
@@ -130,6 +132,9 @@ export default {
       var editedImage = news.img !== undefined;
       let file, extension, uploadImg, imageRef, imageUrl, storageRef;
 
+      if(news.imageUrl === undefined)
+        news.imageUrl = null;
+
       if (editedImage) {
         file = news.img.name;
         extension = file.slice(file.lastIndexOf('.'));
@@ -150,8 +155,9 @@ export default {
             news.imageUrl = imageUrl;
           })
         }
+
         commit('updateNews', news);
-      }).catch();
+      });
     },
     removeNews: ({commit}, news) => {
       firebase.database().ref('news').child(news.id).remove().then(key => {
