@@ -1,11 +1,13 @@
 import firebase from 'firebase'
 import events from './Events'
+import settlements from './Settlements'
 
 export default {
   state: {
     players: [],
   },
   events,
+  settlements,
   getters: {
     player: state => {
       return id => state.players.filter(player =>{
@@ -35,7 +37,7 @@ export default {
         id: player.id,
         name: player.name,
         points: sum,
-        settlement: player.settlement,
+        settlement: settlements.getters.settlement(player.settlementId).name,
         imageUrl: player.imageUrl
       }
     },
@@ -60,11 +62,12 @@ export default {
             }
           }
         }
+
         return{
           id: player.id,
           name: player.name,
           points: sum,
-          settlement: player.settlement,
+          settlement: settlements.getters.settlement(player.settlementId).name,
           imageUrl: player.imageUrl,
           extension: player.extension
         }
@@ -84,7 +87,20 @@ export default {
 
       return result.slice(0,5);
     },
-    players: state => {
+    players: state => 
+    {
+      for(let i = 0;i < state.players.length;i++)
+      {
+        for(let j = 0;j < settlements.state.settlements.length;j++)
+        {
+          if(settlements.state.settlements[i].id === state.players[i].settlementId)
+          {
+            state.players[i].settlement = settlements.state.settlements[i].name;
+            break;
+          }
+        }
+      }
+
       return state.players;
     },
   },
@@ -114,6 +130,7 @@ export default {
                 id: key,
                 name: object[key].name,
                 settlement: object[key].settlement,
+                settlementId: object[key].settlementId,
                 extension: object[key].extension,
                 imageUrl: object[key].imageUrl
               })
@@ -132,6 +149,7 @@ export default {
       const newPlayer = {
         name: player.name,
         settlement: player.settlement,
+        settlementId: player.settlementId,
         extension: player.img === undefined ? "" : player.img.name.slice(player.img.name.lastIndexOf('.'))
       };
 
@@ -191,6 +209,9 @@ export default {
         player.extension = extension;
       }
 
+      if(player.imageUrl === undefined)
+        player.imageUrl = null;
+
       firebase.database().ref('players').child(player.id).update(player).then(key => {
         if (editedImage) {
           uploadImg = storageRef.child(`players/${player.id}${player.extension}`).put(uploadImg)
@@ -198,6 +219,10 @@ export default {
       }).then(() => {
         if (editedImage) {
           uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+
+            if(downloadURL === undefined)
+              downloadURL = null;
+
             imageUrl = downloadURL;
             firebase.database().ref('players').child(player.id).update({imageUrl: imageUrl});
             player.imageUrl = imageUrl;
