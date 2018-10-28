@@ -79,9 +79,11 @@
     border-radius: 0;
     border: none;
     border-right: 1px solid $borderColor;
+    transition: background 0.25s;
     &:focus, &:hover {
-      background: #ffffff;
+      background: rgba(255, 43, 43, 0.06);
       box-shadow: none;
+      outline-color: $brandColor;
     }
   }
   svg {
@@ -92,6 +94,11 @@
     width: 20px;
     height: 20px;
     fill: rgba(0,0,0,0.18);
+    transition: fill 0.25s;
+    &:hover {
+      cursor: pointer;
+      fill: $brandColor;
+    }
   }
 }
 
@@ -131,18 +138,6 @@
     &-logout svg {
       width: 20px;
       height: 20px;
-    }
-  }
-} 
-
-.input-icon
-{
-  &:hover
-  {
-    cursor: pointer;
-    path
-    {
-      fill: gray;
     }
   }
 }

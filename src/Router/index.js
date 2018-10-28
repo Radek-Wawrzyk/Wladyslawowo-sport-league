@@ -77,7 +77,7 @@ export default new Router({
         {
           name: "SearchDashboard",
           path: "search/:phrase",
-          component: () => import("@/Dashboard/Navigation/SearchResults.vue"),
+          component: () => import("@/Dashboard/Search/SearchResults.vue"),
           props: true
         },
         {
