@@ -43,10 +43,14 @@ table .buttons {
     border-bottom: 1px solid $borderColor;
     font-weight: 700;
   }
+  tbody tr.is-active {
+    background: rgba(255, 48, 48, 0.15);
+  }
   tbody th {
     font-weight: normal;
     padding: 10px 25px;
     border-bottom: 1px solid $borderColor;
+    text-transform: inherit;
     img {
       width: 100px;
       height: auto;
