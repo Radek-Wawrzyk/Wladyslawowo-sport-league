@@ -51,7 +51,7 @@
         </section>
         <footer class="modal-card-foot">
           <button class="button is-danger" @click="handleSubmit">Zapisz</button>
-          <button class="button" @click="closeModal">Cancel</button>
+          <button class="button" @click="closeModal">Anuluj</button>
         </footer>
       </div>
     </div>
@@ -70,6 +70,7 @@ export default {
       player: {
         name: "",
         settlement: "",
+        settlementId: '',
         img: "",
         extension: ""
       },
@@ -97,6 +98,7 @@ export default {
       clearTimeout(this.alertTimeoutId)
 
       if (this.player.name && this.player.settlement) {
+        this.player.settlementId = this.settlementId(this.player.settlement);
         this.$store.dispatch('addPlayer', this.player);
         for (let key in this.player) {
           this.player[key] = '';
@@ -114,6 +116,7 @@ export default {
     },
     updatePlayer()
     {
+        this.player.settlementId = this.settlementId(this.player.settlement);
         this.$store.dispatch('updatePlayer',this.player);
         this.closeModal();
     },
@@ -134,6 +137,16 @@ export default {
     dismissAlert()
     {
       this.alertMessage = null;
+    },
+    settlementId(settlementName)
+    {
+      for(let i = 0;i < this.settlements.length;i++)
+      {
+        if(this.settlements[i].name == settlementName)
+        {
+          return this.settlements[i].id;
+        }
+      }
     }
   },
   computed: {
