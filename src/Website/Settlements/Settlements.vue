@@ -1,11 +1,11 @@
 <template>
 	<main class="website-container">
 		<header class="website-header">
-			<h1 class="title is-3">Osiedla i dzielnice</h1>
+			<h1 class="title is-3">Osiedla</h1>
 		</header>
 		<div class="table-responsive">
-			<table class="table is-bordered is-fullwidth">
-				<thead class="table-head">
+			<table class="table-panel">
+				<thead>
 				<tr>
 					<th>Lp</th>
 					<th>Nazwa osiedla</th>
@@ -30,7 +30,7 @@ export default {
 	name: "Settlements",
 	computed: {
 	  settlements() {
-	    return this.$store.getters.briefSettlements;
+	    return this.$store.getters.settlements;
 		}
 	}
 }
