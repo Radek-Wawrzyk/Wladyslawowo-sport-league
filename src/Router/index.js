@@ -60,6 +60,12 @@ export default new Router({
         component: () => import("@/Website/News/News.vue")
       },
       {
+        name: 'SearchNews',
+        path: "/news/:id",
+        component: () => import("@/Website/News/NewsDetails.vue"),
+        props: true
+      },
+      {
         path: "/help",
         component: () => import("@/Website/Help/Help.vue")
       },
