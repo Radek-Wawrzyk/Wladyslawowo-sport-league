@@ -113,19 +113,21 @@
 		methods: {
 		  submit() {
 		    if (!this.$v.$invalid) {
-		      JSON.stringify(this.credential);
+					var data = new FormData();
+					data.append('name',this.credential.name);
+					data.append('email',this.credential.email);
+					data.append('subject',this.credential.subject);
+					data.append('message',this.credential.message);
 
-					axios.post('phpFile', {
-					  data: this.credential
-					}).then(response => {
+					axios.post('url',
+						 data
+					 ).then(response => {
             this.error = false;
-
-            //Reset fields
+						//Reset fields
             for (let key in this.credential) {
-              this.data[key] = "";
+              this.credential[key] = "";
             }
 
-            console.log(response);
 					}).catch(error => {
 					  console.log(error);
 					});
