@@ -1,44 +1,100 @@
 <template>
   <main class="website-container">
-    <div class="tabs">
-      <ul class="tab-headers">
-        <li @click="switchVisible(0)" v-bind:class="{active : visibleTab == 0}" class="tab">Players</li>
-        <li @click="switchVisible(1)" v-bind:class="{active : visibleTab == 1}"  class="tab">Settlements</li>
-        <li @click="switchVisible(2)" v-bind:class="{active : visibleTab == 2}" class="tab">Events</li>
-        <li @click="switchVisible(3)" v-bind:class="{active : visibleTab == 3}" class="tab">News</li>
+    <header class="website-header">
+      <h1 class="panel-header-title title is-3">Wyszukiwanie - "{{phrase}}"</h1>
+    </header>
+    <div class="search">
+      <ul class="search-tabs">
+        <li @click="switchVisible(0)" class="search-tabs-item">
+          <button :class="{active : visibleTab === 0}" class="search-tabs-item-btn" type="button" @click="switchVisible(0)" aria-label="Zawodnicy" title="Zawodnicy">Zawodnicy</button>
+        </li>
+        <li @click="switchVisible(1)" class="search-tabs-item">
+          <button :class="{active : visibleTab === 1}" class="search-tabs-item-btn" type="button" @click="switchVisible(1)" aria-label="Osiedla" title="Osiedla">Osiedla</button>
+        </li>
+        <li @click="switchVisible(2)" class="search-tabs-item">
+          <button :class="{active : visibleTab === 2}" class="search-tabs-item-btn" type="button" @click="switchVisible(2)" aria-label="Imprezy" title="Imprezy">Imprezy</button>
+        </li>
+        <li @click="switchVisible(3)" class="search-tabs-item">
+          <button :class="{active : visibleTab === 3}" class="search-tabs-item-btn" type="button" @click="switchVisible(3)" aria-label="Wydarzenia" title="Wydarzenia">Wydarzenia</button>
+        </li>
       </ul>
-    </div>
-    <div class="tab-contents">
-      <div v-if="visibleTab == 0" class="tab-content">
-        <ul class="result-list">
-          <li class="result-item" :key="index" v-for="(item,index) in results.players">
-            <router-link :to="{ name: 'SearchPlayer', params: {id : item.id}}">{{ item.name }}</router-link>
-          </li>
-        </ul>
-      </div>
-
-      <div v-if="visibleTab == 1" class="tab-content">
-        <ul class="result-list">
-          <li class="result-item" :key="index" v-for="(item,index) in results.settlements">
-            <router-link :to="{ name: 'SearchSettlement', params: {id : item.id}}">{{ item.name }}</router-link>
-          </li>
-        </ul>
-      </div>
-
-      <div v-if="visibleTab == 2" class="tab-content">
-        <ul class="result-list">
-          <li class="result-item" :key="index" v-for="(item,index) in results.events">
-            <router-link :to="{ name: 'SearchEvent', params: {id : item.id}}">{{ item.name }}</router-link>
-          </li>
-        </ul>
-      </div>
-
-      <div v-if="visibleTab == 3" class="tab-content">
-        <ul class="result-list">
-          <li class="result-item" :key="index" v-for="(item,index) in results.news">
-            <router-link :to="{ name: 'SearchNews', params: {id : item.id}}">{{ item.name }}</router-link>
-          </li>
-        </ul>
+      <div class="search-data">
+        <transition-group class="table-responsive" name="fade" tag="div">
+          <div class="search-data-item" :key="0" v-if="visibleTab === 0">
+            <p class="no-results" v-if="results.players.length <= 0">Brak wyników</p>
+            <table v-if="results.players.length > 0" class="table-panel search-table" >
+              <thead>
+              <tr>
+                <th>LP</th>
+                <th>Imie i Nazwisko</th>
+                <th>Osiedle</th>
+              </tr>
+              </thead>
+              <tbody class="table-body">
+              <tr :key="index" v-for="(item, index) in results.players" @click="$router.push(`/players/${item.id}`)" :aria-label="item.name" :title="item.name">
+                <th>{{ index + 1 }}</th>
+                <th>{{ item.name }}</th>
+                <th>{{ item.settlement }}</th>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="search-data-item" :key="1" v-if="visibleTab === 1">
+            <p class="no-results" v-if="results.settlements.length <= 0">Brak wyników</p>
+            <table v-if="results.settlements.length > 0" class="table-panel search-table">
+              <thead>
+              <tr>
+                <th>LP</th>
+                <th>Nazwa osiedla</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr :key="index" v-for="(item, index) in results.settlements" @click="$router.push(`/settlements/${item.id}`)" :aria-label="item.name" :title="item.name">
+                <th>{{ index + 1 }}</th>
+                <th>{{ item.name }}</th>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="search-data-item" v-if="visibleTab === 2" :key="2" >
+            <p class="no-results" v-if="results.events.length <= 0">Brak wyników</p>
+            <table v-if="results.events.length > 0" class="table-panel search-table">
+              <thead>
+              <tr>
+                <th>LP</th>
+                <th>Nazwa</th>
+                <th>Data</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr :key="index" v-for="(item, index) in results.events" @click="$router.push(`/events/${item.id}`)" :aria-label="item.name" :title="item.name">
+                <th>{{ index + 1 }}</th>
+                <th>{{ item.name }}</th>
+                <th>{{ item.date }}</th>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="search-data-item" v-if="visibleTab === 3" :key="3">
+            <p class="no-results" v-if="results.news.length <= 0">Brak wyników</p>
+            <table v-if="results.news.length > 0" class="table-panel search-table" >
+              <thead>
+              <tr>
+                <th>LP</th>
+                <th>Nazwa</th>
+                <th>Data</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr :key="index" v-for="(item, index) in results.news" @click="$router.push(`/news/${item.id}`)" :aria-label="item.name" :title="item.name">
+                <th>{{ index + 1 }}</th>
+                <th>{{ item.name }}</th>
+                <th>{{ item.date }}</th>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </transition-group>
       </div>
     </div>
   </main>
@@ -47,26 +103,22 @@
 export default {
   props: ['phrase'],
   name: "SearchResults",
-  data()
-  {
+  data() {
     return{
       visibleTab: 0
     };
   },
-  methods:
-  {
-    switchVisible(tab)
-    {
+  methods: {
+    switchVisible(tab) {
       this.visibleTab = tab;
     }
   },
-  computed:
-  {
-    results()
-    {
+  computed: {
+    results() {
       return this.$store.getters.search(this.phrase);
     }
   }
 }
 </script>
-<style scoped lang="scss" src="./SearchResults.scss"></style>
+
+<style scoped lang="scss" src="./SearchResults.scss" />

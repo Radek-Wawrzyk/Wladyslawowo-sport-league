@@ -15,13 +15,6 @@ table .buttons {
 
 //Website table
 
-.table-head {
-  background: $brandColor;
-  tr th {
-    border-color: $brandColor;
-    color: white !important;
-  }
-}
 .table-body {
   tr {
     transition: background 0.25s;
@@ -101,5 +94,4 @@ table .buttons {
       white-space: nowrap;
     }
   }
-
 }

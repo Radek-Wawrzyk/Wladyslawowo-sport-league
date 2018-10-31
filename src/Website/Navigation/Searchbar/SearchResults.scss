@@ -1,37 +1,48 @@
-.tab-headers
-{
-  display: flex;
-  justify-content: center;
-}
+@import "@/Styles/Components/Colors.scss";
 
-.tab
-{
-  padding: 5px;
-  &:hover
-  {
-    color: red;
-    cursor: pointer;
+.search {
+  border: 1px solid $borderColor;
+  background: white;
+  &-table {
+    border: 0;
+    thead th, tbody th {
+      padding: 15px;
+    }
+    tbody tr {
+      transition: background 0.25s;
+      &:hover {
+        background: rgba(255, 48, 48, 0.15);
+        cursor: pointer;
+      }
+    }
   }
-
-  &.active
-  {
-    color: red;
+  &-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-bottom: 1px solid $borderColor;
+    &-item {
+      &-btn {
+        border: none;
+        background: none;
+        padding: 16px 12px;
+        font-size: 18px;
+        font-weight: 600;
+        transition: color 0.25s;
+        &.active, &:focus, &:hover {
+          border-bottom: 2px solid $brandColor;
+          cursor: pointer;
+          outline-color: rgba(0,0,0,0);
+          color: $brandColor;
+        }
+      }
+    }
   }
 }
 
-.tab-contents
-{
-  padding: 10px;
-}
-
-.result-list
-{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.result-item
-{
-  padding: 5px;
+.no-results {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  color: #bdbdbd;
 }
