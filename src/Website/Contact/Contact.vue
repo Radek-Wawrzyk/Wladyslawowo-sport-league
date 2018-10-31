@@ -39,7 +39,7 @@
 					</transition>
 				</div>
 				<div class="field">
-					<button class="button is-danger" aria-label="Wyślij" @click.prevent="submit">Wyślij</button>
+					<button class="button is-danger contact-button" aria-label="Wyślij" @click.prevent="submit">Wyślij</button>
 				</div>
 				<div class="field">
 					<transition name="fade-left">

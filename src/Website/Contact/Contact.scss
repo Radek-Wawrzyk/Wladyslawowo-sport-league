@@ -29,7 +29,11 @@
       position: absolute;
       left: 20px;
       bottom: -18px;
+      color: $brandColor;
     }
+  }
+  &-button {
+    background: $brandColor;
   }
   &-info {
     width: calc(40% - 25px);
