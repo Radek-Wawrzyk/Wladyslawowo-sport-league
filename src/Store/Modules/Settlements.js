@@ -68,38 +68,78 @@ export default {
     {
       let playersOfSettlement;
       let allEvents = events.getters.events(events.state);
+      var settlement = state.settlements.filter(s => s.id === id);
+  
+      let [s] = settlement;
+
+      if(s === undefined)
+        s = {};
+
+      playersOfSettlement = players.getters.players(players.state).filter(x => x.settlement === s.name); //players from that settlement
+
+    
+      //get from every event a players from playersOfSettlement and sum points per each
+      let sum = 0;
+      for(let i = 0;i < allEvents.length;i++) //per each event
+      {
+        if(allEvents[i].players !== undefined) //if event has some records about players
+        {
+          for(let p = 0;p < allEvents[i].players.length;p++) // per each player that took part in that event
+          {
+            for(let s = 0;s < playersOfSettlement.length;s++) // per each player in the explored settlement
+            {
+              if(allEvents[i].players[p].name == playersOfSettlement[s].name) // check if the player from Event is present in the settlement
+              {
+                sum += parseInt(allEvents[i].players[p].points);
+                break;
+              }
+            }
+          }
+        }
+      }
+
+      return{
+        id: s.id,
+        name: s.name,
+        description: s.description,
+        points: sum,
+        imageUrl: s.imageUrl,
+        playerCount: playersOfSettlement.length
+      }
+    },
+    settlements: state => {
+
+      let playersOfSettlement;
+      let allEvents = events.getters.events(events.state);
       var result = state.settlements.map(function(settlement) // for each settlement
       {
-        if(settlement.id === id)
-        {
-          playersOfSettlement = players.getters.players(players.state).filter(x => x.settlement === settlement.name); //players from that settlement
+        playersOfSettlement = players.getters.players(players.state).filter(x => x.settlement === settlement.name); //players from that settlement
 
-          //get from every event a players from playersOfSettlement and sum points per each
-          let sum = 0;
-          for(let i = 0;i < allEvents.length;i++) //per each event
+        //get from every event a players from playersOfSettlement and sum points per each
+        let sum = 0;
+        for(let i = 0;i < allEvents.length;i++) //per each event
+        {
+          if(allEvents[i].players !== undefined) //if event has some records about players
           {
-            if(allEvents[i].players !== undefined) //if event has some records about players
+            for(let p = 0;p < allEvents[i].players.length;p++) // per each player that took part in that event
             {
-              for(let p = 0;p < allEvents[i].players.length;p++) // per each player that took part in that event
+              for(let s = 0;s < playersOfSettlement.length;s++) // per each player in the explored settlement
               {
-                for(let s = 0;s < playersOfSettlement.length;s++) // per each player in the explored settlement
+                if(allEvents[i].players[p].name == playersOfSettlement[s].name) // check if the player from Event is present in the settlement
                 {
-                  if(allEvents[i].players[p].name == playersOfSettlement[s].name) // check if the player from Event is present in the settlement
-                  {
-                    sum += parseInt(allEvents[i].players[p].points);
-                    break;
-                  }
+                  sum += parseInt(allEvents[i].players[p].points);
+                  break;
                 }
               }
             }
           }
+        }
 
-          return{
-            id: settlement.id,
-            name: settlement.name,
-            points: sum,
-            imageUrl: settlement.imageUrl
-          }
+        return{
+          id: settlement.id,
+          name: settlement.name,
+          points: sum,
+          imageUrl: settlement.imageUrl
         }
       });
 
@@ -115,10 +155,7 @@ export default {
         return 0;
       });
 
-      return result.slice(0,5);
-    },
-    settlements: state => {
-      return state.settlements;
+      return result;
     },
   },
   mutations: {

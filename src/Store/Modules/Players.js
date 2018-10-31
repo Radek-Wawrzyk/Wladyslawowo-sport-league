@@ -18,27 +18,45 @@ export default {
     {
       let allEvents = events.getters.events(events.state);
       var player = state.players.filter(p => p.id === id);
-      
       let sum = 0;
+
+      let [p] = player;
+
+      if(p === undefined)
+        p = {};
+
 
       for(let i = 0;i < allEvents.length;i++)
       {
-        for(let p = 0;p < allEvents[i].players;p++)
+        for(let x = 0;x < allEvents[i].players.length;x++)
         {
-          if(allEvents[i].players[p].name === player.name)
+          if(allEvents[i].players[x].name === p.name)
           {
-            sum += parseInt(allEvents[i].players[p].points);
+            sum += parseInt(allEvents[i].players[x].points);
             break;
           }
         }
       }
+
+
+      for(let j = 0;j < settlements.state.settlements.length;j++)
+      {
+        if(settlements.state.settlements[j].id === p.settlementId)
+        {
+          p.settlement = settlements.state.settlements[j].name;
+          break;
+        }
+      }
+        
+
       
+
       return{
-        id: player.id,
-        name: player.name,
+        id: p.id,
+        name: p.name,
         points: sum,
-        settlement: settlements.getters.settlement(player.settlementId).name,
-        imageUrl: player.imageUrl
+        settlement: p.settlement,
+        imageUrl: p.imageUrl
       }
     },
     topPlayers: state =>
@@ -63,11 +81,23 @@ export default {
           }
         }
 
+        for(let i = 0;i < state.players.length;i++)
+        {
+          for(let j = 0;j < settlements.state.settlements.length;j++)
+          {
+            if(settlements.state.settlements[i].id === state.players[i].settlementId)
+            {
+              state.players[i].settlement = settlements.state.settlements[i].name;
+              break;
+            }
+          }
+        }
+
         return{
           id: player.id,
           name: player.name,
           points: sum,
-          settlement: settlements.getters.settlement(player.settlementId).name,
+          settlement: player.settlement,
           imageUrl: player.imageUrl,
           extension: player.extension
         }

@@ -19,10 +19,11 @@
 <script>
 
   export default {
+    props: ['id'],
     name: "NewsDetails",
     computed: {
       news() {
-        return this.$store.getters.news[0];
+        return this.$store.getters.briefNewsById(this.id);
       }
     }
   }
