@@ -28,3 +28,16 @@
     transform: translate3d(-10px,0,0);
   }
 }
+
+.fade-left-normal {
+  &-enter-active, &-leave-active {
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  &-enter{
+    opacity: 0;
+    transform: translate3d(-60px,0,0);
+  }
+  &-leave-to {
+    display: none;
+  }
+}
