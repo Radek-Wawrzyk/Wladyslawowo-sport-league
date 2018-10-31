@@ -21,8 +21,8 @@ new Vue({
   store: Store,
   render: h => h(App),
   created () {
-    this.$store.dispatch('news');
     this.$store.dispatch('settlements');
+    this.$store.dispatch('news');
     this.$store.dispatch('players');
     this.$store.dispatch('events');
   }

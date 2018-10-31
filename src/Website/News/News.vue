@@ -4,7 +4,7 @@
       <h1 class="title is-3">Wydarzenia</h1>
     </header>
     <section class="news">
-      <ul class="news-list" v-for="news in newsList">
+      <ul :key="index" class="news-list" v-for="(news, index) in newsList">
         <li class="news-list-item" >
           <figure class="news-list-item-img" v-if="news.imageUrl">
             <img :src="news.imageUrl" :alt="news.name" />

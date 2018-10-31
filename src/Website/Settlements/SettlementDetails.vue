@@ -1,13 +1,13 @@
 <template>
 	<main class="website-container">
 		<section class="description">
-			<h2 class="description-header title is-3">Nazwa Osiedla</h2>
+			<h2 class="description-header title is-3">{{ settlement.name }}</h2>
 			<figure class="description-img">
 				<img src="@/Assets/Home/buildings.jpg" alt="Osiedle" />
 			</figure>
 			<div class="description-content">
-				<p class="description-content-text">Opis osiedla fvg Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus architecto corporis delectus deserunt eius eligendi excepturi fugit id, inventore itaque nesciunt obcaecati quae, quam quia repudiandae sed tempore voluptatem voluptatibus.</p>
-				<p class="description-content-text">Ilość zawodników: 15</p>
+				<p class="description-content-text">{{ settlement.description }}</p>
+				<p class="description-content-text">Ilość zawodników: <b>{{ settlement.playerCount }}</b></p>
 			</div>
 		</section>
 		<section class="stats">
@@ -74,7 +74,15 @@
 <script>
 
 export default {
-  name: "SettlementDetails"
+	props: ['id'],
+	name: "SettlementDetails",
+	computed:
+	{
+		settlement()
+		{
+	    return this.$store.getters.briefSettlementById(this.id); 
+		}
+	}
 }
 
 </script>

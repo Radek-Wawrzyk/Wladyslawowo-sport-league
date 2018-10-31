@@ -17,7 +17,7 @@
 				<tr v-for="(player, index) in players" :key="index" @click="$router.push(`/players/${player.id}`)" :aria-label="player.name" :title="player.name">
 					<th>{{index +1}}</th>
 					<th>{{player.name}}</th>
-					<th>{{player.settlement}}</th>
+					<th>{{ player.settlement }}</th>
 					<th>{{player.points}} pkt</th>
 				</tr>
 				</tbody>
@@ -32,7 +32,7 @@
 		name: "Players",
 		computed: {
 			players() {
-				return this.$store.getters.players;
+				return this.$store.getters.topPlayers;
 			}
 		}
 	}
