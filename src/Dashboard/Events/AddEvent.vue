@@ -8,30 +8,31 @@
     </transition>
     <div class="event-container">
       <div class="event-column">
-        <h2 class="title is-5">Dane imprezy</h2>
-        <div class="field">
-          <label class="label">Nazwa imprezy</label>
-          <div class="control">
-            <input class="input" type="text" v-model="event.name" placeholder="Nazwa imprezy">
+        <h2 class="event-column-title title is-5">Dane imprezy</h2>
+        <form class="event-form">
+          <div class="field">
+            <label class="label">Nazwa imprezy</label>
+            <div class="control">
+              <input class="input" type="text" v-model="event.name" placeholder="Nazwa imprezy">
+            </div>
           </div>
-        </div>
-        <div class="field">
-          <label class="label">Opis imprezy</label>
-          <div class="control">
-            <textarea class="textarea" v-model="event.description" placeholder="Opis wydarzenia"></textarea>
+          <div class="field">
+            <label class="label">Opis imprezy</label>
+            <div class="control">
+              <textarea class="textarea" v-model="event.description" placeholder="Opis wydarzenia"></textarea>
+            </div>
           </div>
-        </div>
-        <div class="field">
-          <label class="label">Data imprezy</label>
-          <div class="control">
-            <input class="input" type="date" v-model="event.date" >
+          <div class="field">
+            <label class="label">Data imprezy</label>
+            <div class="control">
+              <input class="input" type="date" v-model="event.date" >
+            </div>
           </div>
-        </div>
-        <div class="field">
-          <div class="file has-name">
-            <label class="file-label">
-              <input class="file-input" type="file" name="file" @change="onFileSelected" accept="image/*">
-              <span class="file-cta">
+          <div class="field">
+            <div class="file has-name">
+              <label class="file-label">
+                <input class="file-input" type="file" name="file" @change="onFileSelected" accept="image/*">
+                <span class="file-cta">
                 <span class="file-icon">
                   <i class="fa fa-cloud-upload-alt"></i>
                 </span>
@@ -39,15 +40,16 @@
                   Dodaj zdjęcie
                 </span>
               </span>
-              <span class="file-name" v-for="imgName in imgNames" :key="imgName">
+                <span class="file-name" v-for="imgName in imgNames" :key="imgName">
                 {{imgName}}
-              </span>
-            </label>
+                </span>
+              </label>
+            </div>
           </div>
-          </div>
+        </form>
       </div>
       <div class="event-column">
-        <h2 class="title is-5">Zawodnicy</h2>
+        <h2 class="event-column-title title is-5">Zawodnicy</h2>
         <div class="table-responsive">
           <table class="table is-bordered is-fullwidth">
             <thead class="panel-head">
