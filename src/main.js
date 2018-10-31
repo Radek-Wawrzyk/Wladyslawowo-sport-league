@@ -7,9 +7,12 @@ import Store from './Store/index'
 import Vuelidate from 'vuelidate'
 import VueCarousel from 'vue-carousel';
 import "./Filters";
+import Lightbox from 'vue-pure-lightbox'
+
 
 Vue.use(Vuelidate)
 Vue.use(VueCarousel)
+Vue.use(Lightbox)
 
 Vue.config.productionTip = false
 

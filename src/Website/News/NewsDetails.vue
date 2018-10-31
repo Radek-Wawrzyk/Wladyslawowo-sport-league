@@ -1,7 +1,7 @@
 <template>
   <main class="website-container">
     <header class="website-header news-header">
-      <h1 class="title is-3">Nazwa wydarzenia</h1>
+      <h1 class="title is-3">{{news.name}}</h1>
     </header>
     <section class="news">
       <figure class="news-img" :style="{'background-image': `url(${news.imageUrl})`}"></figure>
