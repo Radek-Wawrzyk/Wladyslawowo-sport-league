@@ -32,7 +32,7 @@
 		name: "Players",
 		computed: {
 			players() {
-				return this.$store.getters.topPlayers;
+				return this.$store.getters.players;
 			}
 		}
 	}

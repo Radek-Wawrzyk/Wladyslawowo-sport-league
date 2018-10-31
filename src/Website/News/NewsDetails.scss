@@ -1,0 +1,54 @@
+@import "@/Styles/Components/Colors.scss";
+
+.news {
+  background: white;
+  border: 1px solid $borderColor;
+  &-header {
+    margin: 0;
+    border-bottom: 0;
+  }
+  &-img {
+    width: 100%;
+    height: 550px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  &-content {
+    padding: 25px;
+    &-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 0 25px 0;
+      h2 {
+        margin: 0;
+      }
+    }
+  }
+}
+
+//Media
+
+@media screen and (max-width: 992px) {
+  .news-img {
+    height: 400px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .news-img {
+    height: 280px;
+  }
+  .news-content {
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .news-content-top h2 {
+    width: 100%;
+    margin: 0 0 10px 0;
+  }
+}
