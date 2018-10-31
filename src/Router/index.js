@@ -55,6 +55,11 @@ export default new Router({
         props: true
       },
       {
+        name: "News",
+        path: "/news",
+        component: () => import("@/Website/News/News.vue")
+      },
+      {
         path: "/help",
         component: () => import("@/Website/Help/Help.vue")
       },

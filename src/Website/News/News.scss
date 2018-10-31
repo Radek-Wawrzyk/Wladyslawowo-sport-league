@@ -1,0 +1,70 @@
+@import "@/Styles/Components/Colors.scss";
+
+.news {
+  border: 1px solid $borderColor;
+  background: white;
+  &-list {
+    display: flex;
+    &-item {
+      display: flex;
+      padding: 15px;
+      border-bottom: 1px solid $borderColor;
+      width: 100%;
+      &-img {
+        width: 30%;
+        height: auto;
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+      &-content {
+        position: relative;
+        padding: 0 0 0 15px;
+        width: 70%;
+        &.no-img {
+          width: 100%;
+        }
+        &-title {
+          font-size: 20px;
+          font-weight: 600;
+          margin: 0 0 15px 0;
+          a {
+            color: #363636;
+            transition: color 0.25s;
+            &:focus, &:hover {
+              color: $brandColor;
+            }
+          }
+        }
+        &-text {
+          margin: 0 0 15px 0;
+        }
+        &-btn {
+          background: $brandColor;
+          border-radius: 0;
+        }
+        &-date {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+        }
+      }
+    }
+  }
+}
+
+//Media
+
+@media screen and (max-width: 768px) {
+  .news-list-item {
+    flex-wrap: wrap;
+    &-content {
+      width: 100%;
+      padding: 0;
+    }
+    &-img {
+      width: 100%;
+    }
+  }
+}
