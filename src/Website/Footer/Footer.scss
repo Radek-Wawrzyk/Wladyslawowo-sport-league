@@ -1,53 +1,54 @@
 @import "@/Styles/Components/Colors.scss";
 
-.footer-container {
+.footer {
+  border-top: 3px solid #ce5659;
   padding: 25px 15px;
-  background: #f3f3f3;
+  background: #1d1d21;
   width: 100%;
   position: relative;
   text-align: center;
-  &::before {
-    content: '';
-    display: block;
-    height: 2px;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: rgba(0,0,0,0.1);
+  &-link {
+    color: white;
+    transition: color 0.25s;
+    &:focus, &:hover {
+      color: #ce5659;
+    }
   }
-}
-
-//Footer logo
-
-.footer-logo {
-  height: 80px;
-}
-
-//Footer Copyright
-
-.footer-copyright {
-  color: #858585;
-  font-size: 14px;
-  a {
-    color: #ce1d13;
-  }
-}
-
-//Social link
-
-.logo-frame {
-  color: #3273dc;
-  &:hover, &:focus {
-    svg {
-      path {
-        fill: #3F51B5;
+  &-social {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+    &-item {
+      border: 1px solid white;
+      border-radius: 50%;
+      color: white;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: color 0.25s;
+      svg {
+        width: auto;
+        height: 20px;
+        fill: white;
+        transition: fill 0.25s;
+      }
+      &:hover, &:focus {
+        border-color: #ce5659;
+        color: #ce5659;
       }
     }
   }
-  .facebook-logo {
-    height: 30px;
-    margin: 5px 0;
-    fill: #3F51B5;
+  &-copyright {
+    color: #656573;
+    font-size: 14px;
+    a {
+      color: white;
+      transition: color 0.25s;
+      &:hover, &:focus {
+        color: #ce5659;
+      }
+    }
   }
 }
