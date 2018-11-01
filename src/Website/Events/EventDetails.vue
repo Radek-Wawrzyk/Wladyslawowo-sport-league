@@ -15,20 +15,20 @@
 				<div class="table-responsive">
 					<table class="table-panel">
 						<thead>
-						<tr>
-							<th>LP</th>
-							<th>Imię i Nazwisko</th>
-							<th>Osiedle</th>
-							<th>Ilość Punktów</th>
-						</tr>
+							<tr>
+								<th>LP</th>
+								<th>Imię i Nazwisko</th>
+								<th>Osiedle</th>
+								<th>Ilość Punktów</th>
+							</tr>
 						</thead>
 						<tbody>
-						<tr>
-							<th>1</th>
-							<th>Adam Poziomek</th>
-							<th>Kawia</th>
-							<th>25pkt</th>
-						</tr>
+							<tr :key="index" v-for="(player, index) in event.players">
+								<th>{{ index + 1 }}</th>
+								<th>{{ player.name }}</th>
+								<th>{{ player.settlement }}</th>
+								<th>{{ player.points }}</th>
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -73,10 +73,11 @@
 <script>
 
 export default {
+	props: ['id'],
 	name: "EventDetails",
 	computed: {
 	  event() {
-	    return this.$store.getters.events[1];
+	    return this.$store.getters.event(this.id);
 		}
 	}
 }

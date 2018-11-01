@@ -48,9 +48,6 @@ export default {
         }
       }
         
-
-      
-
       return{
         id: p.id,
         name: p.name,

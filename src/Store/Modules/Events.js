@@ -1,14 +1,43 @@
 import firebase from 'firebase';
+import players from './Players'
 
 export default {
   state: {
     events: [],
   },
+  players,
   getters: {
-    event(state) {
-      return id => state.events.filter(e => {
-        return e.id == id
-      });
+    event: state => id =>
+    {
+      let ev;
+      for(let i = 0;i < state.events.length;i++)
+      {
+        if(state.events[i].id === id)
+        {
+          ev = state.events[i];
+          break;
+        }
+      }
+
+      // assign settlements to the players
+
+      if(ev.players !== undefined)
+      {
+        let pl = players.getters.players(players.state);
+        for(let i = 0;i < ev.players.length;i++)
+        {
+          for(let j = 0;j < pl.length;j++)
+          {
+            if(ev.players[i].name === pl[j].name)
+            {
+              ev.players[i].settlement = pl[j].settlement;
+              break;
+            }
+          }
+        }
+      }
+
+      return ev;
     },
     topEvents: state => 
     {
