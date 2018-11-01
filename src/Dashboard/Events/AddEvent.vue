@@ -205,7 +205,7 @@ export default {
     {
       this.buttonText = "Edytuj imprezę";
       var event = this.$store.getters.event(this.$route.params.id);
-      this.event = event[0];
+      this.event = event;
     }
     else
     {
