@@ -157,6 +157,101 @@ export default {
 
       return result;
     },
+    rankSettlement: state => id =>
+    {
+      let playersOfSettlement;
+      let allEvents = events.getters.events(events.state);
+      var result = state.settlements.map(function(settlement) // for each settlement
+      {
+        playersOfSettlement = players.getters.players(players.state).filter(x => x.settlement === settlement.name); //players from that settlement
+
+        //get from every event a players from playersOfSettlement and sum points per each
+        let sum = 0;
+        for(let i = 0;i < allEvents.length;i++) //per each event
+        {
+          if(allEvents[i].players !== undefined) //if event has some records about players
+          {
+            for(let p = 0;p < allEvents[i].players.length;p++) // per each player that took part in that event
+            {
+              for(let s = 0;s < playersOfSettlement.length;s++) // per each player in the explored settlement
+              {
+                if(allEvents[i].players[p].name == playersOfSettlement[s].name) // check if the player from Event is present in the settlement
+                {
+                  sum += parseInt(allEvents[i].players[p].points);
+                  break;
+                }
+              }
+            }
+          }
+        }
+
+        return{
+          id: settlement.id,
+          name: settlement.name,
+          points: sum,
+          imageUrl: settlement.imageUrl
+        }
+      });
+
+      result = result.sort((a,b) =>
+      {
+        if(a.points > b.points)
+        {
+          return -1;
+        }else if(b.points > a.points)
+        {
+          return 1;
+        }
+        return 0;
+      });
+
+      let tIndex = 0;
+      for(let j = 0;j < result.length;j++)
+      {
+        if(result[j].id === id)
+        {
+          tIndex = j;
+          break;
+        }
+      }
+
+
+
+      let First;
+      let Second;
+      let Third;
+
+      if(tIndex == 0)
+      {
+        First = tIndex;
+        Second = tIndex + 1;
+        Third = Second + 1;
+      }
+      else
+      {
+        First = tIndex - 1;
+        Second = tIndex;
+        Third = tIndex + 1;
+      }
+
+      return{
+        first:
+        {
+          pos: First + 1,
+          data: result[First]
+        },
+        second:
+        {
+          pos: Second + 1,
+          data: result[Second]
+        },
+        third:
+        {
+          pos: Third + 1,
+          data: result[Third]
+        }
+      };
+    }
   },
   mutations: {
     settlements: (state, settlements) => {

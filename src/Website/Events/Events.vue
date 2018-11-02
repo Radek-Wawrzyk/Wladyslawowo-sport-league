@@ -18,7 +18,7 @@
 					<th>{{index +1}}</th>
 					<th>{{event.name}}</th>
 					<th>{{event.date}}</th>
-					<th>{{event.players.length}}</th>
+					<th v-if="event.players">{{event.players.length}}</th>
 				</tr>
 				</tbody>
 			</table>

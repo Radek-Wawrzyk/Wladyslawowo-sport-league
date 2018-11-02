@@ -41,27 +41,27 @@
 				<div class="table-responsive">
 					<table class="table-panel">
 						<thead>
-						<tr>
-							<th>LP</th>
-							<th>Nazwa Osiedla</th>
-							<th>Ilość Punktów</th>
-						</tr>
+							<tr>
+								<th>LP</th>
+								<th>Nazwa Osiedla</th>
+								<th>Ilość Punktów</th>
+							</tr>
 						</thead>
 						<tbody>
-						<tr>
-							<th>1</th>
-							<th>Osiedle</th>
-							<th>25pkt</th>
+						<tr :class="{ 'is-active' : settlementRank.first.data.id === settlement.id}">
+							<th>{{ settlementRank.first.pos }}</th>
+							<th>{{ settlementRank.first.data.name }}</th>
+							<th>{{ settlementRank.first.data.points }}</th>
 						</tr>
-						<tr class="is-active">
-							<th>2</th>
-							<th>Obecne osiedle</th>
-							<th>16pkt</th>
+						<tr :class="{ 'is-active' : settlementRank.second.data.id === settlement.id}">
+							<th>{{ settlementRank.second.pos }}</th>
+							<th>{{ settlementRank.second.data.name }}</th>
+							<th>{{ settlementRank.second.data.points }}</th>
 						</tr>
-						<tr>
-							<th>3</th>
-							<th>Osiedle</th>
-							<th>10pkt</th>
+						<tr :class="{ 'is-active' : settlementRank.third.data.id === settlement.id}">
+							<th>{{ settlementRank.third.pos }}</th>
+							<th>{{ settlementRank.third.data.name }}</th>
+							<th>{{ settlementRank.third.data.points }}</th>
 						</tr>
 						</tbody>
 					</table>
@@ -81,6 +81,10 @@ export default {
 		settlement()
 		{
 	    return this.$store.getters.briefSettlementById(this.id); 
+		},
+		settlementRank()
+		{
+			return this.$store.getters.rankSettlement(this.id);
 		}
 	}
 }
