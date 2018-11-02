@@ -40,24 +40,24 @@
 				<div class="table-responsive">
 					<table class="table-panel">
 						<thead>
-						<tr>
-							<th>LP</th>
-							<th>Nazwa Osiedla</th>
-							<th>Ilość Punktów</th>
-						</tr>
+							<tr>
+								<th>LP</th>
+								<th>Nazwa Osiedla</th>
+								<th>Ilość Punktów</th>
+							</tr>
 						</thead>
 						<tbody>
-						<tr>
-							<th>1</th>
-							<th>Karwia</th>
-							<th>25pkt</th>
-						</tr>
+							<tr v-for="(item,index) in event.settlementScores" :key="index">
+								<th>{{ index + 1 }}</th>
+								<th>{{ item.key }}</th>
+								<th>{{ item.value }}</th>
+							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</section>
-		<!-- <section class="event-lightbox">
+		<section v-if="event.imageUrls" class="event-lightbox">
 			<header class="event-lightbox-title">
 				<h3>Galeria zdjęć</h3>
 			</header>
@@ -65,7 +65,7 @@
 			<lightbox v-if="event.imageUrls.length < 0" class="event-lightbox-thumbnail" :thumbnail="event.imageUrls[0]" :images="event.imageUrls">
 				<lightbox-default-loader slot="loader"/>
 			</lightbox>
-		</section> -->
+		</section>
 	</main>
 </template>
 

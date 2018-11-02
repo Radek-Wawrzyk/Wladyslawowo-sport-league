@@ -21,12 +21,14 @@ export default {
 
       // assign settlements to the players
 
+      let pointMap = new Map();
+
       if(ev.players !== undefined)
       {
         let pl = players.getters.players(players.state);
-        for(let i = 0;i < ev.players.length;i++)
+        for(let i = 0;i < ev.players.length;i++) // for each player in event
         {
-          for(let j = 0;j < pl.length;j++)
+          for(let j = 0;j < pl.length;j++) //for each 
           {
             if(ev.players[i].name === pl[j].name)
             {
@@ -35,7 +37,45 @@ export default {
             }
           }
         }
+
+        for(let i = 0;i < ev.players.length;i++)
+        {
+          if(pointMap.get(ev.players[i].settlement) !== undefined)
+          {
+            pointMap.set(ev.players[i].settlement, pointMap.get(ev.players[i].settlement) + ev.players[i].points);
+          }
+          else
+          {
+            pointMap.set(ev.players[i].settlement, ev.players[i].points);
+          }
+        }
       }
+      
+      let settlementScores = [];
+
+      let keys = [...pointMap.keys()];
+      for(let i = 0;i < keys.length;i++)
+      {
+
+        settlementScores.push({
+          key: keys[i],
+          value: pointMap.get(keys[i])
+        });
+      }
+
+      settlementScores = settlementScores.sort((a,b) =>
+      {
+        if(a.value > b.value)
+        {
+          return -1;
+        }else if(b.value > a.value)
+        {
+          return 1;
+        }
+        return 0;
+      });
+
+      ev.settlementScores = settlementScores;
 
       return ev;
     },
