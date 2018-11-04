@@ -43,7 +43,7 @@
 				</div>
 				<div class="field">
 					<transition name="fade-left">
-						<p class="help is-danger" v-if="error">Wypełnij wszystkie pola</p>
+						<p class="help is-danger" v-if="error === true">Wypełnij wszystkie pola</p>
 					</transition>
 				</div>
 			</form>
@@ -87,7 +87,7 @@
 					subject: "",
 					message: ""
 				},
-				error: null
+				error: false
 			}
 		},
     validations: {
@@ -119,10 +119,10 @@
 					data.append('subject',this.credential.subject);
 					data.append('message',this.credential.message);
 
-					axios.post('url',
-						 data
-					 ).then(response => {
-            this.error = false;
+          this.error = false;
+
+					axios.post('url', data).then(response => {
+
 						//Reset fields
             for (let key in this.credential) {
               this.credential[key] = "";
