@@ -41,20 +41,20 @@
 				<div class="table-responsive">
 					<table class="table-panel">
 						<thead>
-						<tr>
-							<th>LP</th>
-							<th>Nazwa imprezy</th>
-							<th>Data</th>
-							<th>Ilość punktów</th>
-						</tr>
+							<tr>
+								<th>LP</th>
+								<th>Nazwa imprezy</th>
+								<th>Data</th>
+								<th>Ilość punktów</th>
+							</tr>
 						</thead>
 						<tbody>
-						<tr>
-							<th>1</th>
-							<th>Turniej tenisa stołowego</th>
-							<th>12-05-2018</th>
-							<th>25pkt</th>
-						</tr>
+							<tr v-for="(event, index) in player.playedEvents" :key="index">
+								<th>{{ index + 1 }}</th>
+								<th>{{ event.name }}</th>
+								<th>{{ event.date }}</th>
+								<th>{{ event.points }}</th>
+							</tr>
 						</tbody>
 					</table>
 				</div>

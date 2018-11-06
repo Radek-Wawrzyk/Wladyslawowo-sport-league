@@ -25,15 +25,29 @@ export default {
       if(p === undefined)
         p = {};
 
+      let playedEvents = [];
 
-      for(let i = 0;i < allEvents.length;i++)
+
+      if(allEvents !== undefined)
       {
-        for(let x = 0;x < allEvents[i].players.length;x++)
+        for(let i = 0;i < allEvents.length;i++)
         {
-          if(allEvents[i].players[x].name === p.name)
+          if(allEvents[i].players !== undefined)
           {
-            sum += parseInt(allEvents[i].players[x].points);
-            break;
+            for(let x = 0;x < allEvents[i].players.length;x++)
+            {
+              if(allEvents[i].players[x].name === p.name)
+              {
+                sum += parseInt(allEvents[i].players[x].points);
+                playedEvents.push(
+                  { name: allEvents[i].name,
+                    date: allEvents[i].date,
+                    points: parseInt(allEvents[i].players[x].points
+                  )  
+                  });
+                break;
+              }
+            }
           }
         }
       }
@@ -53,7 +67,8 @@ export default {
         name: p.name,
         points: sum,
         settlement: p.settlement,
-        imageUrl: p.imageUrl
+        imageUrl: p.imageUrl,
+        playedEvents: playedEvents
       }
     },
     topPlayers: state =>
@@ -63,16 +78,22 @@ export default {
       {
         let sum = 0;
 
-        for(let i = 0;i < allEvents.length;i++)
+        if(allEvents !== undefined)
         {
-          if(allEvents[i].players !== undefined)
+          for(let i = 0;i < allEvents.length;i++)
           {
-            for(let p = 0;p < allEvents[i].players.length;p++)
+            if(allEvents[i].players !== undefined)
             {
-              if(allEvents[i].players[p].name == player.name)
+              if(allEvents[i].players !== undefined)
               {
-                sum += parseInt(allEvents[i].players[p].points);
-                break;
+                for(let p = 0;p < allEvents[i].players.length;p++)
+                {
+                  if(allEvents[i].players[p].name == player.name)
+                  {
+                    sum += parseInt(allEvents[i].players[p].points);
+                    break;
+                  }
+                }
               }
             }
           }
