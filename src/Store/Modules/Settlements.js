@@ -215,8 +215,6 @@ export default {
         }
       }
 
-
-
       let First;
       let Second;
       let Third;
@@ -227,11 +225,17 @@ export default {
         Second = tIndex + 1;
         Third = Second + 1;
       }
-      else
+      else if(tIndex = 1)
       {
         First = tIndex - 1;
         Second = tIndex;
         Third = tIndex + 1;
+      }
+      else
+      {
+        First = tIndex - 2;
+        Second = tIndex - 1;
+        Third = tIndex;
       }
 
       return{
