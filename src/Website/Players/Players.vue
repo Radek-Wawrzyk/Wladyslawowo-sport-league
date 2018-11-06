@@ -7,10 +7,10 @@
 			<table class="table-panel">
 				<thead>
 				<tr>
-					<th>Lp</th>
-					<th>Imię i nazwisko</th>
-					<th>Osiedle</th>
-					<th>Ilość punktów</th>
+					<th>lp.</th>
+					<th>Nazwisko i imię</th>
+					<th>Dzielnica lub wieś</th>
+					<th>Liczba punktów</th>
 				</tr>
 				</thead>
 				<tbody class="table-body">

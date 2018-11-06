@@ -7,10 +7,10 @@
 			<table class="table-panel">
 				<thead>
 				<tr>
-					<th>Lp</th>
+					<th>lp.</th>
 					<th>Nazwa imprezy</th>
 					<th>Data</th>
-					<th>Ilość zawodników</th>
+					<th>Liczba zawodników</th>
 				</tr>
 				</thead>
 				<tbody class="table-body">

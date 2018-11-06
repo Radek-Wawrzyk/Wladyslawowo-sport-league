@@ -16,10 +16,10 @@
 					<table class="table-panel">
 						<thead>
 							<tr>
-								<th>LP</th>
-								<th>Imię i Nazwisko</th>
-								<th>Osiedle</th>
-								<th>Ilość Punktów</th>
+								<th>lp.</th>
+								<th>Nazwisko i imię</th>
+								<th>Dzielnica/wieś</th>
+								<th>Liczba punktów</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -27,7 +27,7 @@
 								<th>{{ index + 1 }}</th>
 								<th>{{ player.name }}</th>
 								<th>{{ player.settlement }}</th>
-								<th>{{ player.points }}</th>
+								<th>{{ player.points }} pkt</th>
 							</tr>
 						</tbody>
 					</table>
@@ -35,22 +35,22 @@
 			</div>
 			<div class="stats-table">
 				<header class="website-header">
-					<h3 class="title is-4">Statystyki Osiedl</h3>
+					<h3 class="title is-4">Statystyki dzielnic/wsi</h3>
 				</header>
 				<div class="table-responsive">
 					<table class="table-panel">
 						<thead>
 							<tr>
-								<th>LP</th>
-								<th>Nazwa Osiedla</th>
-								<th>Ilość Punktów</th>
+								<th>lp.</th>
+								<th>Nazwa dzielnicy lub wsi</th>
+								<th>Liczba punktów</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr v-for="(item,index) in event.settlementScores" :key="index">
 								<th>{{ index + 1 }}</th>
 								<th>{{ item.key }}</th>
-								<th>{{ item.value }}</th>
+								<th>{{ item.value }} pkt</th>
 							</tr>
 						</tbody>
 					</table>
