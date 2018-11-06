@@ -41,7 +41,6 @@
 				<div class="table-responsive">
 					<table class="table-panel">
 						<thead>
-<<<<<<< HEAD
 							<tr>
 								<th>LP</th>
 								<th>Nazwa imprezy</th>
@@ -56,22 +55,6 @@
 								<th>{{ event.date }}</th>
 								<th>{{ event.points }}</th>
 							</tr>
-=======
-						<tr>
-							<th>lp.</th>
-							<th>Nazwa imprezy</th>
-							<th>Data</th>
-							<th>Liczba punktów</th>
-						</tr>
-						</thead>
-						<tbody>
-						<tr>
-							<th>1</th>
-							<th>Turniej tenisa stołowego</th>
-							<th>12-05-2018</th>
-							<th>25 pkt</th>
-						</tr>
->>>>>>> 07cf016b2513b57fd03375020f5315331127e9fd
 						</tbody>
 					</table>
 				</div>
