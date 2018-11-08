@@ -8,11 +8,15 @@ import Vuelidate from 'vuelidate'
 import VueCarousel from 'vue-carousel';
 import "./Filters";
 import Lightbox from 'vue-pure-lightbox'
+import Footer from "@/Website/Footer/Footer.vue"
 
-
+//Initial Vue libraries
 Vue.use(Vuelidate)
 Vue.use(VueCarousel)
 Vue.use(Lightbox)
+
+//Global components
+Vue.component("Footer", Footer);
 
 Vue.config.productionTip = false
 

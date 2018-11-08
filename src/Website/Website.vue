@@ -4,10 +4,8 @@
     <transition name="fade-left-normal">
       <router-view></router-view>
     </transition>
-    <Footer></Footer>
     <PageLoader></PageLoader>
   </div>
-
 </template>
 
 <script>
@@ -20,8 +18,7 @@ export default {
   name: "Website",
   components: {
     PageLoader,
-    Navigation,
-    Footer
+    Navigation
   }
 }
 

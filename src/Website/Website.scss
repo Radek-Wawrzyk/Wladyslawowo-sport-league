@@ -12,6 +12,16 @@
       border-left: 6px solid $brandColor;
     }
   }
+  &-container {
+    width: 100%;
+    max-width: 1200px;
+    margin:  100px auto 40px auto;
+    padding: 0 15px;
+  }
+  &-main {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .description {

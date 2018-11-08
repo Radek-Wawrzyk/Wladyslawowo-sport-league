@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <main class="website-container">
+  <main class="website-main">
+    <div class="website-container">
       <div class="home">
         <div class="home-column">
           <Slider :lastNews="lastNews"></Slider>
@@ -36,8 +36,9 @@
           <Sidebar :players="players" :settlements="settlements"></Sidebar>
         </div>
       </div>
-    </main>
-  </div>
+    </div>
+    <Footer></Footer>
+  </main>
 
 </template>
 <style lang="scss" src="./Home.scss" scoped></style>
