@@ -2,8 +2,8 @@
 	<main class="website-container">
 		<section class="description">
 			<h2 class="description-header title is-3">{{ player.name }}</h2>
-			<figure class="description-img">
-				<img class="player-img" src="@/Assets/Home/player.jpg" alt="Mark Zuckerberg"/>
+			<figure class="description-img" v-if="player.imageUrl">
+				<img class="player-img" :src="player.imageUrl" :alt="player.name"/>
 			</figure>
 			<div class="description-content">
 				<p class="description-content-text">Liczba punktów: <b>{{ player.points }}</b></p>
@@ -13,14 +13,14 @@
 		<section class="stats">
 			<div class="stats-table">
 				<header class="website-header">
-					<h3 class="title is-4">Statystyki graczy</h3>
+					<h3 class="title is-4">Statystyka zawodnika</h3>
 				</header>
 				<div class="table-responsive">
 					<table class="table-panel">
 						<thead>
 						<tr>
 							<th>lp.</th>
-							<th>Nazwisko i imie</th>
+							<th>Nazwisko i imię</th>
 							<th>Liczba punktów</th>
 						</tr>
 						</thead>
@@ -53,7 +53,7 @@
 								<th>{{ index + 1 }}</th>
 								<th>{{ event.name }}</th>
 								<th>{{ event.date }}</th>
-								<th>{{ event.points }}</th>
+								<th>{{ event.points }} pkt</th>
 							</tr>
 						</tbody>
 					</table>
