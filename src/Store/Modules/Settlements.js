@@ -64,6 +64,40 @@ export default {
 
       return result.slice(0,5);
     },
+    playerSettlements: state => id =>
+    {
+      let playersCollection = players.getters.players(players.state).filter(x => x.settlementId === id);
+      let result = [];
+      let allEvents = events.getters.events(events.state);
+      for(let y = 0;y < playersCollection.length; y++) // for each player
+      {
+        let sum = 0;
+        if(allEvents !== undefined)
+        {
+          for(let i = 0;i < allEvents.length;i++)
+          {
+            if(allEvents[i].players !== undefined)
+            {
+              for(let x = 0;x < allEvents[i].players.length;x++)
+              {
+                if(allEvents[i].players[x].name === playersCollection[y].name)
+                {
+                  sum += parseInt(allEvents[i].players[x].points);
+                  break;
+                }
+              }
+            }
+          }
+        }
+
+        result.push(
+          {
+            player: playersCollection[y],
+            points: sum
+          });
+      }
+      return result;
+    },
     briefSettlementById: state => id =>
     {
       let playersOfSettlement;
@@ -219,6 +253,7 @@ export default {
       let Second;
       let Third;
 
+
       if(tIndex == 0)
       {
         First = tIndex;
@@ -238,23 +273,21 @@ export default {
         Third = tIndex;
       }
 
-      return{
-        first:
-        {
-          pos: First + 1,
-          data: result[First]
-        },
-        second:
-        {
-          pos: Second + 1,
-          data: result[Second]
-        },
-        third:
-        {
-          pos: Third + 1,
-          data: result[Third]
-        }
-      };
+      let arr = [];
+      arr.push({
+        pos: First + 1,
+        data: result[First]
+      });
+      arr.push({
+        pos: Second + 1,
+        data: result[Second]
+      });
+      arr.push({
+        pos: Third + 1,
+        data: result[Third]
+      });
+
+      return arr;
     }
   },
   mutations: {

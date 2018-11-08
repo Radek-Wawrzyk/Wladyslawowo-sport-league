@@ -18,18 +18,18 @@
 				<div class="table-responsive">
 					<table class="table-panel">
 						<thead>
-						<tr>
-							<th>lp.</th>
-							<th>Nazwisko i imię</th>
-							<th>Liczba punktów</th>
-						</tr>
-						</thead>
-						<tbody>
-						<tr>
-							<th>1</th>
-							<th>Adam Poziomek</th>
-							<th>25 pkt</th>
-						</tr>
+							<tr>
+								<th>lp.</th>
+								<th>Nazwisko i imię</th>
+								<th>Liczba punktów</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr v-for="(player, index) in settlementPlayers" :key="index">
+								<th>{{ index + 1  }}</th>
+								<th>{{ player.player.name }}</th>
+								<th>{{ player.points }}</th>
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -48,20 +48,10 @@
 							</tr>
 						</thead>
 						<tbody>
-						<tr :class="{ 'is-active' : settlementRank.first.data.id === settlement.id}">
-							<th>{{ settlementRank.first.pos }}</th>
-							<th>{{ settlementRank.first.data.name }}</th>
-							<th>{{ settlementRank.first.data.points }} pkt</th>
-						</tr>
-						<tr :class="{ 'is-active' : settlementRank.second.data.id === settlement.id}">
-							<th>{{ settlementRank.second.pos }}</th>
-							<th>{{ settlementRank.second.data.name }}</th>
-							<th>{{ settlementRank.second.data.points }} pkt</th>
-						</tr>
-						<tr :class="{ 'is-active' : settlementRank.third.data.id === settlement.id}">
-							<th>{{ settlementRank.third.pos }}</th>
-							<th>{{ settlementRank.third.data.name }}</th>
-							<th>{{ settlementRank.third.data.points }} pkt</th>
+						<tr v-if="rank.data" :key="index" v-for="(rank, index) in settlementRank" :class="{ 'is-active' : rank.data.id === settlement.id}">
+							<th>{{ rank.pos }}</th>
+							<th>{{ rank.data.name }}</th>
+							<th>{{ rank.data.points }} pkt</th>
 						</tr>
 						</tbody>
 					</table>
@@ -85,6 +75,11 @@ export default {
 		settlementRank()
 		{
 			return this.$store.getters.rankSettlement(this.id);
+		},
+		settlementPlayers()
+		{
+			console.log(this.$store.getters.playerSettlements(this.id));
+			return this.$store.getters.playerSettlements(this.id);
 		}
 	}
 }
