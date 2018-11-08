@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import Vue from 'vue'
 
 export default {
   state: {
@@ -45,7 +46,7 @@ export default {
           break;
         }
       }
-      state.news[index] = news;
+      Vue.set(state.news, index, news);
     },
     removeNews: (state, news) => {
       state.news.splice(state.news.indexOf(news), 1);
