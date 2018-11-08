@@ -2,7 +2,7 @@
   <main id="sign-in">
     <header class="sign-in-header has-text-centered">
       <figure class="sing-in-img">
-        <img src="./logo.jpg" alt="Liga sportowa gminy Władysławowo" />
+        <img src="./logo.png" alt="Liga sportowa gminy Władysławowo" />
       </figure>
     </header>
     <form class="form" @submit.prevent="submit">
