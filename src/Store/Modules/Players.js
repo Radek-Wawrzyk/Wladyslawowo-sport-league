@@ -99,17 +99,26 @@ export default {
           }
         }
 
-        for(let i = 0;i < state.players.length;i++)
+        if(state.players !== undefined)
         {
-          for(let j = 0;j < settlements.state.settlements.length;j++)
+          for(let i = 0;i < state.players.length;i++)
           {
-            if(settlements.state.settlements[i].id === state.players[i].settlementId)
+            if(settlements.state.settlements !== undefined)
             {
-              state.players[i].settlement = settlements.state.settlements[i].name;
-              break;
+              for(let j = 0;j < settlements.state.settlements.length;j++)
+              {
+                if(settlements.state.settlements[i] !== undefined)
+                {
+                  if(settlements.state.settlements[i].id === state.players[i].settlementId)
+                  {
+                    state.players[i].settlement = settlements.state.settlements[i].name;
+                    break;
+                  }
+                }
+              }
             }
           }
-        }
+      } 
 
         return{
           id: player.id,
@@ -139,12 +148,18 @@ export default {
     {
       for(let i = 0;i < state.players.length;i++)
       {
-        for(let j = 0;j < settlements.state.settlements.length;j++)
+        if(settlements.state.settlements !== undefined)
         {
-          if(settlements.state.settlements[i].id === state.players[i].settlementId)
+          for(let j = 0;j < settlements.state.settlements.length;j++)
           {
-            state.players[i].settlement = settlements.state.settlements[i].name;
-            break;
+            if(settlements.state.settlements[i] !== undefined)
+            {
+              if(settlements.state.settlements[i].id === state.players[i].settlementId)
+              {
+                state.players[i].settlement = settlements.state.settlements[i].name;
+                break;
+              }
+            }
           }
         }
       }
