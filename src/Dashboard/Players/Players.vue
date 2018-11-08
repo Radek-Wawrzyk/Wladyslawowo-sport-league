@@ -11,9 +11,9 @@
         <table class="table-panel">
           <thead>
           <tr>
-            <th>LP</th>
-            <th>Imię i nazwisko</th>
-            <th>Osiedle</th>
+            <th>lp.</th>
+            <th>Nazwisko i imię</th>
+            <th>Dzielnica lub wieś</th>
             <th>Edycja</th>
           </tr>
           </thead>

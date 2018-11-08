@@ -16,14 +16,14 @@
         <section class="modal-card-body">
           <form class="form">
             <div class="field">
-              <label class="label" for="name">Nazwa osiedla</label>
+              <label class="label" for="name">Nazwa dzielnicy lub wsi</label>
               <div class="control">
                 <input class="input" id="name" type="text" placeholder="Władysławowo centrum" v-model.trim="$v.settlement.name.$model">
               </div>
               <p class="help is-danger" v-if="!$v.settlement.name.minLength">Nazwa jest za krótka </p>
             </div>
             <div class="field">
-              <label class="label" for="description">Opis osiedla</label>
+              <label class="label" for="description">Opis dzielnicy lub wsi</label>
               <div class="control">
                 <textarea class="textarea" id="description" placeholder="Treść opisu osiedla" v-model="$v.settlement.description.$model"></textarea>
               </div>
@@ -51,7 +51,7 @@
         </section>
         <footer class="modal-card-foot">
           <button class="button is-danger" @click="handleSubmit">Zapisz</button>
-          <button class="button" @click="closeModal">Cancel</button>
+          <button class="button" @click="closeModal">Anuluj</button>
         </footer>
       </div>
     </div>
@@ -139,14 +139,14 @@ export default {
   {
     if(this.update === true)
     {
-      this.modalTitle = "Edytuj osiedle";
+      this.modalTitle = "Edytuj dzielnicę lub wieś";
       var settlement = this.$store.getters.settlement(this.$route.params.id);
       this.settlement = settlement[0];
       this.imgName = this.settlement.id;
     }
     else
     {
-      this.modalTitle = "Dodaj osiedle";
+      this.modalTitle = "Dodaj dzielnicę lub wieś";
       this.settlement = {};
     }
   }

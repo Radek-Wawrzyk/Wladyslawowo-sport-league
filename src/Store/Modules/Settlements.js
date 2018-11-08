@@ -1,6 +1,7 @@
 import firebase from 'firebase'
 import players from './Players'
 import events from './Events'
+import Vue from "vue";
 
 export default {
   state: {
@@ -298,7 +299,14 @@ export default {
       state.settlements.push(newSettlement);
     },
     updateSettlement: (state, settlement) => {
-      state.settlements[state.settlements.indexOf(settlement)] = settlement;
+      let index = 0;
+      for (let i = 0; i < state.settlements.length; i++) {
+        if (state.settlements[i].id === settlement.id) {
+          index = i;
+          break;
+        }
+      }
+      Vue.set(state.settlements, index, settlement);
     },
     removeSettlement: (state, settlement) => {
       state.settlements.splice(state.settlements.indexOf(settlement), 1);

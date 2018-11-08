@@ -9,7 +9,7 @@
           <button :class="{active : visibleTab === 0}" class="search-tabs-item-btn" type="button" @click="switchVisible(0)" aria-label="Zawodnicy" title="Zawodnicy">Zawodnicy</button>
         </li>
         <li @click="switchVisible(1)" class="search-tabs-item">
-          <button :class="{active : visibleTab === 1}" class="search-tabs-item-btn" type="button" @click="switchVisible(1)" aria-label="Osiedla" title="Osiedla">Osiedla</button>
+          <button :class="{active : visibleTab === 1}" class="search-tabs-item-btn" type="button" @click="switchVisible(1)" aria-label="Dzielnice lub wsie" title="Dzielnice lub wsie">Dzielnice lub wsie</button>
         </li>
         <li @click="switchVisible(2)" class="search-tabs-item">
           <button :class="{active : visibleTab === 2}" class="search-tabs-item-btn" type="button" @click="switchVisible(2)" aria-label="Imprezy" title="Imprezy">Imprezy</button>
@@ -25,8 +25,8 @@
             <table v-if="results.players.length > 0" class="table-panel search-table" >
               <thead>
               <tr>
-                <th>LP</th>
-                <th>Imie i Nazwisko</th>
+                <th>lp.</th>
+                <th>Nazwisko i imię</th>
                 <th>Osiedle</th>
                 <th>Edycja</th>
               </tr>
@@ -55,7 +55,7 @@
             <table v-if="results.settlements.length > 0" class="table-panel search-table">
               <thead>
                 <tr>
-                  <th>LP</th>
+                  <th>lp.</th>
                   <th>Nazwa</th>
                   <th>Edycja</th>
                 </tr>
@@ -83,7 +83,7 @@
             <table v-if="results.events.length > 0" class="table-panel search-table">
               <thead>
               <tr>
-                <th>LP</th>
+                <th>lp.</th>
                 <th>Nazwa</th>
                 <th>Data</th>
                 <th>Edycja</th>
@@ -113,7 +113,7 @@
             <table v-if="results.news.length > 0" class="table-panel search-table" >
               <thead>
               <tr>
-                <th>LP</th>
+                <th>lp.</th>
                 <th>Nazwa</th>
                 <th>Data</th>
                 <th>Edycja</th>

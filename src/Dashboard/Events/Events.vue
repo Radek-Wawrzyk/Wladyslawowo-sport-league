@@ -12,7 +12,7 @@
         <table class="table-panel">
           <thead>
           <tr>
-            <th>LP</th>
+            <th>lp.</th>
             <th>Nazwa imprezy</th>
             <th>Data</th>
             <th>Edycja</th>

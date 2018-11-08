@@ -1,9 +1,9 @@
 <template>
   <div>
     <header class="panel-header">
-      <h1 class="panel-header-title title is-3">Osiedla</h1>
+      <h1 class="panel-header-title title is-3">Dzielnice i wsie</h1>
       <div class="panel-header-link">
-        <router-link class="button is-danger" to="/panel/settlements/add-settlement" aria-label="Dodaj osiedle" title="Dodaj Osiedle">Dodaj osiedle</router-link>
+        <router-link class="button is-danger" to="/panel/settlements/add-settlement" aria-label="Dodaj osiedle" title="Dodaj Osiedle">Dodaj dzielnicę lub wieś</router-link>
       </div>
     </header>
     <section class="">
@@ -11,8 +11,8 @@
         <table class="table-panel">
           <thead>
           <tr>
-            <th>LP</th>
-            <th>Nazwa osiedla</th>
+            <th>lp.</th>
+            <th>Nazwa dzielnicy lub wsi</th>
             <th>Edycja</th>
           </tr>
           </thead>

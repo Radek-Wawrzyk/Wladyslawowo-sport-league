@@ -16,6 +16,20 @@
         <section class="modal-card-body">
           <form class="form">
             <div class="field">
+              <label class="label" for="name">Nazwisko lub imię</label>
+              <div class="control">
+                <input class="input" id="name" type="text" placeholder="Jan Kowalski" v-model="player.name">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="settlement">Dzielnica lub wieś</label>
+              <div class="control">
+                <select class="select" style="width: 100%;" id="settlement" placeholder="Osiedle/Dzielnica" v-model="player.settlement">
+                  <option v-for="settlement in settlements" :key="settlement.id">{{settlement.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
               <div class="file has-name">
                 <label class="file-label">
                   <input class="file-input" type="file" name="file" @change="onFileSelected" accept="image/*">
@@ -31,20 +45,6 @@
                     {{imgName}}
                   </span>
                 </label>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label" for="name">Imię i Nazwisko</label>
-              <div class="control">
-                <input class="input" id="name" type="text" placeholder="Jan Kowalski" v-model="player.name">
-              </div>
-            </div>
-            <div class="field">
-              <label class="label" for="settlement">Osiedle/Dzielnica</label>
-              <div class="control">
-                <select class="select" style="width: 100%;" id="settlement" placeholder="Osiedle/Dzielnica" v-model="player.settlement">
-                  <option v-for="settlement in settlements" :key="settlement.id">{{settlement.name}}</option>
-                </select>
               </div>
             </div>
           </form>

@@ -11,8 +11,8 @@
         <table class="table-panel">
           <thead>
           <tr>
-            <th>LP</th>
-            <th>Nazwa</th>
+            <th>lp.</th>
+            <th>Nazwa wydarzenia</th>
             <th>Data</th>
             <th>Edycja</th>
           </tr>
