@@ -151,7 +151,7 @@ export default {
           this.settlement[key] = '';
         }
         this.sentProperly = true;
-        this.alertMessage = "Pomyślnie dodano nowe osiedle"
+        this.alertMessage = "Pomyślnie dodano nową imprezę"
       } else {
         this.sentProperly = false;
         this.alertMessage = "Wypełnij pola";
