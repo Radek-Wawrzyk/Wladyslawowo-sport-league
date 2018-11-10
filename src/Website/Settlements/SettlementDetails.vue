@@ -78,7 +78,6 @@ export default {
 		},
 		settlementPlayers()
 		{
-			console.log(this.$store.getters.playerSettlements(this.id));
 			return this.$store.getters.playerSettlements(this.id);
 		}
 	}

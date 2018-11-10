@@ -50,7 +50,6 @@ export default {
   name: "Settlements",
   data() {
     return {
-      data: [],
       currentPage: 1,
       pageSize: 8,
     }
@@ -58,13 +57,13 @@ export default {
   computed: {
     settlements() {
       //Add dynamically updated index for each element in array
-      for (let i = 0; i <= this.data.length; i++) {
-        this.data.forEach(item => {
+      for (let i = 0; i <= this.settlementsList.length; i++) {
+        this.settlementsList.forEach(item => {
           item["index"] = (i++) + 1;
         });
       }
 
-      return this.data.filter((row, index) => {
+      return this.settlementsList.filter((row, index) => {
         let start = (this.currentPage - 1) * this.pageSize;
         let end = this.currentPage * this.pageSize;
 
@@ -73,12 +72,13 @@ export default {
         }
       });
     },
-    pages() {
-      return Math.ceil(this.data.length / this.pageSize);
+    settlementsList()
+    {
+      return this.$store.getters.settlements;
     },
-  },
-  created() {
-    this.data = this.$store.getters.settlements;
+    pages() {
+      return Math.ceil(this.settlementsList.length / this.pageSize);
+    },
   },
   methods: {
     removeSettlement(settlement) {
