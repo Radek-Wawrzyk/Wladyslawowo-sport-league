@@ -20,6 +20,7 @@
 						<th>{{event.name}}</th>
 						<th>{{event.date}}</th>
 						<th v-if="event.players">{{event.players.length}}</th>
+						<th v-else>0</th>
 					</tr>
 					</tbody>
 				</table>
