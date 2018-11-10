@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import players from './Players'
+import { stat } from 'fs';
 
 export default {
   state: {
@@ -76,7 +77,6 @@ export default {
       });
 
       ev.settlementScores = settlementScores;
-
       return ev;
     },
     topEvents: state => 
@@ -117,7 +117,8 @@ export default {
               name: object[key].name,
               description: object[key].description,
               players: object[key].players,
-              date: object[key].date
+              date: object[key].date,
+              imageUrls: object[key].imageUrls
             })
           }
           commit('events', events);
@@ -168,14 +169,14 @@ export default {
               }, () => {
                 event.images[i].snapshot.ref.getDownloadURL().then(function (downloadURL) {
                   imageUrls.push(downloadURL);
-                  firebase.database().ref('events').child(key).update({imageUrl: downloadURL});
+                  firebase.database().ref('events').child(key).update({imageUrls: imageUrls});
                 })
               })
             }
           }
+          newEvent.imageUrls = imageUrls;
           commit('addEvent', {
             ...newEvent,
-            imageUrls: imageUrls,
             id: key
           });
         })
