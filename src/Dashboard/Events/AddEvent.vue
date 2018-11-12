@@ -1,11 +1,6 @@
 <template>
   <section id="add-event">
-    <transition name="fade">
-      <div v-show="alertMessage" :class="[ sentProperly ? 'is-success' : 'is-danger' ]" class="notification">
-        <button @click="dismissAlert" class="delete"></button>
-        {{ alertMessage }}
-      </div>
-    </transition>
+    <Alert :sentProperly="sentProperly" :alertMessage="alertMessage"></Alert>
     <div class="event-container">
       <div class="event-column">
         <h2 class="event-column-title title is-5">Dane imprezy</h2>

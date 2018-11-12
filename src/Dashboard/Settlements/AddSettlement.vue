@@ -3,12 +3,7 @@
     <div class="modal is-active">
       <div class="modal-background"></div>
       <div class="modal-card">
-        <transition name="fade">
-          <div v-show="alertMessage" :class="[ sentProperly ? 'is-success' : 'is-danger' ]" class="notification">
-            <button @click="dismissAlert" class="delete"></button>
-            {{ alertMessage }}
-          </div>
-        </transition>
+        <Alert :sentProperly="sentProperly" :alertMessage="alertMessage"></Alert>
         <header class="modal-card-head">
           <p class="modal-card-title">{{ modalTitle }}</p>
           <button class="delete" aria-label="close" @click="closeModal"></button>

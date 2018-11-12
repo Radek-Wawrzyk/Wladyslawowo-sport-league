@@ -3,12 +3,7 @@
     <div class="modal is-active">
       <div class="modal-background"></div>
       <div class="modal-card">
-        <transition name="fade">
-          <div v-show="alertMessage" :class="[ sentProperly ? 'is-success' : 'is-danger' ]" class="notification">
-            <button @click="dismissAlert" class="delete"></button>
-            {{ alertMessage }}
-          </div>
-        </transition>
+        <Alert :sentProperly="sentProperly" :alertMessage="alertMessage"></Alert>
         <header class="modal-card-head">
           <p class="modal-card-title">{{ modalTitle }}</p>
           <button class="delete" aria-label="close" @click="closeModal"></button>
@@ -139,14 +134,14 @@ export default {
   {
     if(this.update === true)
     {
-      this.modalTitle = "Edytuj zawodnika";
+      this.modalTitle = "Edytuj wydarzenie";
       var n = this.$store.getters.briefNewsById(this.$route.params.id);
       this.news = n;
       this.imgName = this.news.id;
     }
     else
     {
-      this.modalTitle = "Dodaj zawodnika";
+      this.modalTitle = "Dodaj wydarzenie";
       this.news = {};
     }
   }
