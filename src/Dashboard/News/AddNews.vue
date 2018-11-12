@@ -30,7 +30,7 @@
             <div class="field">
               <label class="label" for="description">Opis wydarzenia</label>
               <div class="control">
-                <textarea class="textarea" v-model="news.description" id="description" placeholder="Treść opisu wydarzenia"></textarea>
+                <textarea class="textarea" v-model="news.description" id="description" placeholder="Treść opisu wydarzenia" rows="5"></textarea>
               </div>
             </div>
             <div class="field">
@@ -55,7 +55,7 @@
         </section>
         <footer class="modal-card-foot">
           <button class="button is-danger" @click="handleSubmit">Zapisz</button>
-          <button class="button" @click="closeModal">Cancel</button>
+          <button class="button" @click="closeModal">Anuluj</button>
         </footer>
       </div>
     </div>

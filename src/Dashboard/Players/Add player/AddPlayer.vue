@@ -24,9 +24,11 @@
             <div class="field">
               <label class="label" for="settlement">Dzielnica lub wieś</label>
               <div class="control">
-                <select class="select" style="width: 100%;" id="settlement" placeholder="Osiedle/Dzielnica" v-model="player.settlement">
-                  <option v-for="settlement in settlements" :key="settlement.id">{{settlement.name}}</option>
-                </select>
+                <div class="select">
+                  <select id="settlement" placeholder="Osiedle/Dzielnica" v-model="player.settlement">
+                    <option v-for="settlement in settlements" :key="settlement.id">{{settlement.name}}</option>
+                  </select>
+                </div>
               </div>
             </div>
             <div class="field">
