@@ -7,7 +7,9 @@ export default {
   },
   getters: {
     news: state => {
-      return state.news;
+      return state.news.sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      });
     },
     topNews: state => {
       const sortedNews = state.news.sort((a, b) => {
