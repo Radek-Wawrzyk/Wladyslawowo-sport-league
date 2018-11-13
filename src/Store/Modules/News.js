@@ -9,25 +9,24 @@ export default {
     news: state => {
       return state.news;
     },
-    topNews: state =>
-    {
-      return state.news.sort(function(a,b)
-        {
-          return new Date(b.date) - new Date(a.date);
-        }).slice(0,5);
-    },
-    briefNewsById: state => id =>
-    {
-      var news = state.news.filter(n => n.id == id)[0];
+    topNews: state => {
+      const sortedNews = state.news.sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      });
 
-      return{
+      return sortedNews.slice(0, 5);
+    },
+    briefNewsById: state => newsId => {
+      const news = state.news.find(news => news.id === newsId);
+
+      return {
         id: news.id,
         name: news.name,
         date: news.date,
         description: news.description,
         imageUrl: news.imageUrl
       }
-    },
+    }
   },
   mutations: {
     news: (state, news) => {
@@ -38,14 +37,14 @@ export default {
     },
     updateNews: (state, news) => {
       let index = 0;
-      for(let i = 0;i < state.news.length;i++)
-      {
-        if(state.news[i].id == news.id)
-        {
+
+      for (let i = 0; i < state.news.length; i++) {
+        if (state.news[i].id === news.id) {
           index = i;
           break;
         }
       }
+
       Vue.set(state.news, index, news);
     },
     removeNews: (state, news) => {
@@ -53,26 +52,22 @@ export default {
     }
   },
   actions: {
-    news: ({commit}) => {
-      firebase.database().ref('news').once('value')
-        .then(data => {
-          let news = [];
-          const object = data.val();
+    news: async ({commit}) => {
+      const data = await firebase.database().ref('news').once('value');
+      const dataValue = data.val();
+      let news = [];
 
-          for (let key in object) {
-            news.push({
-              id: key,
-              name: object[key].name,
-              description: object[key].description,
-              imageUrl: object[key].imageUrl,
-              date: object[key].date
-            })
-          }
-          commit('news', news);
+      Object.keys(dataValue).forEach(itemKey => {
+        news.push({
+          id: itemKey,
+          name: dataValue[itemKey].name,
+          description: dataValue[itemKey].description,
+          imageUrl: dataValue[itemKey].imageUrl,
+          date: dataValue[itemKey].date
         })
-        .catch(error => {
-          console.log(error);
-        });
+      });
+
+      commit('news', news);
     },
     addNews: ({commit}, news) => {
       const newNews = {
@@ -160,17 +155,16 @@ export default {
         commit('updateNews', news);
       });
     },
-    removeNews: ({commit}, news) => {
-      firebase.database().ref('news').child(news.id).remove().then(key => {
-        if(news.extension !== undefined)
-        {
-          const storageRef = firebase.storage().ref();
-          const imageRef = storageRef.child(`news/${news.id}${news.extension}`);
-          imageRef.delete();
-        }
-      }).then(() => {
-        commit('removeNews', news);
-      })
-    },
+    removeNews: async ({commit}, news) => {
+      await firebase.database().ref('news').child(news.id).remove();
+
+      if (news.extension) {
+        const storageRef = firebase.storage().ref();
+        const imageRef = storageRef.child(`news/${news.id}${news.extension}`);
+        imageRef.delete();
+      }
+
+      commit('removeNews', news);
+    }
   }
 }
