@@ -10,40 +10,34 @@ export default {
   players,
   events,
   getters: {
-    settlement: state => {
-      return id => state.settlements.filter(settlement => {
+    settlement: state => id => {
+      return state.settlements.filter(settlement => {
         return settlement.id === id;
       });
     },
-    topSettlements: state =>
-    {
+    topSettlements: state => {
+      const allEvents = events.getters.events(events.state);
       let playersOfSettlement;
-      let allEvents = events.getters.events(events.state);
-      var result = state.settlements.map(function(settlement) // for each settlement
-      {
-        playersOfSettlement = players.getters.players(players.state).filter(x => x.settlement === settlement.name); //players from that settlement
 
-        //get from every event a players from playersOfSettlement and sum points per each
+      let result = state.settlements.map(settlement => {
         let sum = 0;
-        for(let i = 0;i < allEvents.length;i++) //per each event
-        {
-          if(allEvents[i].players !== undefined) //if event has some records about players
-          {
-            for(let p = 0;p < allEvents[i].players.length;p++) // per each player that took part in that event
-            {
-              for(let s = 0;s < playersOfSettlement.length;s++) // per each player in the explored settlement
-              {
-                if(allEvents[i].players[p].name == playersOfSettlement[s].name) // check if the player from Event is present in the settlement
-                {
-                  sum += parseInt(allEvents[i].players[p].points);
-                  break;
-                }
-              }
+        playersOfSettlement = players.getters.players(players.state).filter(player => player.settlement === settlement.name);
+
+        if (allEvents) {
+          allEvents.forEach(event => {
+            if (event.players) {
+              event.players.forEach(item => {
+                playersOfSettlement.forEach(settlement => {
+                  if (item.name === settlement.name) {
+                    sum += parseInt(item.points);
+                  }
+                })
+              });
             }
-          }
+          });
         }
 
-        return{
+        return {
           id: settlement.id,
           name: settlement.name,
           points: sum,
@@ -51,13 +45,10 @@ export default {
         }
       });
 
-      result = result.sort((a,b) =>
-      {
-        if(a.points > b.points)
-        {
+      result = result.sort((a, b) => {
+        if (a.points > b.points) {
           return -1;
-        }else if(b.points > a.points)
-        {
+        } else if (b.points > a.points) {
           return 1;
         }
         return 0;
@@ -65,112 +56,94 @@ export default {
 
       return result.slice(0,5);
     },
-    playerSettlements: state => id =>
-    {
-      let playersCollection = players.getters.players(players.state).filter(x => x.settlementId === id);
+    playerSettlements: () => id => {
+      const playersCollection = players.getters.players(players.state).filter(player => player.settlementId === id);
+      const allEvents = events.getters.events(events.state);
       let result = [];
-      let allEvents = events.getters.events(events.state);
-      for(let y = 0;y < playersCollection.length; y++) // for each player
-      {
+
+      playersCollection.forEach(player => {
         let sum = 0;
-        if(allEvents !== undefined)
-        {
-          for(let i = 0;i < allEvents.length;i++)
-          {
-            if(allEvents[i].players !== undefined)
-            {
-              for(let x = 0;x < allEvents[i].players.length;x++)
-              {
-                if(allEvents[i].players[x].name === playersCollection[y].name)
-                {
-                  sum += parseInt(allEvents[i].players[x].points);
-                  break;
+
+        if (allEvents) {
+          allEvents.forEach(event => {
+            if (event.players) {
+              event.players.forEach(item => {
+                if (item.name === player.name) {
+                  sum += parseInt(item.points);
                 }
-              }
+              });
             }
-          }
+          });
         }
 
-        result.push(
-          {
-            player: playersCollection[y],
-            points: sum
-          });
-      }
+        result.push({
+          player: player,
+          points: sum
+        });
+      });
+
       return result;
     },
-    briefSettlementById: state => id =>
-    {
+    briefSettlementById: state => id => {
+      const allEvents = events.getters.events(events.state);
+      const settlement = state.settlements.filter(settlement => settlement.id === id);
       let playersOfSettlement;
-      let allEvents = events.getters.events(events.state);
-      var settlement = state.settlements.filter(s => s.id === id);
-  
-      let [s] = settlement;
-
-      if(s === undefined)
-        s = {};
-
-      playersOfSettlement = players.getters.players(players.state).filter(x => x.settlement === s.name); //players from that settlement
-
-    
-      //get from every event a players from playersOfSettlement and sum points per each
       let sum = 0;
-      for(let i = 0;i < allEvents.length;i++) //per each event
-      {
-        if(allEvents[i].players !== undefined) //if event has some records about players
-        {
-          for(let p = 0;p < allEvents[i].players.length;p++) // per each player that took part in that event
-          {
-            for(let s = 0;s < playersOfSettlement.length;s++) // per each player in the explored settlement
-            {
-              if(allEvents[i].players[p].name == playersOfSettlement[s].name) // check if the player from Event is present in the settlement
-              {
-                sum += parseInt(allEvents[i].players[p].points);
-                break;
-              }
-            }
-          }
-        }
+
+      let [searchSettlement] = settlement;
+
+      if (searchSettlement === undefined) {
+        searchSettlement = {};
       }
 
-      return{
-        id: s.id,
-        name: s.name,
-        description: s.description,
+      playersOfSettlement = players.getters.players(players.state).filter(player => player.settlement === searchSettlement.name);
+
+      if (allEvents) {
+        allEvents.forEach(event => {
+          if (event.players) {
+            event.players.forEach(player => {
+              playersOfSettlement.forEach(item => {
+                if (player.name === item.name) {
+                  sum += parseInt(player.points);
+                }
+              })
+            });
+          }
+        });
+      }
+
+      return {
+        id: searchSettlement.id,
+        name: searchSettlement.name,
+        description: searchSettlement.description,
         points: sum,
-        imageUrl: s.imageUrl,
+        imageUrl: searchSettlement.imageUrl,
         playerCount: playersOfSettlement.length
       }
     },
     settlements: state => {
-
+      const allEvents = events.getters.events(events.state);
       let playersOfSettlement;
-      let allEvents = events.getters.events(events.state);
-      var result = state.settlements.map(function(settlement) // for each settlement
-      {
-        playersOfSettlement = players.getters.players(players.state).filter(x => x.settlement === settlement.name); //players from that settlement
 
-        //get from every event a players from playersOfSettlement and sum points per each
+      let result = state.settlements.map(settlement => {
+        playersOfSettlement = players.getters.players(players.state).filter(player => player.settlement === settlement.name);
         let sum = 0;
-        for(let i = 0;i < allEvents.length;i++) //per each event
-        {
-          if(allEvents[i].players !== undefined) //if event has some records about players
-          {
-            for(let p = 0;p < allEvents[i].players.length;p++) // per each player that took part in that event
-            {
-              for(let s = 0;s < playersOfSettlement.length;s++) // per each player in the explored settlement
-              {
-                if(allEvents[i].players[p].name == playersOfSettlement[s].name) // check if the player from Event is present in the settlement
-                {
-                  sum += parseInt(allEvents[i].players[p].points);
-                  break;
-                }
-              }
+
+        if (allEvents) {
+          allEvents.forEach(event => {
+            if (event.players) {
+              event.players.forEach(item => {
+                playersOfSettlement.forEach(player => {
+                  if (item.name === player.name) {{
+                    sum += parseInt(item.points);
+                  }}
+                });
+              });
             }
-          }
+          });
         }
 
-        return{
+        return {
           id: settlement.id,
           name: settlement.name,
           points: sum,
@@ -178,13 +151,10 @@ export default {
         }
       });
 
-      result = result.sort((a,b) =>
-      {
-        if(a.points > b.points)
-        {
+      result = result.sort((a, b) => {
+        if (a.points > b.points) {
           return -1;
-        }else if(b.points > a.points)
-        {
+        } else if (b.points > a.points) {
           return 1;
         }
         return 0;
@@ -192,104 +162,6 @@ export default {
 
       return result;
     },
-    rankSettlement: state => id =>
-    {
-      let playersOfSettlement;
-      let allEvents = events.getters.events(events.state);
-      var result = state.settlements.map(function(settlement) // for each settlement
-      {
-        playersOfSettlement = players.getters.players(players.state).filter(x => x.settlement === settlement.name); //players from that settlement
-
-        //get from every event a players from playersOfSettlement and sum points per each
-        let sum = 0;
-        for(let i = 0;i < allEvents.length;i++) //per each event
-        {
-          if(allEvents[i].players !== undefined) //if event has some records about players
-          {
-            for(let p = 0;p < allEvents[i].players.length;p++) // per each player that took part in that event
-            {
-              for(let s = 0;s < playersOfSettlement.length;s++) // per each player in the explored settlement
-              {
-                if(allEvents[i].players[p].name == playersOfSettlement[s].name) // check if the player from Event is present in the settlement
-                {
-                  sum += parseInt(allEvents[i].players[p].points);
-                  break;
-                }
-              }
-            }
-          }
-        }
-
-        return{
-          id: settlement.id,
-          name: settlement.name,
-          points: sum,
-          imageUrl: settlement.imageUrl
-        }
-      });
-
-      result = result.sort((a,b) =>
-      {
-        if(a.points > b.points)
-        {
-          return -1;
-        }else if(b.points > a.points)
-        {
-          return 1;
-        }
-        return 0;
-      });
-
-      let tIndex = 0;
-      for(let j = 0;j < result.length;j++)
-      {
-        if(result[j].id === id)
-        {
-          tIndex = j;
-          break;
-        }
-      }
-
-      let First;
-      let Second;
-      let Third;
-
-
-      if(tIndex == 0)
-      {
-        First = tIndex;
-        Second = tIndex + 1;
-        Third = Second + 1;
-      }
-      else if(tIndex = 1)
-      {
-        First = tIndex - 1;
-        Second = tIndex;
-        Third = tIndex + 1;
-      }
-      else
-      {
-        First = tIndex - 2;
-        Second = tIndex - 1;
-        Third = tIndex;
-      }
-
-      let arr = [];
-      arr.push({
-        pos: First + 1,
-        data: result[First]
-      });
-      arr.push({
-        pos: Second + 1,
-        data: result[Second]
-      });
-      arr.push({
-        pos: Third + 1,
-        data: result[Third]
-      });
-
-      return arr;
-    }
   },
   mutations: {
     settlements: (state, settlements) => {
@@ -299,13 +171,9 @@ export default {
       state.settlements.push(newSettlement);
     },
     updateSettlement: (state, settlement) => {
-      let index = 0;
-      for (let i = 0; i < state.settlements.length; i++) {
-        if (state.settlements[i].id === settlement.id) {
-          index = i;
-          break;
-        }
-      }
+      let result = state.settlements.find(item => item.id === settlement.id);
+      let index = (state.settlements.indexOf(result));
+
       Vue.set(state.settlements, index, settlement);
     },
     removeSettlement: (state, settlement) => {
@@ -313,28 +181,23 @@ export default {
     }
   },
   actions: {
-    settlements: ({commit}) => {
-      firebase.database().ref('settlements').once('value')
-        .then(data => {
-          let settlements = [];
-          const object = data.val();
+    settlements: async ({commit}) => {
+      const data = await firebase.database().ref('settlements').once('value');
+      let settlements = [];
+      const dataValue = data.val();
 
-          for (let key in object) {
-            settlements.push({
-              id: key,
-              name: object[key].name,
-              description: object[key].description,
-              imageUrl: object[key].imageUrl
-            })
-          }
-          commit('settlements', settlements);
+      Object.keys(dataValue).forEach(itemKey => {
+        settlements.push({
+          id: itemKey,
+          name: dataValue[itemKey].name,
+          description: dataValue[itemKey].description,
+          imageUrl: dataValue[itemKey].imageUrl
         })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    addSettlement: ({commit}, settlement) => {
+      });
 
+      commit('settlements', settlements);
+    },
+    addSettlement: async ({commit}, settlement) => {
       const newSettlement = {
         name: settlement.name,
         description: settlement.description,
@@ -345,91 +208,78 @@ export default {
       let key;
       let uploadImg = settlement.img;
 
-      firebase.database().ref("settlements").push(newSettlement)
-        .then(data => {
-          key = data.key;
-          return key;
-        })
-        .then(key => {
-          if(uploadImg !== undefined)
-          {
-            const storageRef = firebase.storage().ref();
-            uploadImg = storageRef.child(`settlements/${key}${newSettlement.extension}`).put(uploadImg);
-          }
-          else
-          {
-            firebase.database().ref('settlements').child(key).update({key: key});
-              commit('addSettlement', {
-                ...newSettlement,
-                id: key,
-              });
-          }
-        })
-        .then(() => {
-          if(uploadImg !== undefined)
-          {
-            uploadImg.on('state_changed', snapshot => {
-            }, error => {
-              console.log(error)
-            }, () => {
-              uploadImg.snapshot.ref.getDownloadURL().then(downloadURL => {
-                imageUrl = downloadURL;
-                firebase.database().ref('settlements').child(key).update({imageUrl: imageUrl});
-                commit('addSettlement', {
-                  ...newSettlement,
-                  imageUrl: imageUrl,
-                  id: key,
-                });
-              })
-            })
-          }
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    },
-    updateSettlement: ({commit}, settlement) => {
-      let editedImage = settlement.img !== undefined;
-      let file, extension, uploadImg, imageRef, imageUrl, storageRef;
+      const data = await firebase.database().ref("settlements").push(newSettlement);
+      key = data.key;
 
-      if(settlement.imageUrl === undefined)
+      if (uploadImg) {
+        const storageRef = firebase.storage().ref();
+        uploadImg = storageRef.child(`settlements/${key}${newSettlement.extension}`).put(uploadImg);
+
+
+        uploadImg.on('state_changed', snapshot => {}, error => console.log(error), async () => {
+          let downloadURL = await uploadImg.snapshot.ref.getDownloadURL();
+          imageUrl = downloadURL;
+          firebase.database().ref('settlements').child(key).update({imageUrl: imageUrl});
+
+          console.log(imageUrl);
+
+          commit('addSettlement', {
+            ...newSettlement,
+            imageUrl: imageUrl,
+            id: key,
+          });
+        });
+      } else {
+        await firebase.database().ref('settlements').child(key).update({key: key});
+
+        commit('addSettlement', {
+          ...newSettlement,
+          id: key,
+        });
+      }
+    },
+    updateSettlement: async ({commit}, settlement) => {
+      let editedImage = settlement.img !== undefined;
+      let file, extension, uploadImg, imageUrl, storageRef;
+
+      if (settlement.imageUrl === undefined) {
         settlement.imageUrl = null;
+      }
+
+      await firebase.database().ref('settlements').child(settlement.id).update(settlement);
 
       if (editedImage) {
         file = settlement.img.name;
         extension = file.slice(file.lastIndexOf('.'));
         uploadImg = settlement.img;
         storageRef = firebase.storage().ref();
-
         settlement.extension = extension;
+
+        uploadImg = storageRef.child(`settlements/${settlement.id}${settlement.extension}`).put(uploadImg);
+        let downloadURL =  await uploadImg.snapshot.ref.getDownloadURL();
+
+        if (downloadURL === undefined) {
+          downloadURL = null;
+        }
+
+        imageUrl = downloadURL;
+        console.log(imageUrl);
+        await firebase.database().ref('settlements').child(settlement.id).update({imageUrl: imageUrl});
+        settlement.imageUrl = imageUrl;
       }
-      firebase.database().ref('settlements').child(settlement.id).update(settlement).then(key => {
-        if (editedImage)
-          {
-            uploadImg = storageRef.child(`settlements/${settlement.id}${settlement.extension}`).put(uploadImg)
-          }
-      }).then(() => {
-        if (editedImage) {
-          uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-            imageUrl = downloadURL;
-            firebase.database().ref('settlements').child(settlement.id).update({imageUrl: imageUrl});
-            settlement.imageUrl = imageUrl;
-          })
-        }
-        commit('updateSettlement', settlement);
-      })
+
+      commit('updateSettlement', settlement);
     },
-    removeSettlement: ({commit}, settlement) => {
-      firebase.database().ref('settlements').child(settlement.id).remove().then(key => {
-        if(settlement.extension !== undefined)
-        {
-          const storageRef = firebase.storage().ref();
-          const imageRef = storageRef.child(`settlements/${settlement.id}${settlement.extension}`);
-          imageRef.delete();
-        }
-      }).then(() => {
-        commit('removeSettlement', settlement);
-      })
+    removeSettlement: async ({commit}, settlement) => {
+      await firebase.database().ref('settlements').child(settlement.id).remove();
+
+      if (settlement.extension) {
+        const storageRef = firebase.storage().ref();
+        const imageRef = storageRef.child(`settlements/${settlement.id}${settlement.extension}`);
+        imageRef.delete();
+      }
+
+      commit('removeSettlement', settlement);
     },
   }
 }

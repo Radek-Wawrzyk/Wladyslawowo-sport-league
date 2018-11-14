@@ -48,10 +48,10 @@
 							</tr>
 						</thead>
 						<tbody>
-						<tr v-if="rank.data" :key="index" v-for="(rank, index) in settlementRank" :class="{ 'is-active' : rank.data.id === settlement.id}">
-							<th>{{ rank.pos }}</th>
-							<th>{{ rank.data.name }}</th>
-							<th>{{ rank.data.points }} pkt</th>
+						<tr v-for="(item, index) in settlements"  :key="index" :class="{ 'is-active' : item.id === settlement.id}">
+							<th>{{ index + 1 }}</th>
+							<th>{{ item.name }}</th>
+							<th>{{ item.points }} pkt</th>
 						</tr>
 						</tbody>
 					</table>
@@ -66,18 +66,14 @@
 export default {
 	props: ['id'],
 	name: "SettlementDetails",
-	computed:
-	{
-		settlement()
-		{
+	computed: {
+		settlement() {
 	    return this.$store.getters.briefSettlementById(this.id); 
 		},
-		settlementRank()
-		{
-			return this.$store.getters.rankSettlement(this.id);
+		settlements() {
+			return this.$store.getters.settlements;
 		},
-		settlementPlayers()
-		{
+		settlementPlayers() {
 			return this.$store.getters.playerSettlements(this.id);
 		}
 	}

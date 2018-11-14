@@ -71,7 +71,11 @@ export default {
 
       commit('news', news);
     },
-    addNews: ({commit}, news) => {
+    addNews: async ({commit}, news) => {
+      let imageUrl;
+      let key;
+      let uploadImg = news.img;
+
       const newNews = {
         name: news.name,
         description: news.description,
@@ -79,52 +83,33 @@ export default {
         extension: news.img === undefined ? "" : news.img.name.slice(news.img.name.lastIndexOf('.'))
       };
 
-      let imageUrl;
-      let key;
-      let uploadImg = news.img;
+      const data = await firebase.database().ref("news").push(newNews);
+      key = data.key;
 
-      firebase.database().ref("news").push(newNews)
-        .then(data => {
-          key = data.key;
-          return key;
-        })
-        .then(key => {
-          if(uploadImg !== undefined)
-          {
-            const storageRef = firebase.storage().ref();
-            uploadImg = storageRef.child(`news/${key}${newNews.extension}`).put(uploadImg);
-          }
-          else
-          {
-            firebase.database().ref('news').child(key).update({key: key});
-              commit('addNews', {
-                ...newNews,
-                id: key,
-              });
-          }
-        })
-        .then(() => {
-          if(uploadImg !== undefined)
-          {
-            uploadImg.on('state_changed', snapshot => {
-            }, error => {
-              console.log(error)
-            }, () => {
-              uploadImg.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-                imageUrl = downloadURL;
-                firebase.database().ref('news').child(key).update({imageUrl: imageUrl});
-                commit('addNews', {
-                  ...newNews,
-                  imageUrl: imageUrl,
-                  id: key
-                });
-              })
-            })
-          }
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      if (uploadImg) {
+        const storageRef = firebase.storage().ref();
+        uploadImg = await storageRef.child(`news/${key}${newNews.extension}`).put(uploadImg);
+
+        uploadImg.on('state_changed', snapshot => {}, error => console.log(error), async () => {
+          const downloadURL = await uploadImg.snapshot.ref.getDownloadURL();
+          imageUrl = downloadURL;
+
+          firebase.database().ref('news').child(key).update({imageUrl: imageUrl});
+
+          commit('addNews', {
+            ...newNews,
+            imageUrl: imageUrl,
+            id: key
+          });
+        });
+      } else {
+        await firebase.database().ref('news').child(key).update({key: key});
+
+        commit('addNews', {
+          ...newNews,
+          id: key,
+        });
+      }
     },
     updateNews: ({commit}, news) => {
       var editedImage = news.img !== undefined;

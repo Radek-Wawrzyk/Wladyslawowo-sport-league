@@ -96,8 +96,7 @@ export default {
 
       return result.slice(0,5);
     },
-    playersByScore: state =>
-    {
+    playersByScore: state => {
       let allEvents = events.getters.events(events.state);
       let result = state.players.map(player => {
         let sum = 0;
@@ -132,6 +131,7 @@ export default {
         }
         return 0;
       });
+
       return result;
     },
     players: state => {
