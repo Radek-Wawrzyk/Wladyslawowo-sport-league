@@ -166,7 +166,7 @@ export default {
           const downloadURL = await uploadImg.snapshot.ref.getDownloadURL();
           imageUrl = downloadURL;
 
-          await firebase.database().ref('players').child(key).update({imageUrl: imageUrl});
+          firebase.database().ref('players').child(key).update({imageUrl: imageUrl});
 
           commit('addPlayer', {
             ...newPlayer,
