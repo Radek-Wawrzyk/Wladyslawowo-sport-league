@@ -96,6 +96,44 @@ export default {
 
       return result.slice(0,5);
     },
+    playersByScore: state =>
+    {
+      let allEvents = events.getters.events(events.state);
+      let result = state.players.map(player => {
+        let sum = 0;
+
+        if (allEvents) {
+          allEvents.forEach(event => {
+            if (event.players) {
+              event.players.forEach(item => {
+                if (item.name === player.name) {
+                  sum += parseInt(item.points);
+                }
+              });
+            }
+          });
+        }
+
+        return {
+          id: player.id,
+          name: player.name,
+          points: sum,
+          settlement: player.settlement,
+          imageUrl: player.imageUrl,
+          extension: player.extension
+        }
+      });
+
+      result = result.sort((a,b) => {
+        if (a.points > b.points) {
+          return -1;
+        } else if (b.points > a.points) {
+          return 1;
+        }
+        return 0;
+      });
+      return result;
+    },
     players: state => {
       state.players.forEach(player => {
         if (settlements.state.settlements) {
