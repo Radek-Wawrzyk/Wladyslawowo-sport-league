@@ -180,6 +180,7 @@ export default {
     },
     deletePlayer(index) {
       this.event.players.splice(index, 1);
+      this.event.settlementScores.splice(index, 1);
     },
     goBack() {
       this.$store.dispatch('closeModal');

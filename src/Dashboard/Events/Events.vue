@@ -43,32 +43,6 @@
         <button class="button" @click="next">Następna</button>
       </div>
     </section>
-
-    <!--<div class="table-responsive">-->
-      <!--<table class="table is-bordered is-fullwidth">-->
-        <!--<thead class="panel-head">-->
-        <!--<tr>-->
-          <!--<th>Nazwa</th>-->
-          <!--<th>Data</th>-->
-          <!--<th>Opis imprezy</th>-->
-          <!--&lt;!&ndash;<th>Ilość zawodników</th>&ndash;&gt;-->
-          <!--<th>Edycja</th>-->
-        <!--</tr>-->
-        <!--</thead>-->
-        <!--<tbody>-->
-        <!--<tr v-for="event in events" :key="event.id">-->
-          <!--<th>{{event.name}}</th>-->
-          <!--<th>{{event.date}}</th>-->
-          <!--<th>{{event.description}}</th>-->
-          <!--&lt;!&ndash;<th>{{event.players.length}}</th>&ndash;&gt;-->
-          <!--<th>-->
-            <!--<button class="button" type="button" @click="updateEvent(event)">Edytuj</button>-->
-            <!--<button class="button" type="button" @click="removeEvent(event)">Usuń</button>-->
-          <!--</th>-->
-        <!--</tr>-->
-        <!--</tbody>-->
-      <!--</table>-->
-    <!--</div>-->
   </section>
 </template>
 
