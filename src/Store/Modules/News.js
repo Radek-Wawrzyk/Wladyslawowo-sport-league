@@ -38,14 +38,8 @@ export default {
       state.news.push(newNews);
     },
     updateNews: (state, news) => {
-      let index = 0;
-
-      for (let i = 0; i < state.news.length; i++) {
-        if (state.news[i].id === news.id) {
-          index = i;
-          break;
-        }
-      }
+      let result = state.news.find(item => item.id === news.id);
+      let index = (state.news.indexOf(result));
 
       Vue.set(state.news, index, news);
     },
@@ -91,15 +85,15 @@ export default {
         uploadImg = await storageRef.child(`news/${key}${newNews.extension}`).put(uploadImg);
 
         uploadImg.on('state_changed', snapshot => {}, error => console.log(error), async () => {
-          const downloadURL = await uploadImg.snapshot.ref.getDownloadURL();
+          let downloadURL = await uploadImg.snapshot.ref.getDownloadURL();
           imageUrl = downloadURL;
 
-          firebase.database().ref('news').child(key).update({imageUrl: imageUrl});
+          await firebase.database().ref('news').child(key).update({imageUrl: imageUrl});
 
           commit('addNews', {
             ...newNews,
             imageUrl: imageUrl,
-            id: key
+            id: key,
           });
         });
       } else {
@@ -147,8 +141,7 @@ export default {
 
       if (news.extension) {
         const storageRef = firebase.storage().ref();
-        const imageRef = storageRef.child(`news/${news.id}${news.extension}`);
-        imageRef.delete();
+        await storageRef.child(`news/${news.id}${news.extension}`).delete();
       }
 
       commit('removeNews', news);

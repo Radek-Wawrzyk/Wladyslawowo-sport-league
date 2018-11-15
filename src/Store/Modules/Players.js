@@ -257,8 +257,7 @@ export default {
 
       if (player.extension) {
         const storageRef = firebase.storage().ref();
-        const imageRef = storageRef.child(`players/${player.id}${player.extension}`);
-        imageRef.delete();
+        await storageRef.child(`players/${player.id}${player.extension}`).delete();
       }
       commit('removePlayer', player);
     },

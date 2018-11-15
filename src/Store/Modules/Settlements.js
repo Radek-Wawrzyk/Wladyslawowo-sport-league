@@ -275,8 +275,7 @@ export default {
 
       if (settlement.extension) {
         const storageRef = firebase.storage().ref();
-        const imageRef = storageRef.child(`settlements/${settlement.id}${settlement.extension}`);
-        imageRef.delete();
+        await storageRef.child(`settlements/${settlement.id}${settlement.extension}`).delete();
       }
 
       commit('removeSettlement', settlement);
