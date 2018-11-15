@@ -122,7 +122,7 @@ export default {
 
       commit('events', events);
     },
-    addEvent: ({commit}, event) => {
+    addEvent: async ({commit}, event) => {
       const newEvent = {
         name: event.name,
         description: event.description,
@@ -131,63 +131,49 @@ export default {
         extensions: []
       };
 
-      for(let i = 0;i < event.images.length;i++)
-      {
-        newEvent.extensions.push(event.images[i].name.slice(event.images[i].name.lastIndexOf('.')))
-      }
+      event.images.forEach(item => {
+        newEvent.extensions.push(item.name.slice(item.name.lastIndexOf('.')));
+      });
 
       let key;
       let imageUrls = [];
 
-      firebase.database().ref("events").push(newEvent)
-        .then(data => {
-          key = data.key;
-          return key;
-        })
-        .then(key => {
+      const data = await firebase.database().ref("events").push(newEvent)
+      key = data.key;
 
-          for(let i = 0;i < newEvent.extensions.length;i++)
-          {
-              const storageRef = firebase.storage().ref();
-              event.images[i] = storageRef.child(`events/${key + i}${newEvent.extensions[i]}`).put(event.images[i]);
-          }
+      if (event.images.length > 0) {
 
-        }).then(() =>
-        {
-          for(let i = 0;i < newEvent.extensions.length;i++)
-          {
-            if(event.images[i] !== undefined)
-            {
-              event.images[i].on('state_changed', snapshot => {
-              }, error => {
-                console.log(error)
-              }, () => {
-                event.images[i].snapshot.ref.getDownloadURL().then(function (downloadURL) {
-                  imageUrls.push(downloadURL);
-                  firebase.database().ref('events').child(key).update({imageUrls: imageUrls});
-                })
-              })
-            }
-          }
-          newEvent.imageUrls = imageUrls;
-          commit('addEvent', {
-            ...newEvent,
-            id: key
+        for (let i = 0;i < newEvent.extensions.length;i++) {
+          const storageRef = firebase.storage().ref();
+          event.images[i] = storageRef.child(`events/${key + i}${newEvent.extensions[i]}`).put(event.images[i]);
+
+          event.images[i].on('state_changed', snapshot => {}, error => { console.log(error) }, async () => {
+            let downloadURL = await event.images[i].snapshot.ref.getDownloadURL();
+
+            imageUrls.push(downloadURL);
+            firebase.database().ref('events').child(key).update({imageUrls: imageUrls});
           });
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    },
-    updateEvent: ({commit}, event) => {
-      if (event.players === undefined) event.players = [];
+        }
 
-      firebase.database().ref('events').child(event.id).update(event).then(key => {
-        commit('updateEvent', event);
-      });
+        commit('addEvent', {
+          ...newEvent,
+          imageUrls: imageUrls,
+          id: key
+        });
+      }
+    },
+    updateEvent: async ({commit}, event) => {
+      if (event.players === undefined) {
+        event.players = [];
+      }
+      console.log(event);
+
+      await firebase.database().ref('events').child(event.id).update(event);
+
+      commit('updateEvent', event);
     },
     removeEvent: async ({commit}, event) => {
-      await firebase.database().ref('events').child(event.id).remove()
+      await firebase.database().ref('events').child(event.id).remove();
       const storageRef = firebase.storage().ref();
 
       if (event.extensions) {

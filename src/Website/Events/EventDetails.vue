@@ -62,8 +62,8 @@
 				<header class="event-lightbox-title">
 					<h3>Galeria zdjęć</h3>
 				</header>
-				<p class="no-img" v-if="event.imageUrls.length < 0">Brak zdjęć</p>
-				<lightbox v-if="event.imageUrls.length > 0" class="event-lightbox-thumbnail" :thumbnail="event.imageUrls[0]" :images="event.imageUrls">
+				<p class="no-img" v-if="!event.imageUrls">Brak zdjęć</p>
+				<lightbox v-if="event.imageUrls" class="event-lightbox-thumbnail" :thumbnail="event.imageUrls[0]" :images="event.imageUrls">
 					<lightbox-default-loader slot="loader"/>
 				</lightbox>
 			</section>
