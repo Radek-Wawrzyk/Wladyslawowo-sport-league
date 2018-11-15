@@ -1,0 +1,47 @@
+@import "@/Styles/Components/Colors.scss";
+
+.contact-info {
+  width: calc(40% - 25px);
+  margin: 0 0 0 25px;
+  border: 1px solid $borderColor;
+  background: white;
+  &-title {
+    padding: 10px;
+    border-left: 6px solid $brandColor;
+    font-weight: 600;
+  }
+  &-list {
+    padding: 15px;
+    &-item {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #dbdbdb;
+      padding: 10px 0;
+      svg {
+        width: 20px;
+        height: 20px;
+        margin: 0 15px 0 0;
+      }
+      a {
+        color: inherit;
+        transition: color 0.25s;
+        &:focus, &:hover {
+          color: $brandColor;
+        }
+      }
+    }
+    &-item:last-of-type {
+      border-bottom: none;
+    }
+  }
+}
+
+//Media
+
+@media screen and (max-width: 768px) {
+  .contact-info {
+    order: 1;
+    width: 100%;
+    margin: 0;
+  }
+}
