@@ -9,19 +9,19 @@
       <div class="field">
         <label class="label" for="email">Email</label>
         <div class="control">
-          <input type="text" v-model="$v.user.email.$model" :class="{'is-danger': $v.user.email.$error }" class="input"  id="email" placeholder="example@example.pl" >
+          <input type="text" v-model="user.email" name="email" v-validate="'required|email'" data-vv-delay="250" :class="{'is-danger': errors.has('email')}" class="input"  id="email" placeholder="example@example.pl" >
         </div>
         <transition name="fade-left">
-          <p class="help is-danger" v-if="!$v.user.email.email">Błędny adres email.</p>
+          <p class="help is-danger" v-if="errors.has('email')">{{errors.first('email')}}</p>
         </transition>
       </div>
       <div class="field">
         <label class="label" for="password">Hasło</label>
         <div class="control">
-          <input type="password" v-model="$v.user.password.$model" class="input" :class="{'is-danger': $v.user.password.$error}" id="password" placeholder="Silne hasło">
+          <input type="password" v-model="user.password" name="hasło" v-validate="'required|min:8'" data-vv-delay="250" class="input" :class="{'is-danger':  errors.has('password')}" id="password" placeholder="Password">
         </div>
         <transition name="fade-left">
-          <p class="help is-danger" v-if="!$v.user.password.minLength">Hasło powinno mieć min 8 znaków.</p>
+          <p class="help is-danger" v-if="errors.has('hasło')">{{errors.first('hasło')}}</p>
         </transition>
       </div>
       <div class="field">
@@ -29,9 +29,11 @@
           <button class="button is-danger sign-in-button" type="submit">Zaloguj się</button>
         </div>
       </div>
-      <div class="field field-error has-text-centered" v-if="error">
-        <p class="help is-danger">{{error.message}}</p>
-      </div>
+      <transition name="fade-left">
+        <div class="field field-error has-text-centered" v-if="error">
+          <p class="help is-danger">{{error.message}}</p>
+        </div>
+      </transition>
     </form>
     <footer class="sign-in-footer">
       Copyright Gmina Władysławowo 2018 <br/>
@@ -43,7 +45,6 @@
 
 <script>
 
-import { email, minLength } from 'vuelidate/lib/validators'
 import PageLoader from '@/Dashboard/PageLoader.vue'
 import * as firebase from 'firebase'
 
@@ -52,35 +53,25 @@ export default {
   components: {
     PageLoader
   },
-  data() {
-    return {
-      user: {
-        email: "",
-        password: ""
-      }
+  data: () => ({
+    user: {
+      email: "",
+      password: ""
     }
-  },
+  }),
   computed: {
     error() {
       return this.$store.getters.signInError;
     }
   },
-  validations: {
-    user: {
-      email: {
-        email
-      },
-      password: {
-        minLength: minLength(8),
-      }
-    }
-  },
   methods: {
     submit() {
-      if (!this.$v.$invalid) {
-        this.$store.dispatch("signIn", this.user);
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          this.$store.dispatch("signIn", this.user);
+        }
+      });
       }
-    }
   },
   created: function() {
     firebase.auth().onAuthStateChanged(user => {

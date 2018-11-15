@@ -10,6 +10,7 @@ import "./Filters";
 import Lightbox from 'vue-pure-lightbox'
 import Footer from "@/Website/Footer/Footer.vue"
 import Alert from "@/Dashboard/Alert/Alert.vue"
+import "./Validation/Validation"
 
 //Initial Vue libraries
 Vue.use(Vuelidate)
