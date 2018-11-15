@@ -1,6 +1,5 @@
 import firebase from 'firebase';
 import players from './Players'
-import { stat } from 'fs';
 
 export default {
   state: {
@@ -29,7 +28,7 @@ export default {
         let pl = players.getters.players(players.state);
         for(let i = 0;i < ev.players.length;i++) // for each player in event
         {
-          for(let j = 0;j < pl.length;j++) //for each 
+          for(let j = 0;j < pl.length;j++) //for each
           {
             if(ev.players[i].name === pl[j].name)
             {
@@ -51,7 +50,7 @@ export default {
           }
         }
       }
-      
+
       let settlementScores = [];
 
       let keys = [...pointMap.keys()];
@@ -79,12 +78,12 @@ export default {
       ev.settlementScores = settlementScores;
       return ev;
     },
-    topEvents: state => 
-    {
-        return state.events.sort(function(a,b)
-        {
-          return new Date(b.date) - new Date(a.date);
-        }).slice(0,5);
+    topEvents: state => {
+      const result = state.events.sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      });
+
+      return result.slice(0,5);
     },
     events: state => {
       return state.events;
@@ -105,27 +104,23 @@ export default {
     },
   },
   actions: {
-    events: ({commit}) => {
-      firebase.database().ref('events').once('value')
-        .then(data => {
-          let events = [];
-          const object = data.val();
+    events: async ({commit}) => {
+      const data = await firebase.database().ref('events').once('value');
+      let events = [];
+      const dataValue = data.val();
 
-          for (let key in object) {
-            events.push({
-              id: key,
-              name: object[key].name,
-              description: object[key].description,
-              players: object[key].players,
-              date: object[key].date,
-              imageUrls: object[key].imageUrls
-            })
-          }
-          commit('events', events);
+      Object.keys(dataValue).forEach(itemKey => {
+        events.push({
+          id: itemKey,
+          name: dataValue[itemKey].name,
+          description: dataValue[itemKey].description,
+          players: dataValue[itemKey].players,
+          date: dataValue[itemKey].date,
+          imageUrls: dataValue[itemKey].imageUrls
         })
-        .catch(error => {
-          console.log(error);
-        });
+      });
+
+      commit('events', events);
     },
     addEvent: ({commit}, event) => {
       const newEvent = {
@@ -157,7 +152,7 @@ export default {
               event.images[i] = storageRef.child(`events/${key + i}${newEvent.extensions[i]}`).put(event.images[i]);
           }
 
-        }).then(() => 
+        }).then(() =>
         {
           for(let i = 0;i < newEvent.extensions.length;i++)
           {
@@ -191,20 +186,17 @@ export default {
         commit('updateEvent', event);
       });
     },
-    removeEvent: ({commit}, event) => {
-      firebase.database().ref('events').child(event.id).remove().then(key => {
-        const storageRef = firebase.storage().ref();
-        if(event.extensions !== undefined)
-        {
-          for(let i = 0;i < event.extensions.length;i++)
-          {
-            const imageRef = storageRef.child(`events/${event.id + i}${event.extensions[i]}`);
-            imageRef.delete();
-          }
+    removeEvent: async ({commit}, event) => {
+      await firebase.database().ref('events').child(event.id).remove()
+      const storageRef = firebase.storage().ref();
+
+      if (event.extensions) {
+        for (let i = 0; i < event.extensions.length; i++) {
+         await storageRef.child(`events/${event.id + i}${event.extensions[i]}`).delete();
         }
-      }).then(() => {
-        commit('removeEvent', event);
-      })
+      }
+
+      commit("removeEvent", event);
     },
   }
 }
