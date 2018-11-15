@@ -65,13 +65,12 @@ export default {
     }
   },
   methods: {
-    submit() {
-      this.$validator.validateAll().then(result => {
-        if (result) {
-          this.$store.dispatch("signIn", this.user);
-        }
-      });
+    async submit() {
+      const valid = await this.$validator.validateAll();
+      if (valid) {
+        this.$store.dispatch("signIn", this.user);
       }
+    }
   },
   created: function() {
     firebase.auth().onAuthStateChanged(user => {
