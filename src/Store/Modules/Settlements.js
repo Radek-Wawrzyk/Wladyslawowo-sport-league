@@ -203,9 +203,6 @@ export default {
         description: settlement.description
       };
 
-      if(settlement.img.name !== undefined)
-        newSettlement.extension = settlement.img === undefined ? "" : settlement.img.name.slice(settlement.img.name.lastIndexOf('.'))
-
       let imageUrl;
       let key;
       let uploadImg = settlement.img;
@@ -215,15 +212,12 @@ export default {
 
       if (uploadImg) {
         const storageRef = firebase.storage().ref();
-        uploadImg = storageRef.child(`settlements/${key}${newSettlement.extension}`).put(uploadImg);
-
+        uploadImg = storageRef.child(`settlements/${key}`).put(uploadImg);
 
         uploadImg.on('state_changed', snapshot => {}, error => console.log(error), async () => {
           let downloadURL = await uploadImg.snapshot.ref.getDownloadURL();
           imageUrl = downloadURL;
           firebase.database().ref('settlements').child(key).update({imageUrl: imageUrl});
-
-          console.log(imageUrl);
 
           commit('addSettlement', {
             ...newSettlement,
@@ -242,7 +236,7 @@ export default {
     },
     updateSettlement: async ({commit}, settlement) => {
       let editedImage = settlement.img !== undefined;
-      let file, extension, uploadImg, imageUrl, storageRef;
+      let file, uploadImg, imageUrl, storageRef;
 
       if (settlement.imageUrl === undefined) {
         settlement.imageUrl = null;
@@ -252,12 +246,10 @@ export default {
 
       if (editedImage) {
         file = settlement.img.name;
-        extension = file.slice(file.lastIndexOf('.'));
         uploadImg = settlement.img;
         storageRef = firebase.storage().ref();
-        settlement.extension = extension;
 
-        uploadImg = storageRef.child(`settlements/${settlement.id}${settlement.extension}`).put(uploadImg);
+        uploadImg = storageRef.child(`settlements/${settlement.id}`).put(uploadImg);
         let downloadURL =  await uploadImg.snapshot.ref.getDownloadURL();
 
         if (downloadURL === undefined) {
@@ -274,9 +266,9 @@ export default {
     removeSettlement: async ({commit}, settlement) => {
       await firebase.database().ref('settlements').child(settlement.id).remove();
 
-      if (settlement.extension) {
+      if (settlement.imageUrl !== undefined) {
         const storageRef = firebase.storage().ref();
-        await storageRef.child(`settlements/${settlement.id}${settlement.extension}`).delete();
+        await storageRef.child(`settlements/${settlement.id}`).delete();
       }
 
       commit('removeSettlement', settlement);
