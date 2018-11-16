@@ -78,6 +78,7 @@ export default {
         extension: "",
         imageData: ""
       },
+      settlement: '',
       image: '',
       imgName: null,
       alertMessage: null,

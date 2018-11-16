@@ -80,8 +80,7 @@ export default {
           name: player.name,
           points: sum,
           settlement: player.settlement,
-          imageUrl: player.imageUrl,
-          extension: player.extension
+          imageUrl: player.imageUrl
         }
       });
 
@@ -118,8 +117,7 @@ export default {
           name: player.name,
           points: sum,
           settlement: player.settlement,
-          imageUrl: player.imageUrl,
-          extension: player.extension
+          imageUrl: player.imageUrl
         }
       });
 
@@ -174,7 +172,6 @@ export default {
           name: dataValue[itemKey].name,
           settlement: dataValue[itemKey].settlement,
           settlementId: dataValue[itemKey].settlementId,
-          extension: dataValue[itemKey].extension,
           imageUrl: dataValue[itemKey].imageUrl
         });
       });
@@ -192,16 +189,12 @@ export default {
         settlementId: player.settlementId,
       };
 
-      if(player.img.name !== undefined)
-        newPlayer.extension = player.img === undefined ? "" : player.img.name.slice(player.img.name.lastIndexOf('.'))
-
-
       const data = firebase.database().ref("players").push(newPlayer);
       key = data.key;
 
       if (uploadImg) {
         const storageRef = firebase.storage().ref();
-        uploadImg = storageRef.child(`players/${key}${newPlayer.extension}`).put(uploadImg);
+        uploadImg = storageRef.child(`players/${key}`).put(uploadImg);
 
         uploadImg.on('state_changed', snapshot => {}, error => console.log(error), async () => {
           const downloadURL = await uploadImg.snapshot.ref.getDownloadURL();
@@ -226,7 +219,7 @@ export default {
     },
     updatePlayer: async ({commit}, player) => {
       let editedImage = player.img !== undefined;
-      let file, extension, uploadImg, imageUrl, storageRef;
+      let file, uploadImg, imageUrl, storageRef;
 
       if (player.imageUrl === undefined) {
         player.imageUrl = null;
@@ -236,12 +229,10 @@ export default {
 
       if (editedImage) {
         file = player.img.name;
-        extension = file.slice(file.lastIndexOf('.'));
         uploadImg = player.img;
         storageRef = firebase.storage().ref();
-        player.extension = extension;
 
-        uploadImg = storageRef.child(`players/${player.id}${player.extension}`).put(uploadImg);
+        uploadImg = storageRef.child(`players/${player.id}`).put(uploadImg);
         let downloadURL = await uploadImg.snapshot.ref.getDownloadURL();
 
         if (downloadURL === undefined) {
@@ -258,9 +249,9 @@ export default {
     removePlayer: async ({commit}, player) => {
       await firebase.database().ref('players').child(player.id).remove();
 
-      if (player.extension) {
+      if (player.imageUrl) {
         const storageRef = firebase.storage().ref();
-        await storageRef.child(`players/${player.id}${player.extension}`).delete();
+        await storageRef.child(`players/${player.id}`).delete();
       }
       commit('removePlayer', player);
     },
