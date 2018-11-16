@@ -5,7 +5,7 @@
       <div class="modal-card">
         <Alert :sentProperly="sentProperly" :alertMessage="alertMessage"></Alert>
         <header class="modal-card-head">
-          <p class="modal-card-title">{{ modalTitle }}</p>
+          <p class="modal-card-title">Dodaj zawodnika</p>
           <button class="delete" aria-label="close" @click="closeModal"></button>
         </header>
         <section class="modal-card-body">
@@ -13,23 +13,29 @@
             <div class="field">
               <label class="label" for="name">Nazwisko lub imię</label>
               <div class="control">
-                <input class="input" id="name" type="text" placeholder="Jan Kowalski" v-model="player.name">
+                <input v-validate="'required'" data-vv-delay="250" name="name" class="input" id="name" type="text" placeholder="Jan Kowalski" v-model="player.name">
               </div>
+              <transition name="fade-left">
+                  <p class="help is-danger" v-if="errors.has('name')">{{errors.first('name')}}</p>
+              </transition>
             </div>
             <div class="field">
               <label class="label" for="settlement">Dzielnica lub wieś</label>
               <div class="control">
                 <div class="select">
-                  <select id="settlement" placeholder="Osiedle/Dzielnica" v-model="player.settlement">
+                  <select id="settlement" v-validate="'required'" data-vv-delay="250" name="settlement" placeholder="Osiedle/Dzielnica" v-model="player.settlement">
                     <option v-for="settlement in settlements" :key="settlement.id">{{settlement.name}}</option>
                   </select>
                 </div>
+                <transition name="fade-left">
+                  <div class="help is-danger" v-if="errors.has('settlement')">{{errors.first('settlement')}}</div>
+                </transition>
               </div>
             </div>
             <div class="field">
               <div class="file has-name">
                 <label class="file-label">
-                  <input class="file-input" type="file" name="file" @change="onFileSelected" accept="image/*">
+                  <input class="file-input" type="file" v-validate="'required'" name="zdjęcie" @change="onFileSelected" accept="image/*">
                   <span class="file-cta">
                     <span class="file-icon">
                       <i class="fa fa-cloud-upload-alt"></i>
@@ -43,6 +49,9 @@
                   </span>
                 </label>
               </div>
+              <transition name="fade-left">
+                <div class="help is-danger" v-if="errors.has('zdjęcie')">{{errors.first('zdjęcie')}}</div>
+              </transition>
             </div>
           </form>
         </section>
@@ -61,7 +70,6 @@ import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: "AddPlayer",
-  props: ['update', 'id'],
   data() {
     return {
       player: {
@@ -72,37 +80,29 @@ export default {
         extension: ""
       },
       imgName: null,
-      modalTitle: null,
       alertMessage: null,
       sentProperly: false,
       alertTimeoutId: null
     }
   },
-  validations: {
-    settlement: {
-      name: {
-        required,
-        minLength: minLength(3)
-      },
-      description: {
-        required,
-        minLength: minLength(3)
-      },
-    }
-  },
   methods: {
-    addPlayer() {
-      clearTimeout(this.alertTimeoutId)
+    async handleSubmit()
+    {
+      clearTimeout(this.alertTimeoutId);
 
-      if (this.player.name && this.player.settlement) {
+      const valid = await this.$validator.validateAll();
+      if (valid) 
+      {
         this.player.settlementId = this.settlementId(this.player.settlement);
-        this.$store.dispatch('addPlayer', this.player);
+        this.$store.dispatch('addPlayer', this.player);     
         for (let key in this.player) {
           this.player[key] = '';
-        }
+        } 
         this.sentProperly = true;
         this.alertMessage = "Pomyślnie dodano nowego gracza"
-      } else {
+      }
+      else
+      {
         this.sentProperly = false;
         this.alertMessage = "Wypełnij pola";
       }
@@ -110,19 +110,6 @@ export default {
       this.alertTimeoutId = setTimeout(() => {
         this.alertMessage = undefined;          
       }, 3000);
-    },
-    updatePlayer()
-    {
-        this.player.settlementId = this.settlementId(this.player.settlement);
-        this.$store.dispatch('updatePlayer',this.player);
-        this.closeModal();
-    },
-    handleSubmit()
-    {
-      if(this.update === true)
-        this.updatePlayer();
-      else
-        this.addPlayer();
     },
     onFileSelected(event) {
       this.imgName = event.target.files[0].name;
@@ -151,21 +138,6 @@ export default {
       return this.$store.getters.settlements;
     }
   },
-  mounted()
-  {
-    if(this.update === true)
-    {
-      this.modalTitle = "Edytuj zawodnika";
-      var player = this.$store.getters.player(this.$route.params.id);
-      this.player = player[0];
-      this.imgName = this.player.id;
-    }
-    else
-    {
-      this.modalTitle = "Dodaj zawodnika";
-      this.player = {};
-    }
-  }
 }
 
 </script>

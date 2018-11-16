@@ -190,8 +190,11 @@ export default {
         name: player.name,
         settlement: player.settlement,
         settlementId: player.settlementId,
-        extension: player.img === undefined ? "" : player.img.name.slice(player.img.name.lastIndexOf('.'))
       };
+
+      if(player.img.name !== undefined)
+        newPlayer.extension = player.img === undefined ? "" : player.img.name.slice(player.img.name.lastIndexOf('.'))
+
 
       const data = firebase.database().ref("players").push(newPlayer);
       key = data.key;
