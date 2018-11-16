@@ -23,7 +23,7 @@
               <label class="label" for="settlement">Dzielnica lub wieś</label>
               <div class="control">
                 <div class="select">
-                  <select id="settlement" v-validate="'required'" data-vv-delay="250" name="settlement" placeholder="Osiedle/Dzielnica" v-model="player.settlement">
+                  <select id="settlement" v-validate="'required'" data-vv-delay="250" name="settlement" placeholder="Osiedle/Dzielnica" v-model="settlement">
                     <option v-for="settlement in settlements" :key="settlement.id">{{settlement.name}}</option>
                   </select>
                 </div>
@@ -35,7 +35,7 @@
             <div class="field">
               <div class="file has-name">
                 <label class="file-label">
-                  <input class="file-input" type="file" v-validate="'required'" name="zdjęcie" @change="onFileSelected" accept="image/*">
+                  <input class="file-input" type="file" @change="onFileSelected" accept="image/*">
                   <span class="file-cta">
                     <span class="file-icon">
                       <i class="fa fa-cloud-upload-alt"></i>
@@ -45,17 +45,14 @@
                     </span>
                   </span>
                   <br>
-                  <div v-if="image" class="image">
-                    <img class="image" :src="image"/>
-                  </div>
-                  <div v-else>
-                    <img class="image" :src="player.imageUrl"/>
-                  </div>
                 </label>
               </div>
-              <transition name="fade-left">
-                <div class="help is-danger" v-if="errors.has('zdjęcie')">{{errors.first('zdjęcie')}}</div>
-              </transition>
+            </div>
+            <div v-if="image" class="image">
+              <img class="image" :src="image"/>
+            </div>
+            <div v-else-if="player.imageUrl">
+              <img class="image" :src="player.imageUrl"/>
             </div>
           </form>
         </section>
