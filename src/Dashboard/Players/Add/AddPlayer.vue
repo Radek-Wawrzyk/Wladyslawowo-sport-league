@@ -44,9 +44,10 @@
                       Dodaj zdjęcie
                     </span>
                   </span>
-                  <span class="file-name" v-if="imgName">
-                    {{imgName}}
-                  </span>
+                  <br>
+                  <div v-if="image" class="image">
+                    <img class="image" :src="image"/>
+                  </div>
                 </label>
               </div>
               <transition name="fade-left">
@@ -77,8 +78,10 @@ export default {
         settlement: "",
         settlementId: '',
         img: "",
-        extension: ""
+        extension: "",
+        imageData: ""
       },
+      image: '',
       imgName: null,
       alertMessage: null,
       sentProperly: false,
@@ -114,6 +117,21 @@ export default {
     onFileSelected(event) {
       this.imgName = event.target.files[0].name;
       this.player.img = event.target.files[0];
+
+      var files = event.target.files || event.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.createImage(files[0]);
+    },
+     createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
     },
     closeModal() {
       this.$store.dispatch('closeModal');
@@ -131,7 +149,7 @@ export default {
           return this.settlements[i].id;
         }
       }
-    }
+    },
   },
   computed: {
     settlements() {
@@ -143,5 +161,11 @@ export default {
 </script>
 
 <style scoped>
+
+.image
+{
+  width: 150px;
+  height: 150px;
+}
 
 </style>

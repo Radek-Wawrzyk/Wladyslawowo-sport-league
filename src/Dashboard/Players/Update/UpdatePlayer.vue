@@ -5,7 +5,7 @@
       <div class="modal-card">
         <Alert :sentProperly="sentProperly" :alertMessage="alertMessage"></Alert>
         <header class="modal-card-head">
-          <p class="modal-card-title">Dodaj zawodnika</p>
+          <p class="modal-card-title">Edycja zawodnika</p>
           <button class="delete" aria-label="close" @click="closeModal"></button>
         </header>
         <section class="modal-card-body">
@@ -41,12 +41,16 @@
                       <i class="fa fa-cloud-upload-alt"></i>
                     </span>
                     <span class="file-label">
-                      Dodaj zdjęcie
+                      Zmień zdjęcie
                     </span>
                   </span>
-                  <span class="file-name" v-if="imgName">
-                    {{imgName}}
-                  </span>
+                  <br>
+                  <div v-if="image" class="image">
+                    <img class="image" :src="image"/>
+                  </div>
+                  <div v-else>
+                    <img class="image" :src="player.imageUrl"/>
+                  </div>
                 </label>
               </div>
               <transition name="fade-left">
@@ -80,6 +84,7 @@ export default {
         img: "",
         extension: ""
       },
+      image: '',
       settlement: "",
       imgName: null,
       alertMessage: null,
@@ -103,6 +108,21 @@ export default {
     onFileSelected(event) {
       this.imgName = event.target.files[0].name;
       this.player.img = event.target.files[0];
+
+      var files = event.target.files || event.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
     },
     closeModal() {
       this.$store.dispatch('closeModal');
@@ -129,15 +149,21 @@ export default {
   },
   mounted()
   {
-      var player = this.$store.getters.player(this.$route.params.id);
-      this.player = player[0];
-      this.imgName = this.player.id;
-      this.settlement = this.player.settlement;
+    var player = this.$store.getters.player(this.$route.params.id);
+    this.player = player[0];
+    this.imgName = this.player.id;
+    this.settlement = this.player.settlement;
   }
 }
 
 </script>
 
 <style scoped>
+
+.image
+{
+  width: 150px;
+  height: 150px;
+}
 
 </style>
