@@ -4,7 +4,6 @@ import events from './Events'
 import news from './News'
 import settlements from './Settlements'
 
-
 export default {
   state: {
     menuStatus: false,
@@ -17,15 +16,15 @@ export default {
     menu: state => {
       return state.menuStatus;
     },
-    search: state => phrase =>
-    {
+    search: state => phrase => {
       phrase = phrase.toLowerCase();
 
-      let playerMatches = players.getters.players(players.state).filter(p => p.name.toLowerCase().includes(phrase));
-      let eventMatches = events.getters.events(events.state).filter(e => e.name.toLowerCase().includes(phrase));
-      let newsMatches = news.getters.news(news.state).filter(n => n.name.toLowerCase().includes(phrase));
-      let settlementsMatches = settlements.getters.settlements(settlements.state).filter(s => s.name.toLowerCase().includes(phrase));
-      return{
+      const playerMatches = players.getters.players(players.state).filter(p => p.name.toLowerCase().includes(phrase));
+      const eventMatches = events.getters.events(events.state).filter(e => e.name.toLowerCase().includes(phrase));
+      const newsMatches = news.getters.news(news.state).filter(n => n.name.toLowerCase().includes(phrase));
+      const settlementsMatches = settlements.getters.settlements(settlements.state).filter(s => s.name.toLowerCase().includes(phrase));
+
+      return {
         players: playerMatches,
         events: eventMatches,
         news: newsMatches,
@@ -45,8 +44,8 @@ export default {
     closeModal: ({commit}) => {
       commit('closeModal');
     },
-    toggleMenu: event => {
-      event.commit("toggleMenu");
+    toggleMenu: ({commit}) => {
+      commit("toggleMenu");
     }
   }
 }
