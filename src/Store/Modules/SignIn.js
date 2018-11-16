@@ -30,26 +30,28 @@ export default {
     },
   },
   actions: {
-    signIn: ({commit}, user) => {
-      firebase.auth().signInWithEmailAndPassword(user.email, user.password)
-        .then(user => {
-          const newUser = {
-            id: user.user.uid,
-            email: user.user.email
-          };
-          commit("singIn", newUser);
-          commit("clearErrors");
-        })
-        .catch(error => {
-          console.log(error);
-          commit("signInError", error);
-        })
+    signIn: async ({commit}, user) => {
+      try {
+        await firebase.auth().signInWithEmailAndPassword(user.email, user.password);
+
+        const newUser = {
+          id: user.user.uid,
+          email: user.user.email
+        };
+
+        commit("singIn", newUser);
+        commit("clearErrors");
+      } catch (error) {
+        console.log(error);
+        commit("signInError", error);
+      }
     },
     autoSignIn: ({commit}, user) => {
       const newUser = {
         id: user.uid,
         email: user.email
       };
+
       commit('singIn', newUser);
       commit("clearErrors");
     },
