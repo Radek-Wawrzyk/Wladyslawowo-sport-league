@@ -14,7 +14,8 @@ export default new Router({
       path: '/',
       name: 'Default',
       component: () => import("@/Website/Website.vue"),
-      children: [{
+      children: [
+      {
         path: "",
         component: () => import("@/Website/Home/Home.vue")
       },
@@ -64,10 +65,6 @@ export default new Router({
         path: "/news/:id",
         component: () => import("@/Website/News/NewsDetails.vue"),
         props: true
-      },
-      {
-        path: "/help",
-        component: () => import("@/Website/Help/Help.vue")
       },
       {
         path: "/contact",
