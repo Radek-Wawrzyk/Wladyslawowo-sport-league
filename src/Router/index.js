@@ -144,12 +144,12 @@ export default new Router({
             {
               path: "add-settlement",
               name: "AddSettlement",
-              component: () => import("@/Dashboard/Settlements/AddSettlement.vue"),
+              component: () => import("@/Dashboard/Settlements/Add/AddSettlement.vue"),
             },
             {
               path: "update-settlement/:id",
               name: "UpdateSettlement",
-              component: () => import("@/Dashboard/Settlements/AddSettlement.vue"),
+              component: () => import("@/Dashboard/Settlements/Update/UpdateSettlement.vue"),
               props: { update: true}
             }
           ]

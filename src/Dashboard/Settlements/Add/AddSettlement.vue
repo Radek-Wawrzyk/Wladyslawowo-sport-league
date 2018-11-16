@@ -5,7 +5,7 @@
       <div class="modal-card">
         <Alert :sentProperly="sentProperly" :alertMessage="alertMessage"></Alert>
         <header class="modal-card-head">
-          <p class="modal-card-title">{{ modalTitle }}</p>
+          <p class="modal-card-title">Dodaj dzielnicę lub wieś</p>
           <button class="delete" aria-label="close" @click="closeModal"></button>
         </header>
         <section class="modal-card-body">
@@ -13,16 +13,20 @@
             <div class="field">
               <label class="label" for="name">Nazwa dzielnicy lub wsi</label>
               <div class="control">
-                <input class="input" id="name" type="text" placeholder="Władysławowo centrum" v-model.trim="$v.settlement.name.$model">
+                <input v-validate="'required'" data-vv-delay="250" class="input" name="nazwa" id="name" type="text" placeholder="Władysławowo centrum" v-model="settlement.name">
               </div>
-              <p class="help is-danger" v-if="!$v.settlement.name.minLength">Nazwa jest za krótka </p>
+              <transition name="fade-left">
+                <div class="help is-danger" v-if="errors.has('nazwa')">{{errors.first('nazwa')}}</div>
+              </transition>
             </div>
             <div class="field">
               <label class="label" for="description">Opis dzielnicy lub wsi</label>
               <div class="control">
-                <textarea class="textarea" id="description" placeholder="Treść opisu osiedla" v-model="$v.settlement.description.$model"></textarea>
+                <textarea v-validate="'required'" data-vv-delay="250" name="opis" class="textarea" id="description" placeholder="Treść opisu osiedla" v-model="settlement.description"></textarea>
               </div>
-              <p class="help is-danger" v-if="!$v.settlement.description.minLength">Opis jest za krótki</p>
+              <transition name="fade-left">
+                <div class="help is-danger" v-if="errors.has('opis')">{{errors.first('opis')}}</div>
+              </transition>
             </div>
             <div class="field">
               <div class="file has-name">
@@ -36,11 +40,11 @@
                       Dodaj zdjęcie
                     </span>
                   </span>
-                  <span class="file-name" v-if="imgName">
-                    {{imgName}}
-                  </span>
                 </label>
               </div>
+            </div>
+            <div v-if="image" class="image">
+              <img class="image" :src="image"/>
             </div>
           </form>
         </section>
@@ -59,7 +63,6 @@ import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: "AddSettlement",
-  props: ['update', 'id'],
   data() {
     return {
       settlement: {
@@ -67,36 +70,31 @@ export default {
         description: "",
         img: ""
       },
+      image: '',
       imgName: null,
-      modalTitle: null,
       alertMessage: null,
       sentProperly: false,
       alertTimeoutId: null
     }
   },
-  validations: {
-    settlement: {
-      name: {
-        required,
-        minLength: minLength(3)
-      },
-      description: {
-        required,
-        minLength: minLength(3)
-      }
-    }
-  },
   methods: {
-    addSettlement() {
+
+    async handleSubmit()
+    {
       clearTimeout(this.alertTimeoutId)
 
-      if (this.settlement.name && this.settlement.description) {
+      const valid = await this.$validator.validateAll();
+
+      if (valid) 
+      {
         this.$store.dispatch('addSettlement', this.settlement);
         for (let key in this.settlement) {
           this.settlement[key] = '';
         }
         this.sentProperly = true;
         this.alertMessage = "Pomyślnie dodano nową dzielnicę lub wieś"
+
+        this.$validator.reset();
       } else {
         this.sentProperly = false;
         this.alertMessage = "Wypełnij pola";
@@ -106,21 +104,25 @@ export default {
         this.alertMessage = undefined;          
       }, 3000);
     },
-    updateSettlement()
-    {
-      this.$store.dispatch('updateSettlement',this.settlement);
-      this.closeModal();
-    },
-    handleSubmit()
-    {
-      if(this.update === true)
-        this.updateSettlement();
-      else
-        this.addSettlement();
-    },
     onFileSelected(event) {
       this.imgName = event.target.files[0].name;
       this.settlement.img = event.target.files[0];
+
+      var files = event.target.files || event.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.createImage(files[0]);
+
+    },
+     createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
     },
     closeModal() {
       this.$store.dispatch('closeModal');
@@ -129,26 +131,15 @@ export default {
     {
       this.alertMessage = null;
     }
-  },
-  mounted()
-  {
-    if(this.update === true)
-    {
-      this.modalTitle = "Edytuj dzielnicę lub wieś";
-      var settlement = this.$store.getters.settlement(this.$route.params.id);
-      this.settlement = settlement[0];
-      this.imgName = this.settlement.id;
-    }
-    else
-    {
-      this.modalTitle = "Dodaj dzielnicę lub wieś";
-      this.settlement = {};
-    }
   }
 }
 
 </script>
 
 <style scoped>
-
+.image
+{
+  width: 150px;
+  height: 150px;
+}
 </style>

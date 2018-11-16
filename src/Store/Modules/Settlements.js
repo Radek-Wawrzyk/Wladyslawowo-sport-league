@@ -200,9 +200,11 @@ export default {
     addSettlement: async ({commit}, settlement) => {
       const newSettlement = {
         name: settlement.name,
-        description: settlement.description,
-        extension: settlement.img === undefined ? "" : settlement.img.name.slice(settlement.img.name.lastIndexOf('.'))
+        description: settlement.description
       };
+
+      if(settlement.img.name !== undefined)
+        newSettlement.extension = settlement.img === undefined ? "" : settlement.img.name.slice(settlement.img.name.lastIndexOf('.'))
 
       let imageUrl;
       let key;
@@ -263,7 +265,6 @@ export default {
         }
 
         imageUrl = downloadURL;
-        console.log(imageUrl);
         await firebase.database().ref('settlements').child(settlement.id).update({imageUrl: imageUrl});
         settlement.imageUrl = imageUrl;
       }
