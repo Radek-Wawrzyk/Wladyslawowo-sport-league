@@ -5,7 +5,7 @@
       <div class="modal-card">
         <Alert :sentProperly="sentProperly" :alertMessage="alertMessage"></Alert>
         <header class="modal-card-head">
-          <p class="modal-card-title">{{ modalTitle }}</p>
+          <p class="modal-card-title">Edycja wydarzenia</p>
           <button class="delete" aria-label="close" @click="closeModal"></button>
         </header>
         <section class="modal-card-body">
@@ -13,20 +13,29 @@
             <div class="field">
               <label class="label" for="name">Nazwa wydarzenia</label>
               <div class="control">
-                <input v-model="news.name" class="input" id="name" type="text" placeholder="Mistrzostwa Piłki Nożnej 2018">
+                <input v-model="news.name" name="nazwa" v-validate="'required'" data-vv-delay="250" class="input" id="name" type="text" placeholder="Mistrzostwa Piłki Nożnej 2018">
               </div>
+              <transition name="fade-left">
+                <div class="help is-danger" v-if="errors.has('nazwa')">{{errors.first('nazwa')}}</div>
+              </transition>
             </div>
             <div class="field">
               <label class="label" for="name">Data wydarzenia</label>
               <div class="control">
-                <input v-model="news.date" class="input" id="name" type="date">
+                <input v-model="news.date" name="data" v-validate="'required'" data-vv-delay="250" class="input" id="name" type="date">
               </div>
+              <transition name="fade-left">
+                <div class="help is-danger" v-if="errors.has('data')">{{errors.first('data')}}</div>
+              </transition>
             </div>
             <div class="field">
               <label class="label" for="description">Opis wydarzenia</label>
               <div class="control">
-                <textarea class="textarea" v-model="news.description" id="description" placeholder="Treść opisu wydarzenia" rows="5"></textarea>
+                <textarea class="textarea"  name="opis" v-validate="'required'" data-vv-delay="250" v-model="news.description" id="description" placeholder="Treść opisu wydarzenia" rows="5"></textarea>
               </div>
+              <transition name="fade-left">
+                <div class="help is-danger" v-if="errors.has('opis')">{{errors.first('opis')}}</div>
+              </transition>
             </div>
             <div class="field">
               <div class="file has-name">
@@ -37,14 +46,17 @@
                       <i class="fa fa-cloud-upload-alt"></i>
                     </span>
                     <span class="file-label">
-                      Dodaj zdjęcie
+                      Zmień zdjęcie
                     </span>
-                  </span>
-                  <span class="file-name">
-                    {{imgName}}
                   </span>
                 </label>
               </div>
+            </div>
+            <div v-if="image">
+              <img class="attachment-image" :src="image"/>
+            </div>
+            <div v-else-if="news.imageUrl">
+              <img class="attachment-image" :src="news.imageUrl"/>
             </div>
           </form>
         </section>
@@ -62,8 +74,8 @@
 import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
-  name: "AddNews",
-  props: ['update', 'id'],
+  name: "UpdateNews",
+  props: ['id'],
   data() {
     return {
       news: {
@@ -72,55 +84,42 @@ export default {
         date: null,
         img: ""
       },
+      image: '',
       imgName: null,
-      modalTitle: null,
       alertMessage: null,
       sentProperly: false,
       alertTimeoutId: null
     }
   },
   methods: {
-    addNews() {
-        clearTimeout(this.alertTimeoutId);
-
-        if(this.news.name && this.news.name && this.news.date)
-        {
-          this.$store.dispatch('addNews', this.news);
-          for (let key in this.news) {
-            this.news[key] = '';
-          }
-
-          this.sentProperly = true;
-          this.alertMessage = "Pomyślnie dodano nowe wydarzenie";
-        }
-        else
-        {
-          this.sentProperly = false;
-          this.alertMessage = "Wypełnij pola";
-        }
-
-        
-      this.alertTimeoutId = setTimeout(() => {
-        this.alertMessage = undefined;          
-      }, 3000);
-
-    },
-    updateNews() {
-      this.$store.dispatch('updateNews', this.news);
-      this.closeModal();
-    },
-    handleSubmit()
+    async handleSubmit()
     {
-      if(this.update === true)
+      const valid = await this.$validator.validateAll();
+
+      if(valid)
       {
-        this.updateNews();
+        this.$store.dispatch('updateNews', this.news);
+        this.closeModal();
       }
-      else
-        this.addNews();
     },
     onFileSelected(event) {
       this.imgName = event.target.files[0].name;
       this.news.img = event.target.files[0];
+
+      var files = event.target.files || event.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
     },
     closeModal() {
       this.$store.dispatch('closeModal');
@@ -132,18 +131,9 @@ export default {
   },
   mounted()
   {
-    if(this.update === true)
-    {
-      this.modalTitle = "Edytuj wydarzenie";
-      var n = this.$store.getters.briefNewsById(this.$route.params.id);
-      this.news = n;
-      this.imgName = this.news.id;
-    }
-    else
-    {
-      this.modalTitle = "Dodaj wydarzenie";
-      this.news = {};
-    }
+    var n = this.$store.getters.briefNewsById(this.$route.params.id);
+    this.news = n;
+    this.imgName = this.news.id;
   }
 }
 

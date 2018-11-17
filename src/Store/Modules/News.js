@@ -74,7 +74,6 @@ export default {
         name: news.name,
         description: news.description,
         date: news.date,
-        extension: news.img === undefined ? "" : news.img.name.slice(news.img.name.lastIndexOf('.'))
       };
 
       const data = await firebase.database().ref("news").push(newNews);
@@ -82,7 +81,7 @@ export default {
 
       if (uploadImg) {
         const storageRef = firebase.storage().ref();
-        uploadImg = await storageRef.child(`news/${key}${newNews.extension}`).put(uploadImg);
+        uploadImg = storageRef.child(`news/${key}`).put(uploadImg);
 
         uploadImg.on('state_changed', snapshot => {}, error => console.log(error), async () => {
           let downloadURL = await uploadImg.snapshot.ref.getDownloadURL();
@@ -107,22 +106,20 @@ export default {
     },
     updateNews: ({commit}, news) => {
       var editedImage = news.img !== undefined;
-      let file, extension, uploadImg, imageRef, imageUrl, storageRef;
+      let file, uploadImg, imageRef, imageUrl, storageRef;
 
       if(news.imageUrl === undefined)
         news.imageUrl = null;
 
       if (editedImage) {
         file = news.img.name;
-        extension = file.slice(file.lastIndexOf('.'));
         uploadImg = news.img;
         storageRef = firebase.storage().ref();
 
-        news.extension = extension;
       }
       firebase.database().ref('news').child(news.id).update(news).then(key => {
         if (editedImage) {
-          uploadImg = storageRef.child(`news/${news.id}${news.extension}`).put(uploadImg)
+          uploadImg = storageRef.child(`news/${news.id}`).put(uploadImg)
         }
       }).then(() => {
         if (editedImage) {
@@ -139,9 +136,9 @@ export default {
     removeNews: async ({commit}, news) => {
       await firebase.database().ref('news').child(news.id).remove();
 
-      if (news.extension) {
+      if (news.imageUrl) {
         const storageRef = firebase.storage().ref();
-        await storageRef.child(`news/${news.id}${news.extension}`).delete();
+        await storageRef.child(`news/${news.id}`).delete();
       }
 
       commit('removeNews', news);

@@ -101,7 +101,7 @@ export default new Router({
               path: "update-player/:id",
               name: "UpdatePlayer",
               component: () => import("@/Dashboard/Players/Update/UpdatePlayer.vue"),
-              props: { update: true}
+              props: true
             }
           ]
         },
@@ -112,13 +112,13 @@ export default new Router({
             {
               path: "add-news",
               name: "AddNews",
-              component: () => import("@/Dashboard/News/AddNews.vue")
+              component: () => import("@/Dashboard/News/Add/AddNews.vue")
             },
             {
               path: 'update-news/:id',
               name: 'UpdateNews',
-              component: () => import("@/Dashboard/News/AddNews.vue"),
-              props: { update: true}
+              component: () => import("@/Dashboard/News/Update/UpdateNews.vue"),
+              props: true
             }
           ]
         },
@@ -150,7 +150,7 @@ export default new Router({
               path: "update-settlement/:id",
               name: "UpdateSettlement",
               component: () => import("@/Dashboard/Settlements/Update/UpdateSettlement.vue"),
-              props: { update: true}
+              props: true
             }
           ]
         }
