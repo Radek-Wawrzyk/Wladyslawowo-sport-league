@@ -134,8 +134,8 @@ export default new Router({
         {
           path: "events/update-event/:id",
           name: "UpdateEvent",
-          component: () => import("@/Dashboard/Events/AddEvent.vue"),
-          props: { update: true}
+          component: () => import("@/Dashboard/Events/Update/UpdateEvent.vue"),
+          props: true
         },
         {
           path: "settlements",

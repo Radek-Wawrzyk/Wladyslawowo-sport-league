@@ -160,9 +160,33 @@ export default {
       if (event.players === undefined) {
         event.players = [];
       }
+      const storageRef = firebase.storage().ref();
+
+      console.log(event);
+      
+
+      await firebase.database().ref('events').child(event.id).update(event).then(key =>
+      {
+        if(event.files)
+        {
+          let putIndex = event.imageUrls.legnth;
+          for(let i = 0;i < event.files.length;i++)
+          {
+            event.files[i] = storageRef.child(`events/${event.id}/${putIndex}`).put(event.files[i]);
+          }
+        }
+      }).then(() => 
+      {
+        for(let i = 0;i < event.files.length;i++)
+        {
+          event.files[i].snapshot.ref.getDownloadURL().then(function (downloadURL) {
+            event.imageUrls.push(downloadURL);
+            firebase.database().ref('events').child(event.id).update({imageUrls: event.imageUrls});
+          })
+        }
+      });
 
       await firebase.database().ref('events').child(event.id).update(event);
-
       commit('updateEvent', event);
     },
     removeEvent: async ({commit}, event) => {
