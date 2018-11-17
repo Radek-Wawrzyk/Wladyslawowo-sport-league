@@ -45,9 +45,7 @@
                     <span class="file-icon">
                       <i class="fa fa-cloud-upload-alt"></i>
                     </span>
-                    <span class="file-label">
-                      Zmień zdjęcie
-                    </span>
+                    <span class="file-label">Zmień zdjęcie</span>
                   </span>
                 </label>
               </div>
@@ -88,46 +86,42 @@ export default {
     }
   },
   methods: {
-    async handleSubmit()
-    {
+    async handleSubmit() {
       const valid = await this.$validator.validateAll();
 
-      if(valid)
-      {
+      if (valid) {
         this.$store.dispatch('updateNews', this.news);
         this.closeModal();
       }
     },
     onFileSelected(event) {
       this.news.img = event.target.files[0];
+      let files = event.target.files || event.dataTransfer.files;
 
-      var files = event.target.files || event.dataTransfer.files;
-      if (!files.length)
+      if (!files.length) {
         return;
+      }
+
       this.createImage(files[0]);
     },
     createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
+      let image = new Image();
+      let reader = new FileReader();
+      let vm = this;
 
       reader.onload = (e) => {
         vm.image = e.target.result;
       };
+
       reader.readAsDataURL(file);
     },
     closeModal() {
       this.$store.dispatch('closeModal');
     },
-    dismissAlert()
-    {
-      this.alertMessage = null;
-    }
   },
-  mounted()
-  {
-    var n = this.$store.getters.briefNewsById(this.$route.params.id);
-    this.news = n;
+  created() {
+    const news = this.$store.getters.briefNewsById(this.$route.params.id);
+    this.news = news;
   }
 }
 

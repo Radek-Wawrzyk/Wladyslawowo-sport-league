@@ -40,9 +40,7 @@
                     <span class="file-icon">
                       <i class="fa fa-cloud-upload-alt"></i>
                     </span>
-                    <span class="file-label">
-                      Zmień zdjęcie
-                    </span>
+                    <span class="file-label">Zmień zdjęcie</span>
                   </span>
                   <br>
                 </label>
@@ -86,49 +84,43 @@ export default {
     }
   },
   methods: {
-    async handleSubmit()
-    {
-        const valid = await this.$validator.validateAll();
+    async handleSubmit() {
+      const valid = await this.$validator.validateAll();
 
-        if(valid)
-        {
-          this.player.settlement = this.settlement;
-          this.player.settlementId = this.settlementId(this.player.settlement);
-          this.$store.dispatch('updatePlayer',this.player);
-          this.closeModal();
-        }
+      if (valid) {
+        this.player.settlement = this.settlement;
+        this.player.settlementId = this.settlementId(this.player.settlement);
+        this.$store.dispatch('updatePlayer',this.player);
+        this.closeModal();
+      }
     },
     onFileSelected(event) {
       this.player.img = event.target.files[0];
+      let files = event.target.files || event.dataTransfer.files;
 
-      var files = event.target.files || event.dataTransfer.files;
-      if (!files.length)
+      if (!files.length) {
         return;
+      }
+
       this.createImage(files[0]);
     },
     createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
+      let image = new Image();
+      let reader = new FileReader();
+      let vm = this;
 
       reader.onload = (e) => {
         vm.image = e.target.result;
       };
+
       reader.readAsDataURL(file);
     },
     closeModal() {
       this.$store.dispatch('closeModal');
     },
-    dismissAlert()
-    {
-      this.alertMessage = null;
-    },
-    settlementId(settlementName)
-    {
-      for(let i = 0;i < this.settlements.length;i++)
-      {
-        if(this.settlements[i].name == settlementName)
-        {
+    settlementId(settlementName) {
+      for (let i = 0; i < this.settlements.length ;i++) {
+        if (this.settlements[i].name == settlementName) {
           return this.settlements[i].id;
         }
       }
@@ -139,9 +131,8 @@ export default {
       return this.$store.getters.settlements;
     }
   },
-  mounted()
-  {
-    var player = this.$store.getters.player(this.$route.params.id);
+  created() {
+    const player = this.$store.getters.player(this.$route.params.id);
     this.player = player[0];
     this.settlement = this.player.settlement;
   }

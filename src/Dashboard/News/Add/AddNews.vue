@@ -45,9 +45,7 @@
                     <span class="file-icon">
                       <i class="fa fa-cloud-upload-alt"></i>
                     </span>
-                    <span class="file-label">
-                      Dodaj zdjęcie
-                    </span>
+                    <span class="file-label">Dodaj zdjęcie</span>
                   </span>
                 </label>
               </div>
@@ -84,14 +82,13 @@ export default {
     }
   },
   methods: {
-    async handleSubmit()
-    {
+    async handleSubmit() {
       clearTimeout(this.alertTimeoutId);
-
       const valid = await this.$validator.validateAll();
-      if(valid)
-      {
+
+      if (valid) {
         this.$store.dispatch('addNews', this.news);
+
         for (let key in this.news) {
           this.news[key] = '';
         }
@@ -101,28 +98,29 @@ export default {
 
         this.$validator.reset();
       }
-      else
-      {
+      else {
         this.sentProperly = false;
         this.alertMessage = "Wypełnij pola";
       }
-        
+
       this.alertTimeoutId = setTimeout(() => {
-        this.alertMessage = undefined;          
+        this.alertMessage = undefined;
       }, 3000);
     },
     onFileSelected(event) {
       this.news.img = event.target.files[0];
+      let files = event.target.files || event.dataTransfer.files;
 
-      var files = event.target.files || event.dataTransfer.files;
-      if (!files.length)
+      if (!files.length) {
         return;
+      }
+
       this.createImage(files[0]);
     },
     createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
+      let image = new Image();
+      let reader = new FileReader();
+      let vm = this;
 
       reader.onload = (e) => {
         vm.image = e.target.result;
@@ -131,10 +129,6 @@ export default {
     },
     closeModal() {
       this.$store.dispatch('closeModal');
-    },
-    dismissAlert()
-    {
-      this.alertMessage = null;
     }
   }
 }

@@ -41,9 +41,7 @@
                     <span class="file-icon">
                       <i class="fa fa-cloud-upload-alt"></i>
                     </span>
-                    <span class="file-label">
-                      Dodaj zdjęcie
-                    </span>
+                    <span class="file-label">Dodaj zdjęcie</span>
                   </span>
                   <br>
                 </label>
@@ -84,25 +82,23 @@ export default {
     }
   },
   methods: {
-    async handleSubmit()
-    {
+    async handleSubmit() {
       clearTimeout(this.alertTimeoutId);
-
       const valid = await this.$validator.validateAll();
-      if (valid) 
-      {
+
+      if (valid) {
         this.player.settlement = this.settlement;
         this.player.settlementId = this.settlementId(this.player.settlement);
-        this.$store.dispatch('addPlayer', this.player);     
+        this.$store.dispatch('addPlayer', this.player);
+
         for (let key in this.player) {
           this.player[key] = '';
-        } 
+        }
+
         this.sentProperly = true;
         this.alertMessage = "Pomyślnie dodano nowego gracza"
         this.$validator.reset();
-      }
-      else
-      {
+      } else {
         this.sentProperly = false;
         this.alertMessage = "Wypełnij pola";
       }
@@ -114,27 +110,27 @@ export default {
     onFileSelected(event) {
       this.player.img = event.target.files[0];
 
-      var files = event.target.files || event.dataTransfer.files;
-      if (!files.length)
+      let files = event.target.files || event.dataTransfer.files;
+
+      if (!files.length) {
         return;
+      }
+
       this.createImage(files[0]);
     },
      createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
+      let image = new Image();
+      let reader = new FileReader();
+      let vm = this;
 
       reader.onload = (e) => {
         vm.image = e.target.result;
       };
+
       reader.readAsDataURL(file);
     },
     closeModal() {
       this.$store.dispatch('closeModal');
-    },
-    dismissAlert()
-    {
-      this.alertMessage = null;
     },
     settlementId(settlementName)
     {
