@@ -128,12 +128,7 @@ export default {
         description: event.description,
         date: event.date,
         players: event.players,
-        extensions: []
       };
-
-      event.images.forEach(item => {
-        newEvent.extensions.push(item.name.slice(item.name.lastIndexOf('.')));
-      });
 
       let key;
       let imageUrls = [];
@@ -142,10 +137,9 @@ export default {
       key = data.key;
 
       if (event.images.length > 0) {
-
-        for (let i = 0;i < newEvent.extensions.length;i++) {
+        for (let i = 0;i < event.images.length;i++) {
           const storageRef = firebase.storage().ref();
-          event.images[i] = storageRef.child(`events/${key + i}${newEvent.extensions[i]}`).put(event.images[i]);
+          event.images[i] = storageRef.child(`events/${key}/${i}`).put(event.images[i]);
 
           event.images[i].on('state_changed', snapshot => {}, error => { console.log(error) }, async () => {
             let downloadURL = await event.images[i].snapshot.ref.getDownloadURL();
@@ -175,9 +169,9 @@ export default {
       await firebase.database().ref('events').child(event.id).remove();
       const storageRef = firebase.storage().ref();
 
-      if (event.extensions) {
-        for (let i = 0; i < event.extensions.length; i++) {
-         await storageRef.child(`events/${event.id + i}${event.extensions[i]}`).delete();
+      if (event.imageUrls) {
+        for (let i = 0; i < event.imageUrls.length; i++) {
+         await storageRef.child(`events/${event.id}/${i}`).delete();
         }
       }
 
