@@ -158,6 +158,11 @@ export default {
           imageUrls: imageUrls,
           id: key
         });
+      } else {
+        commit('addEvent', {
+          ...newEvent,
+          id: key
+        });
       }
     },
     updateEvent: async ({commit}, event) => {
@@ -169,24 +174,19 @@ export default {
       console.log(event);
       
 
-      await firebase.database().ref('events').child(event.id).update(event).then(key =>
-      {
-        if(event.files)
-        {
+      await firebase.database().ref('events').child(event.id).update(event).then(key => {
+        if (event.files) {
           let putIndex = event.imageUrls.legnth;
-          for(let i = 0;i < event.files.length;i++)
-          {
+          for (let i = 0;i < event.files.length;i++) {
             event.files[i] = storageRef.child(`events/${event.id}/${putIndex}`).put(event.files[i]);
           }
         }
-      }).then(() => 
-      {
-        for(let i = 0;i < event.files.length;i++)
-        {
+      }).then(() => {
+        for (let i = 0;i < event.files.length;i++) {
           event.files[i].snapshot.ref.getDownloadURL().then(function (downloadURL) {
             event.imageUrls.push(downloadURL);
             firebase.database().ref('events').child(event.id).update({imageUrls: event.imageUrls});
-          })
+          });
         }
       });
 
