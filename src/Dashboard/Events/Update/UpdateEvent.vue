@@ -47,12 +47,12 @@
               </label>
             </div>
           </div>
-          <div class="attachment-container" v-if="images || event.imageUrls">
-            <div @click="removeImage(index)" class="attachment-image-container" v-for="(image,index) in images" :key="index">
-              <img class="attachment-image" :src="image"/>
+          <div class="attachments" v-if="images || event.imageUrls">
+            <div @click="removeImage(index)" class="attachments-image" v-for="(image,index) in images" :key="index">
+              <img :src="image"/>
             </div>
-            <div @click="removeUrl(index)" class="attachment-image-container" v-for="(url,index) in event.imageUrls" :key="index + 'n'">
-              <img class="attachment-image" :src="url"/>
+            <div @click="removeUrl(index)" class="attachments-image" v-for="(url,index) in event.imageUrls" :key="index + 'n'">
+              <img :src="url"/>
             </div>
           </div>
         </form>

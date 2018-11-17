@@ -40,16 +40,14 @@
                   <span class="file-icon">
                     <i class="fa fa-cloud-upload-alt"></i>
                   </span>
-                  <span class="file-label">
-                    Dodaj zdjęcie
-                  </span>
+                  <span class="file-label">Dodaj zdjęcie</span>
                 </span>
               </label>
             </div>
           </div>
-          <div class="attachment-container" v-if="images">
-            <div @click="removeImage(index)" class="attachment-image-container" v-for="(image,index) in images" :key="index">
-              <img class="attachment-image" :src="image"/>
+          <div class="attachments" v-if="images">
+            <div @click="removeImage(index)" class="attachments-image" v-for="(image,index) in images" :key="index">
+              <img :src="image"/>
             </div>
           </div>
         </form>
