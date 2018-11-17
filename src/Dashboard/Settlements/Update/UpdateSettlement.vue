@@ -43,11 +43,11 @@
                 </label>
               </div>
             </div>
-             <div v-if="image" class="image">
-              <img class="image" :src="image"/>
+             <div v-if="image">
+              <img class="attachment-image" :src="image"/>
             </div>
             <div v-else-if="settlement.imageUrl">
-              <img class="image" :src="settlement.imageUrl"/>
+              <img class="attachment-image" :src="settlement.imageUrl"/>
             </div>
           </form>
         </section>
@@ -124,11 +124,3 @@ export default {
 }
 
 </script>
-
-<style scoped>
-.image
-{
-  width: 150px;
-  height: 150px;
-}
-</style>

@@ -48,8 +48,8 @@
                 </label>
               </div>
             </div>
-            <div v-if="image" class="image">
-              <img class="image" :src="image"/>
+            <div v-if="image">
+              <img class="attachment-image" :src="image"/>
             </div>
           </form>
         </section>
@@ -159,13 +159,3 @@ export default {
 }
 
 </script>
-
-<style scoped>
-
-.image
-{
-  width: 150px;
-  height: 150px;
-}
-
-</style>
