@@ -166,7 +166,6 @@ export default {
       if (event.players === undefined) {
         event.players = [];
       }
-      console.log(event);
 
       await firebase.database().ref('events').child(event.id).update(event);
 

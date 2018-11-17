@@ -8,37 +8,48 @@
           <div class="field">
             <label class="label">Nazwa imprezy</label>
             <div class="control">
-              <input class="input" type="text" v-model="event.name" placeholder="Nazwa imprezy">
+              <input class="input" type="text" name="nazwa" v-validate="'required'" data-vv-delay="250" v-model="event.name" placeholder="Nazwa imprezy">
             </div>
+            <transition name="fade-left">
+              <p class="help is-danger" v-if="errors.has('nazwa')">{{errors.first('nazwa')}}</p>
+            </transition>
           </div>
           <div class="field">
             <label class="label">Opis imprezy</label>
             <div class="control">
-              <textarea class="textarea" v-model="event.description" placeholder="Opis wydarzenia"></textarea>
+              <textarea class="textarea" name="opis" v-validate="'required'" data-vv-delay="250" v-model="event.description" placeholder="Opis wydarzenia"></textarea>
             </div>
+            <transition name="fade-left">
+              <p class="help is-danger" v-if="errors.has('opis')">{{errors.first('opis')}}</p>
+            </transition>
           </div>
           <div class="field">
             <label class="label">Data imprezy</label>
             <div class="control">
-              <input class="input" type="date" v-model="event.date" >
+              <input class="input" name="data" v-validate="'required'" data-vv-delay="250" type="date" v-model="event.date" >
             </div>
+            <transition name="fade-left">
+              <p class="help is-danger" v-if="errors.has('data')">{{errors.first('data')}}</p>
+            </transition>
           </div>
           <div class="field">
             <div class="file has-name">
               <label class="file-label">
                 <input class="file-input" type="file" name="file" @change="onFileSelected" accept="image/*">
                 <span class="file-cta">
-                <span class="file-icon">
-                  <i class="fa fa-cloud-upload-alt"></i>
-                </span>
-                <span class="file-label">
-                  Dodaj zdjęcie
-                </span>
-              </span>
-                <span class="file-name" v-for="imgName in imgNames" :key="imgName">
-                {{imgName}}
+                  <span class="file-icon">
+                    <i class="fa fa-cloud-upload-alt"></i>
+                  </span>
+                  <span class="file-label">
+                    Dodaj zdjęcie
+                  </span>
                 </span>
               </label>
+            </div>
+          </div>
+          <div class="attachment-container" v-if="images">
+            <div @click="removeImage(index)" class="attachment-image-container" v-for="(image,index) in images" :key="index">
+              <img class="attachment-image" :src="image"/>
             </div>
           </div>
         </form>
@@ -97,7 +108,7 @@
       </div>
     </div>
     <div class="buttons event-submit">
-      <button class="button is-danger" @click="handleSubmit">{{ buttonText }}</button>
+      <button class="button is-danger" @click="handleSubmit">Dodaj imprezę</button>
       <button class="button" @click="goBack">Anuluj</button>
     </div>
   </section>
@@ -123,9 +134,7 @@ export default {
         name: '',
         points: ''
       },
-      imgNames: [],
-
-      buttonText: null,
+      images: [],
       alertMessage: null,
       sentProperly: false,
       alertTimeoutId: null
@@ -137,16 +146,18 @@ export default {
     }
   },
   methods: {
-    addEvent() {
+    async handleSubmit()
+    {
       clearTimeout(this.alertTimeoutId)
 
-      if (this.event.name && this.event.description && this.event.date) {
+      const valid = await this.$validator.validateAll();
+
+      if (valid) {
         this.$store.dispatch('addEvent', this.event);
-        for (let key in this.settlement) {
-          this.settlement[key] = '';
-        }
+
         this.sentProperly = true;
         this.alertMessage = "Pomyślnie dodano nową imprezę"
+        this.$validator.reset();
       } else {
         this.sentProperly = false;
         this.alertMessage = "Wypełnij pola";
@@ -154,18 +165,7 @@ export default {
 
       this.alertTimeoutId = setTimeout(() => {
         this.alertMessage = undefined;          
-      }, 3000);    },
-    updateEvent()
-    {
-      this.$store.dispatch('updateEvent',this.event);
-      this.goBack();
-    },
-    handleSubmit()
-    {
-      if(this.update === true)
-        this.updateEvent();
-      else
-        this.addEvent();
+      }, 3000); 
     },
     addPlayer() {
       const player = {
@@ -191,22 +191,27 @@ export default {
     },
     onFileSelected()
     {
-      this.imgNames.push(event.target.files[0].name);
       this.event.images.push(event.target.files[0]);
-    }
-  },
-  mounted()
-  {
-    if(this.update === true)
+
+      var files = event.target.files || event.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = (e) => {
+        vm.images.push(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    },
+    removeImage(index)
     {
-      this.buttonText = "Edytuj imprezę";
-      var event = this.$store.getters.event(this.$route.params.id);
-      this.event = event;
-    }
-    else
-    {
-      this.buttonText = "Dodaj imprezę";
-      this.player = {};
+      this.images.splice(index,1);
+      this.event.images.splice(index,1);
     }
   }
 }

@@ -129,7 +129,7 @@ export default new Router({
         {
           path: "events/add-event",
           name: "AddEvent",
-          component: () => import("@/Dashboard/Events/AddEvent.vue")
+          component: () => import("@/Dashboard/Events/Add/AddEvent.vue")
         },
         {
           path: "events/update-event/:id",
