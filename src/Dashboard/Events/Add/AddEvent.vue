@@ -115,12 +115,8 @@
 </template>
 
 <script>
-
-import { required, minLength } from 'vuelidate/lib/validators'
-
 export default {
   name: "AddEvent",
-  props: ['update', 'id'],
   data() {
     return {
       event: {

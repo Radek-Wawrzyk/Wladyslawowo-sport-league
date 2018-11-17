@@ -61,12 +61,9 @@
 </template>
 
 <script>
-
-import { required, minLength } from 'vuelidate/lib/validators'
-
 export default {
   name: "UpdateSettlement",
-  props: ['update', 'id'],
+  props: ['id'],
   data() {
     return {
       settlement: {

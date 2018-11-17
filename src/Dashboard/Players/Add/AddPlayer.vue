@@ -64,9 +64,6 @@
 </template>
 
 <script>
-
-import { required, minLength } from 'vuelidate/lib/validators'
-
 export default {
   name: "AddPlayer",
   data() {
