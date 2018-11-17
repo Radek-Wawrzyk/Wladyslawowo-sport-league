@@ -85,7 +85,6 @@ export default {
         img: ""
       },
       image: '',
-      imgName: null,
       alertMessage: null,
       sentProperly: false,
       alertTimeoutId: null
@@ -103,7 +102,6 @@ export default {
       }
     },
     onFileSelected(event) {
-      this.imgName = event.target.files[0].name;
       this.news.img = event.target.files[0];
 
       var files = event.target.files || event.dataTransfer.files;
@@ -133,7 +131,6 @@ export default {
   {
     var n = this.$store.getters.briefNewsById(this.$route.params.id);
     this.news = n;
-    this.imgName = this.news.id;
   }
 }
 

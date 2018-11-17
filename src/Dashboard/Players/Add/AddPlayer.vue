@@ -16,7 +16,7 @@
                 <input v-validate="'required'" data-vv-delay="250" name="name" class="input" id="name" type="text" placeholder="Jan Kowalski" v-model="player.name">
               </div>
               <transition name="fade-left">
-                  <p class="help is-danger" v-if="errors.has('name')">{{errors.first('name')}}</p>
+                <p class="help is-danger" v-if="errors.has('nazwa')">{{errors.first('nazwa')}}</p>
               </transition>
             </div>
             <div class="field">
@@ -24,6 +24,7 @@
               <div class="control">
                 <div class="select">
                   <select id="settlement" v-validate="'required'" data-vv-delay="250" name="settlement" placeholder="Osiedle/Dzielnica" v-model="settlement">
+                    <option value="" disabled selected>Wybierz osiedle</option>
                     <option v-for="settlement in settlements" :key="settlement.id">{{settlement.name}}</option>
                   </select>
                 </div>
@@ -80,7 +81,6 @@ export default {
       },
       settlement: '',
       image: '',
-      imgName: null,
       alertMessage: null,
       sentProperly: false,
       alertTimeoutId: null
@@ -115,7 +115,6 @@ export default {
       }, 3000);
     },
     onFileSelected(event) {
-      this.imgName = event.target.files[0].name;
       this.player.img = event.target.files[0];
 
       var files = event.target.files || event.dataTransfer.files;

@@ -83,7 +83,6 @@ export default {
       },
       image: '',
       settlement: "",
-      imgName: null,
       alertMessage: null,
       sentProperly: false,
       alertTimeoutId: null
@@ -103,7 +102,6 @@ export default {
         }
     },
     onFileSelected(event) {
-      this.imgName = event.target.files[0].name;
       this.player.img = event.target.files[0];
 
       var files = event.target.files || event.dataTransfer.files;
@@ -148,7 +146,6 @@ export default {
   {
     var player = this.$store.getters.player(this.$route.params.id);
     this.player = player[0];
-    this.imgName = this.player.id;
     this.settlement = this.player.settlement;
   }
 }

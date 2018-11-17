@@ -71,7 +71,6 @@ export default {
         img: ""
       },
       image: '',
-      imgName: null,
       alertMessage: null,
       sentProperly: false,
       alertTimeoutId: null
@@ -104,7 +103,6 @@ export default {
       }, 3000);
     },
     onFileSelected(event) {
-      this.imgName = event.target.files[0].name;
       this.settlement.img = event.target.files[0];
 
       var files = event.target.files || event.dataTransfer.files;
