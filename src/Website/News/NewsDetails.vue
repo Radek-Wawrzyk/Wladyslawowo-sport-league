@@ -1,5 +1,5 @@
 <template>
-  <main class="website-main">
+  <main class="website-main" v-if="news">
     <div class="website-container">
       <header class="website-header news-header">
         <h1 class="title is-3">{{news.name}}</h1>

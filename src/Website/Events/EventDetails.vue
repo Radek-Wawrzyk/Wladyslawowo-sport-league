@@ -1,5 +1,5 @@
 <template>
-	<main class="website-main">
+	<main class="website-main" v-if="event">
 		<div class="website-container">
 			<header class="event">
 				<div class="event-top">
@@ -24,7 +24,7 @@
 							</tr>
 							</thead>
 							<tbody>
-							<tr :key="index" v-for="(player, index) in event.players">
+							<tr v-if="event.players" :key="index" v-for="(player, index) in event.players">
 								<th>{{ index + 1 }}</th>
 								<th>{{ player.name }}</th>
 								<th>{{ player.settlement }}</th>

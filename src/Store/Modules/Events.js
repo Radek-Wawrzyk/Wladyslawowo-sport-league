@@ -23,6 +23,8 @@ export default {
 
       let pointMap = new Map();
 
+      if(ev)
+      {
       if(ev.players !== undefined)
       {
         let pl = players.getters.players(players.state);
@@ -50,6 +52,7 @@ export default {
           }
         }
       }
+    }
 
       let settlementScores = [];
 
@@ -75,7 +78,8 @@ export default {
         return 0;
       });
 
-      ev.settlementScores = settlementScores;
+      if(ev)
+        ev.settlementScores = settlementScores;
       return ev;
     },
     topEvents: state => {
