@@ -35,7 +35,7 @@
           <div class="field">
             <label class="label">Sezon</label>
             <div class="control">
-              <input class="input" name="season" v-validate="'required'" data-vv-delay="250" type="number" v-model="event.season" >
+              <input class="input" name="season" v-validate="'required'" data-vv-delay="250" min="1" type="number" v-model="event.season" >
             </div>
             <transition name="fade-left">
               <p class="help is-danger" v-if="errors.has('season')">{{errors.first('season')}}</p>
