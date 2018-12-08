@@ -35,7 +35,8 @@ export default {
                 playedEvents.push({
                   name: item.name,
                   date: item.date,
-                  points: parseInt(player.points)
+                  points: parseInt(player.points),
+                  season: item.season
                 })
               }
             })
@@ -145,6 +146,28 @@ export default {
 
       return state.players;
     },
+    playerTopSeason: state => player => 
+    {
+      let max = 0;
+      for(let i = 0;i < player.playedEvents.length;i++)
+      {
+        if(player.playedEvents[i].season > max)
+          max = player.playedEvents[i].season;
+      }
+
+      return max;
+    },
+    seasonData: state => (player,season) =>
+    {
+      let result = [];
+      for(let i = 0;i < player.playedEvents.length;i++)
+      {
+        if(player.playedEvents[i].season == season)
+          result.push(player.playedEvents[i]);
+      }
+
+      return result;
+    }
   },
   mutations: {
     players: (state, players) => {
