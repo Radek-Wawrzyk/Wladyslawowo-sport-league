@@ -26,18 +26,25 @@ export default {
         searchPlayer = {};
       }
 
+      //get latest season
+      let newestSeason = Math.max.apply(Math, allEvents.map(function(o) { return o.season; }))
+
       if (allEvents) {
         allEvents.forEach(item => {
           if (item.players) {
             item.players.forEach(player => {
               if (player.name === searchPlayer.name) {
-                sum += parseInt(player.points);
                 playedEvents.push({
                   name: item.name,
                   date: item.date,
                   points: parseInt(player.points),
                   season: item.season
                 })
+
+                if(item.season == newestSeason)
+                {
+                  sum += parseInt(player.points);
+                }
               }
             })
           }
